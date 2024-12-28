@@ -7,6 +7,8 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "autoprefixer": "^10.4.16",
+    "cra-template-pwa": "2.0.0",
+    "dotenv": "^16.4.7",
     "firebase": "^10.7.1",
     "postcss": "^8.4.33",
     "react": "^18.2.0",
