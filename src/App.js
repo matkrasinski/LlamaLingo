@@ -1,5 +1,6 @@
 import Login from "./components/auth/login";
 import Register from "./components/auth/register";
+import Header from "./components/header";
 
 import Home from "./components/home";
 
@@ -28,6 +29,7 @@ function App() {
   let routesElement = useRoutes(routesArray);
   return (
     <AuthProvider>
+      {/* <Header /> */}
       <div className="w-full h-screen flex flex-col">{routesElement}</div>
     </AuthProvider>
   );

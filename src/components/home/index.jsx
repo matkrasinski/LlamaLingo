@@ -2,13 +2,13 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 // import { getLevel} from '../../firebase/db'
 import LanguageHeader from '../lingo/LanguageHeader'
+import { LanguageCarousel } from '../lingo/LanguageCarousel';
 import { GlobeSvg } from "../Svgs";
 
 
 // const document = await getLevel("level_easy")
 
 const Home = () => {
-    console.log("lol", document)
     return (
       <main
         className="flex min-h-screen flex-col items-center justify-center bg-[#235390] text-white"
@@ -35,6 +35,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <LanguageCarousel />
       </main>
   );
 }
