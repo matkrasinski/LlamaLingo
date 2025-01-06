@@ -1,20 +1,16 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-// import { getLevel} from '../../firebase/db'
-import LanguageHeader from '../lingo/LanguageHeader'
-import { LanguageCarousel } from '../lingo/LanguageCarousel';
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import LanguageHeader from "../lingo/LanguageHeader";
+import { LanguageCarousel } from "../lingo/LanguageCarousel";
 import { GlobeSvg } from "../Svgs";
 
-
-// const document = await getLevel("level_easy")
-
 const Home = () => {
-    return (
-      <main
-        className="flex min-h-screen flex-col items-center justify-center bg-[#235390] text-white"
-      >
-        <LanguageHeader />
-        <div className="flex w-full flex-col items-center justify-center gap-3 px-4 py-16 md:flex-row md:gap-36">
+  const navigate = useNavigate(); 
+
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-center bg-[#235390] text-white">
+      <LanguageHeader />
+      <div className="flex w-full flex-col items-center justify-center gap-3 px-4 py-16 md:flex-row md:gap-36">
         <GlobeSvg className="h-fit w-7/12 md:w-[360px]" />
         <div>
           <p className="mb-6 max-w-[600px] text-center text-3xl font-bold md:mb-12">
@@ -28,6 +24,7 @@ const Home = () => {
               Get started
             </Link>
             <button
+              onClick={() => navigate("/login")} // Navigate to /login
               className="w-full rounded-2xl border-2 border-b-4 border-[#042c60] bg-[#235390] px-8 py-3 font-bold uppercase transition hover:bg-[#204b82] md:min-w-[320px]"
             >
               I already have an account
@@ -36,8 +33,8 @@ const Home = () => {
         </div>
       </div>
       <LanguageCarousel />
-      </main>
+    </main>
   );
-}
+};
 
-export default Home
+export default Home;
