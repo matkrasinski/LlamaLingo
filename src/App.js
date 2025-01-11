@@ -5,6 +5,7 @@ import Main from "./components/main"
 import ProtectedRoute from "./components/ProtectedRoute"; 
 import RedirectIfLoggedIn from "./components/RedirectIfLoggedIn";
 import LanguageSelect from "./components/lingo/LanguageSelect";
+import LessonPage from "./components/lingo/LessonPage";
 
 
 import { AuthProvider } from "./contexts/authContext";
@@ -37,6 +38,14 @@ function App() {
       element: (
         <ProtectedRoute>
           <Main />
+        </ProtectedRoute>
+      ),
+    },
+    {
+      path: "/lessons",
+      element: (
+        <ProtectedRoute>
+          <LessonPage />
         </ProtectedRoute>
       ),
     },
