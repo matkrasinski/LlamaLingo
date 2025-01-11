@@ -18,8 +18,14 @@ const Register = () => {
     const onSubmit = async (e) => {
         e.preventDefault()
         if(!isRegistering) {
-            setIsRegistering(true)
-            await doCreateUserWithEmailAndPassword(email, password)
+            try{
+                setIsRegistering(true)
+                await doCreateUserWithEmailAndPassword(email, password)
+            }
+            catch(error){
+                setErrorMessage(error.message)
+                console.log(error.message);
+            }
         }
     }
 
