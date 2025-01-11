@@ -4,6 +4,7 @@ import Home from "./components/home";
 import Main from "./components/main"
 import ProtectedRoute from "./components/ProtectedRoute"; 
 import RedirectIfLoggedIn from "./components/RedirectIfLoggedIn";
+import LanguageSelect from "./components/lingo/LanguageSelect";
 
 
 import { AuthProvider } from "./contexts/authContext";
@@ -42,6 +43,10 @@ function App() {
           <Main />
         </ProtectedRoute>
       ),
+    },
+    {
+      path: "/languageSelect",
+      element: <LanguageSelect />,
     },
   ];
   let routesElement = useRoutes(routesArray);

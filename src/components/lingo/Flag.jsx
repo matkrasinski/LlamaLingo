@@ -8,8 +8,8 @@ export const Flag = ({ language, width = 84 }) => {
     <svg viewBox={language.viewBox} style={{ height, width }}>
       <image
         href={flagsSvgUrl}
-        width={width}
-        height={height}
+        // width={width}
+        // height={height}
       />
     </svg>
   );
