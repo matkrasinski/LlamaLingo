@@ -41,7 +41,7 @@ function App() {
       ),
     },
     {
-      path: "/lessons/:unit/:lessonId",
+      path: "/lessons/:unit/:lessonId/:taskId",
       element: (
         <ProtectedRoute>
           <Lessons />,
