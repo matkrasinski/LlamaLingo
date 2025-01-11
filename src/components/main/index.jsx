@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../header";
 import { useBoundStore } from "../../hooks/useBoundStore";
+import units from "../Units";
 
 const PageWrapper = ({ left, center, right }) => {
   return (
@@ -12,11 +13,38 @@ const PageWrapper = ({ left, center, right }) => {
   );
 };
 
+const UnitTile = ({ unit }) => {
+  return (
+    <div
+      className={`flex flex-col items-center justify-between gap-4 rounded-lg border-2 p-4 ${unit.borderColor} w-full`}
+    >
+      <div className={`text-xl font-bold ${unit.textColor}`}>
+        Unit {unit.unitNumber}
+      </div>
+      <div className="text-center text-sm text-gray-700">
+        {unit.description}
+      </div>
+      <div className="flex flex-wrap justify-center gap-2">
+        {unit.tiles.map((tile, index) => (
+          <div
+            key={index}
+            className="flex h-10 w-10 items-center justify-center rounded-full border-2 bg-white text-xs font-bold text-gray-600"
+            title={tile.description || tile.type}
+          >
+            {tile.type[0].toUpperCase()}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 const Main = () => {
   const language = useBoundStore((state) => state.language);
+
   return (
     <>
-      <Header></Header>
+      <Header />
       <h1>Selected Language:</h1>
       <p>
         Name: {language.name} <br />
@@ -24,12 +52,18 @@ const Main = () => {
         Code: {language.code}
       </p>
       <PageWrapper
-      left={<div>Left Content</div>}
-      center={<div>Center Content</div>}
-      right={<div>Right Content</div>}
+        left={<div>Left Content</div>}
+        center={
+          <div className="flex flex-col gap-4">
+            {units.map((unit) => (
+              <UnitTile key={unit.unitNumber} unit={unit} />
+            ))}
+          </div>
+        }
+        right={<div>Right Content</div>}
       />
     </>
-  )
-}
+  );
+};
 
-export default Main
+export default Main;
