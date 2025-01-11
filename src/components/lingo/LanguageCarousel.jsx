@@ -90,6 +90,7 @@ export const LanguageCarousel = () => {
                 className="flex items-center gap-2"
                 to="/learn"
                 // onClick={() => setLanguage(language)}
+                // TODO setting course langage in main course menu
               >
                 <Flag language={language} width={40} />
                 <span className="text-sm font-bold uppercase">
