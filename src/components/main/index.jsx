@@ -1,7 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Header from "../header";
 import { useBoundStore } from "../../hooks/useBoundStore";
-import units from "../Units";
+import units from "../../utils/units";
 
 const PageWrapper = ({ left, center, right }) => {
   return (
@@ -26,14 +27,14 @@ const UnitTile = ({ unit }) => {
       </div>
       <div className="flex flex-wrap justify-center gap-2">
         {unit.tiles.map((tile, index) => (
-          <a
+          <Link
             key={index}
             className="flex h-10 w-10 items-center justify-center rounded-full border-2 bg-white text-xs font-bold text-gray-600"
             title={tile.description || tile.type}
-            href={`/unit_${unit.unitNumber}/${index+1}`}
+            to={`/lessons/unit_${unit.unitNumber}/${index + 1}`}
           >
             {tile.type[0].toUpperCase()}
-          </a>
+          </Link>
         ))}
       </div>
     </div>

@@ -1,0 +1,11 @@
+import React from "react";
+
+const LessonPickWord = () => {
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <h1 className="text-2xl font-bold">Lesson: Pick Word Task</h1>
+    </div>
+  );
+};
+
+export default LessonPickWord;
