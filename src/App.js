@@ -33,10 +33,6 @@ function App() {
       ), 
     },
     {
-      path: "/home",
-      element: <Home />,
-    },
-    {
       path: "/main",
       element: (
         <ProtectedRoute>
