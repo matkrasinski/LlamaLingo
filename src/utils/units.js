@@ -9,18 +9,83 @@ const units = [
       {
         type: "star",
         description: "Form basic sentences",
+        questions: [
+          {Photo: ''}, //tutaj pytaniem jest obrazek
+          {Word: ''}, // tasowana odpowiedź w zadaniu
+          {Sentence: ['Dzien dobry Panie Siarra', 'Buenos ', ' Señor Siarra']}
+        ],
+        answers: [
+          {Photo: 'Apple'},
+          {Word: ['make', 'Amurika', 'great', 'again']},
+          {Sentence: ['dias']}
+        ]
       },
       {
         type: "book",
         description: "Good morning",
+        questions: [
+          {Photo: ''}, //tutaj pytaniem jest obrazek
+          {Word: ''}, // tasowana odpowiedź w zadaniu
+          {Sentence: ['Nie mam pomysłu na pytanie', 'I do not have ', ' on question']}
+        ],
+        answers: [
+          {Photo: 'Women'},
+          {Word: ['hamster', 'play', 'on', 'ukulele', 'becouse', 'roe', 'cachalot']},
+          {Sentence: ['idea']}
+        ]
       },
       {
         type: "star",
         description: "Greet people",
+        questions: [
+          {Photo: ''}, //tutaj pytaniem jest obrazek
+          {Word: ''}, // tasowana odpowiedź w zadaniu
+          {Sentence: ['Muszę coś wymyślić', 'I have to ', ' something']}
+        ],
+        answers: [
+          {Photo: 'Apple'},
+          {Word: ['I', 'love', 'big', 'pizzas']},
+          {Sentence: ['come up with']}
+        ]
       },
-      { type: "treasure" },
-      { type: "book", description: "A date" },
-      { type: "trophy", description: "Unit 1 review" },
+      { type: "treasure",
+        questions: [
+          {Photo: ''}, //tutaj pytaniem jest obrazek
+          {Word: ''}, // tasowana odpowiedź w zadaniu
+          {Sentence: ['Ta kobieta ma nibieską sukienkę', 'That women have a blue ', '']}
+        ],
+        answers: [
+          {Photo: 'Women'},
+          {Word: ['I', 'have', 'taken', 'a', 'credit']},
+          {Sentence: ['skirt']}
+        ]
+       },
+      { type: "book", 
+        description: "A date",
+        questions: [
+          {Photo: ''}, //tutaj pytaniem jest obrazek
+          {Word: ''}, // tasowana odpowiedź w zadaniu
+          {Sentence: ['We no zamów pizzę', 'Could you ', ' a pizza?']}
+        ],
+        answers: [
+          {Photo: 'Apple'},
+          {Word: ['This', 'monkey', 'is', 'very', 'funny']},
+          {Sentence: ['order']}
+        ]
+       },
+      { type: "trophy", 
+        description: "Unit 1 review" ,
+        questions: [
+          {Photo: ''}, //tutaj pytaniem jest obrazek
+          {Word: ''}, // tasowana odpowiedź w zadaniu
+          {Sentence: ['Poszedłem do sklepu i spotkałem Pawła', 'I went to the shop and I ', ' Pawel']}
+        ],
+        answers: [
+          {Photo: 'Boy'},
+          {Word: ['I', 'love', 'cotton', 'candy']},
+          {Sentence: ['met']}
+        ]
+      },
     ],
   },
   {
