@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import LessonPagePhoto from "../lingo/LessonPagePhoto";
 import LessonPickWord from "../lingo/LessonPickWord";
@@ -20,14 +20,20 @@ const Lessons = () => {
 
   const tasks = lessonTasks[unit]?.[lessonId];
   const taskType = tasks ? tasks[parseInt(taskId) - 1] : null;
+  const [health,setHealth] = useState(1);
+
+  const changeHealth = () => {
+    const newHealth = health-1;
+    setHealth(newHealth);
+  };
 
   switch (taskType) {
     case "photo":
-      return <LessonPagePhoto />;
+      return <LessonPagePhoto health = {health} changeHealth={changeHealth}/>;
     case "pick_word":
-      return <LessonPickWord />;
+      return <LessonPickWord health = {health} changeHealth={changeHealth}/>;
     case "sentence":
-      return <LessonPageSentence />;
+      return <LessonPageSentence health = {health} changeHealth={changeHealth}/>;
     default:
       return (
         <div className="min-h-screen flex items-center justify-center">

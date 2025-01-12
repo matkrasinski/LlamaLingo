@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const LessonPageSentence = () => {
+const LessonPageSentence = ({ health,changeHealth }) => {
   const [userInput, setUserInput] = useState("");
   const [checked, setChecked] = useState(false);
   const [isCorrect, setIsCorrect] = useState(null);
@@ -11,12 +11,16 @@ const LessonPageSentence = () => {
   const handleCheckAnswer = () => {
     setChecked(true);
     setIsCorrect(userInput.trim().toLowerCase() === correctAnswer);
+    if (userInput.trim().toLowerCase() !== correctAnswer){
+      changeHealth();
+    }
   };
 
   const handleNext = () => {
     setUserInput('');
     setIsCorrect(null);
     setChecked(false);
+    console.log(health);
     navigate('/main');
   };
 

@@ -2,13 +2,11 @@ import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { WomanSvg, BoySvg, AppleSvg } from "../Svgs";
 
-const LessonPagePhoto = () => {
+const LessonPagePhoto = ({ health,changeHealth }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
   const [checked, setChecked] = useState(false); // Tracks whether the check button was clicked
-
   const { unit, lessonId } = useParams();
-
   const correctAnswer = "Apple";
   const navigate = useNavigate();
 
@@ -20,7 +18,10 @@ const LessonPagePhoto = () => {
   const handleCheck = () => {
     if (selectedOption) {
       setIsCorrect(selectedOption === correctAnswer);
-      setChecked(true); // Mark as checked
+      setChecked(true);
+      if (selectedOption !== correctAnswer){
+        changeHealth();
+      }
     } else {
       alert("Please select an option first.");
     }
@@ -32,9 +33,14 @@ const LessonPagePhoto = () => {
     setSelectedOption(null);
     setIsCorrect(null);
     setChecked(false);
-    const currentUrl = window.location.pathname;
+    console.log(health);
+    if (health === 0){
+      navigate('/main');
+    } else {
+      const currentUrl = window.location.pathname;
     const updatedUrl = currentUrl.replace(/\/(\d+)$/, (match, p1) => `/${parseInt(p1, 10) + 1}`);
     navigate(updatedUrl);
+    }
   };
 
   return (
