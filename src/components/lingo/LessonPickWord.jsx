@@ -4,6 +4,8 @@ import { WomanSvg, BoySvg, AppleSvg } from "../Svgs";
 
 const LessonPickWord = () => {
   const [selectedAnswers, setSelectedAnswers] =  useState([]);
+  const [isCorrect, setIsCorrect] = useState(null);
+  const [checked, setChecked] = useState(false); 
 
   const answerTiles = ["America", "make", "again", "greate"];
   const correctAnswer = ["make", "America", 'greate', "again"];
@@ -12,9 +14,37 @@ const LessonPickWord = () => {
   //   alert(`You selected: ${word}`);
   // };
 
+  const handleCheck = () => {
+     if (selectedAnswers.length !== correctAnswer.length) {
+      alert("Please pick all world first.");
+      return false;
+     } 
+
+     const selectedWords = selectedAnswers.map((i) => answerTiles[i]);
+
+     for (let i = 0; i < selectedWords.length; i++){
+      if (selectedWords[i] !== correctAnswer[i]) {
+        //alert("Wrong." + selectedWords[i] + ", "+ correctAnswer[i]);
+        setChecked(true);
+        setIsCorrect(false);
+        return false;
+      }
+     }
+     setChecked(true);
+     setIsCorrect(true);
+     return true;
+  };
+
+  const handleNext = () => {
+    alert("Moving to the next question...");
+    setSelectedAnswers([]);
+    setIsCorrect(null);
+    setChecked(false);
+  };
 
   return (
-    <div className="flex min-h-screen flex-col gap-5 px-4 py-5 sm:px-0 sm:py-0">
+    <div className="min-h-screen bg-blue-50 flex flex-col items-center justify-center p-4">
+      {/* <h1 className="text-2xl font-bold mb-6 text-gray-800">Put words in the right order</h1> */}
       <div className="flex grow flex-col items-center gap-5">
         <div className="w-full max-w-5xl sm:mt-8 sm:px-5">
           {/* <ProgressBar
@@ -89,21 +119,33 @@ const LessonPickWord = () => {
           </div>
         </section>
       </div>
+      
+      {/* Check Button */}
+      {!checked && (
+        <button
+          onClick={handleCheck}
+          className="bg-blue-500 text-white font-semibold py-2 px-6 rounded-lg hover:bg-blue-600 transition"
+        >
+          Check
+        </button>
+      )}
+      {checked && (
+        <div
+          className={`mt-6 w-full max-w-4xl py-4 text-center text-white font-bold text-lg rounded-lg ${isCorrect ? "bg-green-500" : "bg-red-500"
+            }`}
+        >
+          {/* Feedback Text */}
+          <div>{isCorrect ? "Correct! Great job!" : "Incorrect! Try again."}</div>
 
-      {/* <CheckAnswer
-        correctAnswer={correctAnswer.map((i) => answerTiles[i]).join(" ")}
-        correctAnswerShown={correctAnswerShown}
-        isAnswerCorrect={isAnswerCorrect}
-        isAnswerSelected={selectedAnswers.length > 0}
-        onCheckAnswer={onCheckAnswer}
-        onFinish={onFinish}
-        onSkip={onSkip}
-      />
-
-      <QuitMessage
-        quitMessageShown={quitMessageShown}
-        setQuitMessageShown={setQuitMessageShown}
-      /> */}
+          {/* Next Button with Added Spacing */}
+          <button
+            onClick={handleNext}
+            className="mt-6 bg-blue-500 text-white font-semibold py-2 px-6 rounded-lg hover:bg-blue-600 transition"
+          >
+            Next
+          </button>
+        </div>
+      )}
     </div>
   );
 };
