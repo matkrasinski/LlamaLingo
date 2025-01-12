@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { WomanSvg, BoySvg, AppleSvg } from "../Svgs";
 
 const LessonPagePhoto = () => {
@@ -10,6 +10,7 @@ const LessonPagePhoto = () => {
   const { unit, lessonId } = useParams();
 
   const correctAnswer = "Apple";
+  const navigate = useNavigate();
 
   const handleOptionClick = (word) => {
     setSelectedOption(word);
@@ -27,10 +28,13 @@ const LessonPagePhoto = () => {
 
   const handleNext = () => {
     // Logic for moving to the next question goes here
-    alert("Moving to the next question...");
+    // alert("Moving to the next question...");
     setSelectedOption(null);
     setIsCorrect(null);
     setChecked(false);
+    const currentUrl = window.location.pathname;
+    const updatedUrl = currentUrl.replace(/\/(\d+)$/, (match, p1) => `/${parseInt(p1, 10) + 1}`);
+    navigate(updatedUrl);
   };
 
   return (

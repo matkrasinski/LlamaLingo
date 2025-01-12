@@ -1,7 +1,7 @@
 import React from "react";
 import { useRef, useState } from "react";
 import { WomanSvg, BoySvg, AppleSvg } from "../Svgs";
-
+import { useNavigate } from "react-router-dom";
 const LessonPickWord = () => {
   const [selectedAnswers, setSelectedAnswers] =  useState([]);
   const [isCorrect, setIsCorrect] = useState(null);
@@ -10,6 +10,7 @@ const LessonPickWord = () => {
   const answerTiles = ["America", "make", "again", "greate"];
   const correctAnswer = ["make", "America", 'greate', "again"];
 
+  const navigate = useNavigate();
   // const handleOptionClick = (word) => {
   //   alert(`You selected: ${word}`);
   // };
@@ -36,10 +37,12 @@ const LessonPickWord = () => {
   };
 
   const handleNext = () => {
-    alert("Moving to the next question...");
     setSelectedAnswers([]);
     setIsCorrect(null);
     setChecked(false);
+    const currentUrl = window.location.pathname;
+    const updatedUrl = currentUrl.replace(/\/(\d+)$/, (match, p1) => `/${parseInt(p1, 10) + 1}`);
+    navigate(updatedUrl);
   };
 
   return (
