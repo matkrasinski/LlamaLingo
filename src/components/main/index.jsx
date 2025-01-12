@@ -47,12 +47,7 @@ const Main = () => {
   return (
     <>
       <Header />
-      <h1>Selected Language:</h1>
-      <p>
-        Name: {language.name} <br />
-        Native Name: {language.nativeName} <br />
-        Code: {language.code}
-      </p>
+
       <PageWrapper
         left={<div>Left Content</div>}
         center={
@@ -62,7 +57,14 @@ const Main = () => {
             ))}
           </div>
         }
-        right={<div>Right Content</div>}
+        right={<div>
+          <h1>Selected Language:</h1>
+          <p>
+            Name: {language.name} <br />
+            Native Name: {language.nativeName} <br />
+            Code: {language.code}
+          </p>
+        </div>}
       />
     </>
   );

@@ -2,14 +2,15 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import LessonPagePhoto from "../lingo/LessonPagePhoto";
 import LessonPickWord from "../lingo/LessonPickWord";
+import LessonPageSentence from "../lingo/LessonPageSentence";
 
 const lessonTasks = {
   unit_1: {
-    1: ["photo", "pick_word", "quiz"],
+    1: ["photo", "pick_word", "sentence"],
     2: ["photo", "pick_word"],
   },
   unit_2: {
-    1: ["photo", "pick_word", "quiz"],
+    1: ["photo", "pick_word", "sentence"],
     2: ["photo", "quiz"],
   },
 };
@@ -25,12 +26,8 @@ const Lessons = () => {
       return <LessonPagePhoto />;
     case "pick_word":
       return <LessonPickWord />;
-    case "quiz":
-      return (
-        <div className="min-h-screen flex items-center justify-center">
-          <h1 className="text-2xl font-bold text-gray-800">Quiz Task</h1>
-        </div>
-      );
+    case "sentence":
+      return <LessonPageSentence />;
     default:
       return (
         <div className="min-h-screen flex items-center justify-center">
