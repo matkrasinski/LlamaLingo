@@ -5,30 +5,37 @@ import LessonPickWord from "../lingo/LessonPickWord";
 
 const lessonTasks = {
   unit_1: {
-    1: "photo", // LessonPagePhoto
-    2: "pick_word", // LessonPickWord
+    1: ["photo", "pick_word", "quiz"],
+    2: ["photo", "pick_word"],
   },
   unit_2: {
-    1: "photo",
-    2: "pick_word",
+    1: ["photo", "pick_word", "quiz"],
+    2: ["photo", "quiz"],
   },
 };
 
 const Lessons = () => {
-  const { unit, lessonId } = useParams();
+  const { unit, lessonId, taskId } = useParams();
 
-  const taskType = lessonTasks[unit]?.[lessonId];
+  const tasks = lessonTasks[unit]?.[lessonId];
+  const taskType = tasks ? tasks[parseInt(taskId) - 1] : null;
 
   switch (taskType) {
     case "photo":
       return <LessonPagePhoto />;
     case "pick_word":
       return <LessonPickWord />;
+    case "quiz":
+      return (
+        <div className="min-h-screen flex items-center justify-center">
+          <h1 className="text-2xl font-bold text-gray-800">Quiz Task</h1>
+        </div>
+      );
     default:
       return (
         <div className="min-h-screen flex items-center justify-center">
           <h1 className="text-2xl font-bold text-gray-800">
-            Lesson not found or unsupported task type!
+            Task not found or unsupported task type!
           </h1>
         </div>
       );
