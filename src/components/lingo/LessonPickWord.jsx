@@ -2,14 +2,14 @@ import React from "react";
 import { useRef, useState } from "react";
 import { WomanSvg, BoySvg, AppleSvg } from "../Svgs";
 import { useNavigate } from "react-router-dom";
-const LessonPickWord = () => {
+const LessonPickWord = ({ health,changeHealth }) => {
   const [selectedAnswers, setSelectedAnswers] =  useState([]);
   const [isCorrect, setIsCorrect] = useState(null);
   const [checked, setChecked] = useState(false); 
 
   const answerTiles = ["America", "make", "again", "greate"];
   const correctAnswer = ["make", "America", 'greate', "again"];
-
+  console.log(health)
   const navigate = useNavigate();
   // const handleOptionClick = (word) => {
   //   alert(`You selected: ${word}`);
@@ -28,6 +28,7 @@ const LessonPickWord = () => {
         //alert("Wrong." + selectedWords[i] + ", "+ correctAnswer[i]);
         setChecked(true);
         setIsCorrect(false);
+        changeHealth();
         return false;
       }
      }
@@ -40,9 +41,14 @@ const LessonPickWord = () => {
     setSelectedAnswers([]);
     setIsCorrect(null);
     setChecked(false);
-    const currentUrl = window.location.pathname;
+    console.log(health);
+    if (health === 0){
+      navigate('/main');
+    } else {
+      const currentUrl = window.location.pathname;
     const updatedUrl = currentUrl.replace(/\/(\d+)$/, (match, p1) => `/${parseInt(p1, 10) + 1}`);
     navigate(updatedUrl);
+    }
   };
 
   return (
