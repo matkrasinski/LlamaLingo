@@ -95,17 +95,138 @@ const units = [
     textColor: "text-[#ce82ff]",
     borderColor: "border-[#a568cc]",
     tiles: [
-      { type: "fast-forward", description: "Get around in a city" },
-      { type: "dumbbell", description: "Personalized practice" },
-      { type: "book", description: "One thing" },
-      { type: "treasure" },
-      { type: "star", description: "Get around in a city" },
-      { type: "book", description: "A very big family" },
-      { type: "star", description: "Greet people" },
-      { type: "book", description: "The red jacket" },
-      { type: "treasure" },
-      { type: "dumbbell", description: "Personalized practice" },
-      { type: "trophy", description: "Unit 2 review" },
+      { type: "fast-forward", description: "Get around in a city",
+        questions: [
+          {Photo: ''}, //tutaj pytaniem jest obrazek
+          {Word: ''}, // tasowana odpowiedź w zadaniu
+          {Sentence: ['Dzien dobry, witam w mojej kuchni', 'Good Morning, ', ' in my kitchen']}
+        ],
+        answers: [
+          {Photo: 'Apple'},
+          {Word: ['Welcome', 'in', 'my', 'kitchen']},
+          {Sentence: ['welcome']}
+        ]
+       },
+      { type: "dumbbell", description: "Personalized practice",
+        questions: [
+          {Photo: ''}, //tutaj pytaniem jest obrazek
+          {Word: ''}, // tasowana odpowiedź w zadaniu
+          {Sentence: ['Kupiłem butelkę z wodą w żabce', 'I bought a ', ' of water']}
+        ],
+        answers: [
+          {Photo: 'Women'},
+          {Word: ['Cocacola', 'is', 'very', 'tasty']},
+          {Sentence: ['bottle']}
+        ]
+       },
+      { type: "book", description: "One thing",
+        questions: [
+          {Photo: ''}, //tutaj pytaniem jest obrazek
+          {Word: ''}, // tasowana odpowiedź w zadaniu
+          {Sentence: ['W szafie mam trzy koszulki i skarpetkę', 'In the wardrobe I have a thee ', ' and a sock']}
+        ],
+        answers: [
+          {Photo: 'Women'},
+          {Word: ['Wardrobe', 'is', 'very', 'big']},
+          {Sentence: ['shirts']}
+        ]
+       },
+      { type: "treasure", 
+        questions: [
+          {Photo: ''}, //tutaj pytaniem jest obrazek
+          {Word: ''}, // tasowana odpowiedź w zadaniu
+          {Sentence: ['Wczoraj widziałem zółwia', 'I saw a ', ' yesterday']}
+        ],
+        answers: [
+          {Photo: 'Women'},
+          {Word: ['Turtles', 'do', 'not', 'like', 'plastic']},
+          {Sentence: ['turtle']}
+        ]
+       },
+      { type: "star", description: "Get around in a city",
+        questions: [
+          {Photo: ''}, //tutaj pytaniem jest obrazek
+          {Word: ''}, // tasowana odpowiedź w zadaniu
+          {Sentence: ['Karolina ma bardzo duży samochód', 'Karolina have very', 'car']}
+        ],
+        answers: [
+          {Photo: 'Women'},
+          {Word: ['This', 'car', 'is', 'very', 'loud']},
+          {Sentence: ['big']}
+        ]
+       },
+      { type: "book", description: "A very big family",
+        questions: [
+          {Photo: ''}, //tutaj pytaniem jest obrazek
+          {Word: ''}, // tasowana odpowiedź w zadaniu
+          {Sentence: ['Kampania w tej grze jest bardzo trudna', 'A campain in that ', ' is very hard']}
+        ],
+        answers: [
+          {Photo: 'Women'},
+          {Word: ['Tom', 'like', 'play', 'in', 'Call of Duty']},
+          {Sentence: ['game']}
+        ]
+       },
+      { type: "star", description: "Greet people",
+        questions: [
+          {Photo: ''}, //tutaj pytaniem jest obrazek
+          {Word: ''}, // tasowana odpowiedź w zadaniu
+          {Sentence: ['Lubisz jabłka?', 'Do you ', ' apples?']}
+        ],
+        answers: [
+          {Photo: 'Women'},
+          {Word: ['Apples', 'are', 'very', 'good', 'fruit']},
+          {Sentence: ['like']}
+        ]
+       },
+      { type: "book", description: "The red jacket",
+        questions: [
+          {Photo: ''}, //tutaj pytaniem jest obrazek
+          {Word: ''}, // tasowana odpowiedź w zadaniu
+          {Sentence: ['To jest żart bracie', 'I is a ', ' bro']}
+        ],
+        answers: [
+          {Photo: 'Women'},
+          {Word: ['Pranks', 'are', 'very', 'dangerous']},
+          {Sentence: ['prank']}
+        ]
+       },
+      { type: "treasure",
+        questions: [
+          {Photo: ''}, //tutaj pytaniem jest obrazek
+          {Word: ''}, // tasowana odpowiedź w zadaniu
+          {Sentence: ['Muszę zacząć pisanie książki', 'I have to ', ' write the book']}
+        ],
+        answers: [
+          {Photo: 'Women'},
+          {Word: ['Reading', 'books', 'is', 'very', 'important']},
+          {Sentence: ['start']}
+        ]
+       },
+      { type: "dumbbell", description: "Personalized practice",
+        questions: [
+          {Photo: ''}, //tutaj pytaniem jest obrazek
+          {Word: ''}, // tasowana odpowiedź w zadaniu
+          {Sentence: ['Miałem sen o żółwiach', 'I had a ', ' about turtles']}
+        ],
+        answers: [
+          {Photo: 'Women'},
+          {Word: ['Dreams', 'can', 'be', 'very', 'odd']},
+          {Sentence: ['dream']}
+        ]
+       },
+      { type: "trophy", description: "Unit 2 review",
+        questions: [
+          {Photo: ''}, //tutaj pytaniem jest obrazek
+          {Word: ''}, // tasowana odpowiedź w zadaniu
+          {Sentence: ['To hest ostatnie zadanie', 'This is the ', ' task']}
+        ],
+        answers: [
+          {Photo: 'Women'},
+          {Word: ['Tasks', 'are', 'almoust', 'finished']},
+          {Sentence: ['last']}
+        ]
+      },
     ],
   },
   {
