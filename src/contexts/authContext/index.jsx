@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { auth } from "../../firebase/firebase";
 // import { GoogleAuthProvider } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
+import { useBoundStore } from "../../hooks/useBoundStore";
 
 const AuthContext = React.createContext();
 
@@ -22,9 +23,10 @@ export function AuthProvider({ children }) {
   }, []);
 
   async function initializeUser(user) {
+    const { setUser, resetUser } = useBoundStore.getState();
     if (user) {
-
-      setCurrentUser({ ...user });
+      const uid = user.uid
+      setCurrentUser({ ...user, uid });
 
       // check if provider is email and password login
       const isEmail = user.providerData.some(
@@ -38,8 +40,13 @@ export function AuthProvider({ children }) {
     //   );
     //   setIsGoogleUser(isGoogle);
 
+      setUser({
+        uid: user.uid,
+      });
       setUserLoggedIn(true);
+
     } else {
+      resetUser();
       setCurrentUser(null);
       setUserLoggedIn(false);
     }

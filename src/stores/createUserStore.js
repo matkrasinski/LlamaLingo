@@ -1,60 +1,40 @@
-import languages from "../utils/languages";
-
 export const createUserStore = (set) => ({
-  users: {
-    email: {},
-    language: {},
-    progress: {
-      unit: {},
-      lesson: {},
-    },
-    setEmail: (newEmail) => set({ email: newEmail }),
-    // setLanguage: (newLanguage) => set({ language: newLanguage }),
-    // setProgress: (newProgress) => set({ progress: newProgress }), 
-    
-  }, 
+  user: {
+    uid: null,
+    language: [],
+    progress: {},
+  },
 
-  setEmail: (email) =>
+  setUser: (userData) =>
     set((state) => ({
-      users: {
-        ...state.users,
-        [email]: {
-          ...(state.users[email] || {}),
-          email,
-        },
+      user: {
+        ...state.user,
+        ...userData,
       },
     })),
 
-  setLanguage: (email, language) =>
+  addUserLanguage: (language) =>
     set((state) => ({
-      users: {
-        ...state.users,
-        [email]: {
-          ...(state.users[email] || {}),
-          language,
-        },
+      user: {
+        ...state.user,
+        language: [...state.user.language, language],
       },
     })),
 
-    setProgress: (email, unit, lesson) =>
-      set((state) => ({
-        users: {
-          ...state.users,
-          [email]: {
-            ...(state.users[email] || {}),
-            progress: { unit, lesson },
-          },
-        },
-      })),  
-  // setUserInfo: (email, userInfo) =>
-  //   set((state) => ({
-  //     users: {
-  //       ...state.users,
-  //       [email]: {
-  //         ...(state.users[email] || {}),
-  //         ...userInfo, 
-  //       },
-  //     },
-  //   })),
-  // getUserInfo: (email) => (state) => state.users[email] || null,
+  updateUserProgress: (progress) =>
+    set((state) => ({
+      user: {
+        ...state.user,
+        progress: { ...state.user.progress, ...progress },
+      },
+    })),
+
+  resetUser: () =>
+    set(() => ({
+      user: {
+        uid: null,
+        language: [],
+        progress: {},
+      },
+    })),
 });

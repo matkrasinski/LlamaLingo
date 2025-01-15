@@ -43,6 +43,7 @@ const UnitTile = ({ unit }) => {
 
 const Main = () => {
   const language = useBoundStore((state) => state.language);
+  const { user } = useBoundStore();
 
   return (
     <>
@@ -59,6 +60,10 @@ const Main = () => {
         }
         right={<div>
           <h1>Selected Language:</h1>
+          <p>
+            user: { user.uid } <br />
+            currLangcure: {user.language.join(", ")} <br />
+          </p>
           <p>
             Name: {language.name} <br />
             Native Name: {language.nativeName} <br />

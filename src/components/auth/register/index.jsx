@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Navigate, Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../contexts/authContext'
 import { doCreateUserWithEmailAndPassword } from '../../../firebase/auth'
-import { useBoundStore } from "../../../hooks/useBoundStore";
 
 const Register = () => {
 
@@ -16,17 +15,12 @@ const Register = () => {
 
     const { userLoggedIn } = useAuth()
 
-    const { setUserInfo,  getUserInfo} = useBoundStore();
-    // const {  getUserInfo} = useBoundStore();
 
     const onSubmit = async (e) => {
         e.preventDefault()
         if(!isRegistering) {
             try{
                 setIsRegistering(true)
-                // setUserInfo(email);
-                // setUserInfo(email,{language: 'szwajcarski'})
-                // console.log(getUserInfo(email)(useBoundStore.getState()));
                 await doCreateUserWithEmailAndPassword(email, password)
             }
             catch(error){
