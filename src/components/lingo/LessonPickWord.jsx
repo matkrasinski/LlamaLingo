@@ -2,13 +2,18 @@ import React from "react";
 import { useRef, useState } from "react";
 import { WomanSvg, BoySvg, AppleSvg } from "../Svgs";
 import { useNavigate } from "react-router-dom";
-const LessonPickWord = ({ health,changeHealth }) => {
+import { useMemo } from "react";
+
+const LessonPickWord = ({ health,changeHealth,indexUnit,indexLesson,indexTask,units }) => {
   const [selectedAnswers, setSelectedAnswers] =  useState([]);
   const [isCorrect, setIsCorrect] = useState(null);
   const [checked, setChecked] = useState(false); 
 
-  const answerTiles = ["America", "make", "again", "greate"];
-  const correctAnswer = ["make", "America", 'greate', "again"];
+  function shuffle(array) {
+    return array.sort(() => 0.5 - Math.random());
+  }
+  const correctAnswer = units[indexUnit].tiles[indexLesson].tasks[indexTask].answer;
+  const answerTiles = useMemo(() => shuffle([...correctAnswer]), [correctAnswer]);
   console.log(health)
   const navigate = useNavigate();
   // const handleOptionClick = (word) => {
