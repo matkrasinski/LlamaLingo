@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import LanguageHeader from "../lingo/LanguageHeader";
 import { LanguageCarousel } from "../lingo/LanguageCarousel";
-import { GlobeSvg } from "../Svgs";
+
 
 const Home = () => {
   const navigate = useNavigate(); 
@@ -11,7 +11,7 @@ const Home = () => {
     <main className="flex min-h-screen flex-col items-center justify-center bg-[#235390] text-white">
       <LanguageHeader />
       <div className="flex w-full flex-col items-center justify-center gap-3 px-4 py-16 md:flex-row md:gap-36">
-        <GlobeSvg className="h-fit w-7/12 md:w-[360px]" />
+        <img src="favicon.ico" className="h-fit w-7/12 md:w-[450px]"></img>
         <div>
           <p className="mb-6 max-w-[600px] text-center text-3xl font-bold md:mb-12">
             The free, fun, and effective way to learn a language!
