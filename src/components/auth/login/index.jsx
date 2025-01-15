@@ -14,9 +14,14 @@ const Login = () => {
     const onSubmit = async (e) => {
         e.preventDefault()
         if(!isSigningIn) {
-            setIsSigningIn(true)
-            await doSignInWithEmailAndPassword(email, password)
-            // doSendEmailVerification()
+            try{
+                setIsSigningIn(true)
+                await doSignInWithEmailAndPassword(email, password)
+                // doSendEmailVerification()
+            }
+            catch(error){
+                setErrorMessage(error.message);
+            }
         }
     }
 

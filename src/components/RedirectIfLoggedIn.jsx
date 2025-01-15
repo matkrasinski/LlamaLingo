@@ -6,6 +6,7 @@ const RedirectIfLoggedIn = ({ children }) => {
   const { userLoggedIn } = useAuth();
 
   if (userLoggedIn) {
+    //TODO Jak będzie już ustawiony język dla danego konta, to przechodzimy od razu do /main
     return <Navigate to="/main" replace />;
   }
 

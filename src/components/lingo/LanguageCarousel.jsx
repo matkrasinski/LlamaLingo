@@ -2,7 +2,7 @@ import React, { useRef } from "react"
 import { Link } from "react-router-dom"
 import { ChevronLeftSvg, ChevronRightSvg } from "../Svgs"
 import languages from "../../utils/languages"
-// import { useBoundStore } from "~/hooks/useBoundStore"
+import { useBoundStore } from "../../hooks/useBoundStore"
 import { Flag } from "./Flag"
 
 const scrollCarousel = ({ container, startIndexRef, endIndex }) => {
@@ -58,7 +58,7 @@ const scrollCarouselRight = ({
 }
 
 export const LanguageCarousel = () => {
-  // const setLanguage = useBoundStore(x => x.setLanguage)
+  const setLanguage = useBoundStore(x => x.setLanguage)
 
   const startIndexRef = useRef(0)
   const languagesContainer = useRef(null)
@@ -89,8 +89,7 @@ export const LanguageCarousel = () => {
                 key={language.code}
                 className="flex items-center gap-2"
                 to="/learn"
-                // onClick={() => setLanguage(language)}
-                // TODO setting course langage in main course menu
+                onClick={() => setLanguage(language)}
               >
                 <Flag language={language} width={40} />
                 <span className="text-sm font-bold uppercase">

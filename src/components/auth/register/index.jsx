@@ -15,17 +15,24 @@ const Register = () => {
 
     const { userLoggedIn } = useAuth()
 
+
     const onSubmit = async (e) => {
         e.preventDefault()
         if(!isRegistering) {
-            setIsRegistering(true)
-            await doCreateUserWithEmailAndPassword(email, password)
+            try{
+                setIsRegistering(true)
+                await doCreateUserWithEmailAndPassword(email, password)
+            }
+            catch(error){
+                setErrorMessage(error.message)
+                console.log(error.message);
+            }
         }
     }
 
     return (
         <>
-            {userLoggedIn && (<Navigate to={'/home'} replace={true} />)}
+            {userLoggedIn && (<Navigate to={'/'} replace={true} />)}
 
             <main className="w-full h-screen flex self-center place-content-center place-items-center">
                 <div className="w-96 text-gray-600 space-y-5 p-4 shadow-xl border rounded-xl">
