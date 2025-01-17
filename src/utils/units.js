@@ -1,4 +1,4 @@
-const units = [
+export const units = [
   {
     unitNumber: 1,
     description: "Form basic sentences, greet people",
@@ -496,4 +496,17 @@ const units = [
   },
 ];
 
-export default units;
+export const courses = [
+  {
+    code: 'es',
+    units: units,
+  },
+  {
+    code: 'en',
+    units: units,
+  },
+  {
+    code: 'pl',
+    units: units, 
+  },
+];

@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import LessonPagePhoto from "../lingo/LessonPagePhoto";
 import LessonPickWord from "../lingo/LessonPickWord";
 import LessonPageSentence from "../lingo/LessonPageSentence";
-import units from "../../utils/units";
+import { units } from "../../utils/units";
 
 const Lessons = () => {
   const { unit, lessonId, taskId } = useParams();

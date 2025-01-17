@@ -2,8 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 // import Header from "../header";
 import { useBoundStore } from "../../hooks/useBoundStore";
-import units from "../../utils/units";
+import { units } from "../../utils/units";
 import LeftBar from "../lingo/LeftBar";
+import Courses from "../lingo/Courses";
 
 const PageWrapper = ({ left, center, right }) => {
   return (
@@ -60,6 +61,7 @@ const Main = () => {
           </div>
         }
         right={<div>
+          <Courses />
           <h1>Selected Language:</h1>
           <p>
             user: { user.uid } <br />
