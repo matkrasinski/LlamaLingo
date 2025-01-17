@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { WomanSvg, BoySvg, AppleSvg } from "../Svgs";
 
-const LessonPagePhoto = ({ health,changeHealth }) => {
+const LessonPagePhoto = ({ health,changeHealth,indexUnit,indexLesson,indexTask,units}) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
   const [checked, setChecked] = useState(false); // Tracks whether the check button was clicked
   const { unit, lessonId } = useParams();
-  const correctAnswer = "Apple";
+  const correctAnswer = units[indexUnit].tiles[indexLesson].tasks[indexTask].answer;
+  const question = units[indexUnit].tiles[indexLesson].tasks[indexTask].question;
   const navigate = useNavigate();
 
   const handleOptionClick = (word) => {
@@ -46,7 +47,7 @@ const LessonPagePhoto = ({ health,changeHealth }) => {
   return (
     <div className="min-h-screen bg-blue-50 flex flex-col items-center justify-center p-4">
       Unit: {unit}, Lesson: {lessonId}
-      <h1 className="text-2xl font-bold mb-6 text-gray-800">Which word matches the picture?</h1>
+      <h1 className="text-2xl font-bold mb-6 text-gray-800">{question}</h1>
 
       <div className="grid grid-cols-3 gap-6 max-w-4xl mb-6">
         <div

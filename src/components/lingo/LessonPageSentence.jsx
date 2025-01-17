@@ -2,11 +2,13 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const LessonPageSentence = ({ health,changeHealth }) => {
+const LessonPageSentence = ({ health,changeHealth,indexUnit,indexLesson,indexTask,units }) => {
   const [userInput, setUserInput] = useState("");
   const [checked, setChecked] = useState(false);
   const [isCorrect, setIsCorrect] = useState(null);
-  const correctAnswer = 'dias';
+  const correctAnswer = units[indexUnit].tiles[indexLesson].tasks[indexTask].answer;
+  const ogQuestion = units[indexUnit].tiles[indexLesson].tasks[indexTask].ogQuestion;
+  const question = units[indexUnit].tiles[indexLesson].tasks[indexTask].question;
   const navigate = useNavigate();
   const handleCheckAnswer = () => {
     setChecked(true);
@@ -41,16 +43,16 @@ const LessonPageSentence = ({ health,changeHealth }) => {
           </h1>
 
           <div className="w-full">
-            <p>Dzien dobry Panie Siarra</p>
+            <p>{ogQuestion}</p>
             <p>
-              Buenos
+              {question[0]}
               <input
                 type="text"
                 value={userInput}
                 onChange={(e) => setUserInput(e.target.value)}
                 className="border rounded p-1 mx-1"
               />
-              Señor Siarra
+              {question[1]}
             </p>
           </div>
           {!checked && (

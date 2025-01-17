@@ -6,6 +6,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import RedirectIfLoggedIn from "./components/RedirectIfLoggedIn";
 import LanguageSelect from "./components/lingo/LanguageSelect";
 import Lessons from "./components/lessons";
+import SplashScreen from "./components/lingo/SplashScreen";
+
 
 import { AuthProvider } from "./contexts/authContext";
 import { useRoutes } from "react-router-dom";
@@ -56,9 +58,11 @@ function App() {
 
   const routesElement = useRoutes(routesArray);
   return (
+    <div><SplashScreen />
     <AuthProvider>
       <div className="w-full h-screen flex flex-col">{routesElement}</div>
     </AuthProvider>
+    </div>
   );
 }
 

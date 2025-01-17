@@ -26,7 +26,6 @@ const LanguageSelect = () => {
           </Link>
         ))}
         </section>
-      <Header></Header>
     </div>
   )
 }

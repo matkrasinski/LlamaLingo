@@ -9,15 +9,20 @@ const units = [
       {
         type: "star",
         description: "Form basic sentences",
-        questions: [
-          {Photo: ''}, //tutaj pytaniem jest obrazek
-          {Word: ''}, // tasowana odpowiedź w zadaniu
-          {Sentence: ['Dzien dobry Panie Siarra', 'Buenos ', ' Señor Siarra']}
-        ],
-        answers: [
-          {Photo: 'Apple'},
-          {Word: ['make', 'Amurika', 'great', 'again']},
-          {Sentence: ['dias']}
+        tasks:[
+          {
+            question:['Which word matches the picture?'],
+            answer:'Apple'
+          },
+          {
+            question:['Amurika', 'great', 'again', 'make'],
+            answer:['make', 'Amurika', 'great', 'again']
+          },
+          {
+            ogQuestion:'Dzien dobry Panie Siarra',
+            question: ['Buenos','Señor Siarra'],
+            answer:'dias'
+          }
         ]
       },
       {
@@ -95,18 +100,24 @@ const units = [
     textColor: "text-[#ce82ff]",
     borderColor: "border-[#a568cc]",
     tiles: [
-      { type: "fast-forward", description: "Get around in a city",
-        questions: [
-          {Photo: ''}, //tutaj pytaniem jest obrazek
-          {Word: ''}, // tasowana odpowiedź w zadaniu
-          {Sentence: ['Dzien dobry, witam w mojej kuchni', 'Good Morning, ', ' in my kitchen']}
-        ],
-        answers: [
-          {Photo: 'Apple'},
-          {Word: ['Welcome', 'in', 'my', 'kitchen']},
-          {Sentence: ['welcome']}
+      { type: "fast-forward", 
+        description: "Get around in a city",
+        tasks:[
+          {
+            question:['Gdzie jest samica?'],
+            answer:'Woman'
+          },
+          {
+            question:['like', 'my', 'professor', 'i'],
+            answer:['i', 'like', 'my', 'professor']
+          },
+          {
+            ogQuestion:'kolano rośnie szybko',
+            question: ['Knee','fast'],
+            answer:'grow'
+          }
         ]
-       },
+      },
       { type: "dumbbell", description: "Personalized practice",
         questions: [
           {Photo: ''}, //tutaj pytaniem jest obrazek
@@ -118,7 +129,7 @@ const units = [
           {Word: ['Cocacola', 'is', 'very', 'tasty']},
           {Sentence: ['bottle']}
         ]
-       },
+      },
       { type: "book", description: "One thing",
         questions: [
           {Photo: ''}, //tutaj pytaniem jest obrazek
@@ -130,7 +141,7 @@ const units = [
           {Word: ['Wardrobe', 'is', 'very', 'big']},
           {Sentence: ['shirts']}
         ]
-       },
+      },
       { type: "treasure", 
         questions: [
           {Photo: ''}, //tutaj pytaniem jest obrazek
@@ -142,7 +153,7 @@ const units = [
           {Word: ['Turtles', 'do', 'not', 'like', 'plastic']},
           {Sentence: ['turtle']}
         ]
-       },
+      },
       { type: "star", description: "Get around in a city",
         questions: [
           {Photo: ''}, //tutaj pytaniem jest obrazek
@@ -154,7 +165,7 @@ const units = [
           {Word: ['This', 'car', 'is', 'very', 'loud']},
           {Sentence: ['big']}
         ]
-       },
+      },
       { type: "book", description: "A very big family",
         questions: [
           {Photo: ''}, //tutaj pytaniem jest obrazek
@@ -166,7 +177,7 @@ const units = [
           {Word: ['Tom', 'like', 'play', 'in', 'Call of Duty']},
           {Sentence: ['game']}
         ]
-       },
+      },
       { type: "star", description: "Greet people",
         questions: [
           {Photo: ''}, //tutaj pytaniem jest obrazek
@@ -178,7 +189,7 @@ const units = [
           {Word: ['Apples', 'are', 'very', 'good', 'fruit']},
           {Sentence: ['like']}
         ]
-       },
+      },
       { type: "book", description: "The red jacket",
         questions: [
           {Photo: ''}, //tutaj pytaniem jest obrazek
