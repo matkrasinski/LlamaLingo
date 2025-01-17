@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Header from "../header";
+// import Header from "../header";
 import { useBoundStore } from "../../hooks/useBoundStore";
 import units from "../../utils/units";
 import LeftBar from "../lingo/LeftBar";
@@ -48,7 +48,7 @@ const Main = () => {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
 
       <PageWrapper
         left={<div><LeftBar /></div>}

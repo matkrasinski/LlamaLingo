@@ -1,35 +1,69 @@
 import React from 'react';
-import {Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contexts/authContext';
+import { doSignOut } from '../../firebase/auth';
 
 const LeftBar = () => {
     const location = useLocation();
+    const navigate = useNavigate();
+    const { userLoggedIn } = useAuth();
 
     return (
-        <div className="flex flex-col gap-5 p-5">
-            
-            <Link className="mb-5  mt-5 hidden text-3xl font-bold text-[#58cc02] lg:block">
+        <div className="flex flex-col gap-6 p-6 bg-white shadow-lg h-full rounded-2xl">
+            <Link className="mb-8 mt-5 text-3xl font-extrabold text-[#58cc02] lg:block">
                 Llamalingo
             </Link>
-            <Link 
+
+            <Link
                 to="/main"
-                className={`flex items-center gap-3 rounded-xl  px-2 py-1 text-sm font-bold uppercase
-                    ${location.pathname === "/main" ? "border-2 border-[#84d8ff] bg-[#ddf4ff] text-blue-400" : "text-gray-700"}
+                className={`flex items-center gap-4 rounded-xl px-4 py-3 text-lg font-bold uppercase transition-all
+                    ${
+                        location.pathname === "/main"
+                            ? "border-2 border-[#84d8ff] bg-[#ddf4ff] text-blue-600 shadow-md"
+                            : "text-gray-700 hover:bg-gray-100"
+                    }
                 `}
             >
-                <img src="/icons/learn.png" className={`w-16 h-16`}/>
+                <img
+                    src="/icons/learn.png"
+                    className="w-12 h-12 rounded-full"
+                    alt="Learn Icon"
+                />
                 Learn
             </Link>
-            
-            <Link 
+
+            <Link
                 to="/profile"
-                className={`flex items-center gap-3 rounded-xl  px-2 py-1 text-sm font-bold uppercase
-                    ${location.pathname === "/shop" ? "border-2 border-[#84d8ff] bg-[#ddf4ff] text-blue-400" : "text-gray-700"}
+                className={`flex items-center gap-4 rounded-xl px-4 py-3 text-lg font-bold uppercase transition-all
+                    ${
+                        location.pathname === "/profile"
+                            ? "border-2 border-[#84d8ff] bg-[#ddf4ff] text-blue-600 shadow-md"
+                            : "text-gray-700 hover:bg-gray-100"
+                    }
                 `}
             >
-                <img src="/icons/profile.png" className={`w-16 h-16`}/>
-                Profile</Link>
+                <img
+                    src="/icons/profile.png"
+                    className="w-12 h-12 rounded-full"
+                    alt="Profile Icon"
+                />
+                Profile
+            </Link>
+
+            {userLoggedIn && (
+                <button
+                    onClick={() => {
+                        doSignOut().then(() => {
+                            navigate('/');
+                        });
+                    }}
+                    className="mt-auto flex items-center gap-4 rounded-xl px-4 py-3 text-lg font-bold uppercase text-red-600 bg-red-100 hover:bg-red-200 transition-all"
+                >
+                    Logout
+                </button>
+            )}
         </div>
-    )
-}
+    );
+};
 
 export default LeftBar;

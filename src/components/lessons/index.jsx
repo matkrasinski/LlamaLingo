@@ -5,17 +5,6 @@ import LessonPickWord from "../lingo/LessonPickWord";
 import LessonPageSentence from "../lingo/LessonPageSentence";
 import units from "../../utils/units";
 
-const lessonTasks = {
-  unit_1: {
-    1: ["photo", "pick_word", "sentence"],
-    2: ["photo", "pick_word"],
-  },
-  unit_2: {
-    1: ["photo", "pick_word", "sentence"],
-    2: ["photo", "quiz"],
-  },
-};
-
 const Lessons = () => {
   const { unit, lessonId, taskId } = useParams();
 
