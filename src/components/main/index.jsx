@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 import Header from "../header";
 import { useBoundStore } from "../../hooks/useBoundStore";
 import units from "../../utils/units";
+import LeftBar from "../lingo/LeftBar";
 
 const PageWrapper = ({ left, center, right }) => {
   return (
-    <div className="grid grid-cols-6 h-screen gap-4">
-      <div className="col-span-1 bg-gray-100 p-4">{left}</div>
-      <div className="col-span-3 bg-gray-200 p-4">{center}</div>
-      <div className="col-span-2 bg-gray-300 p-4">{right}</div>
+    <div className="grid grid-cols-12 h-screen gap-4">
+      <div className="col-span-3 bg-gray-100 p-4">{left}</div>
+      <div className="col-span-6 bg-gray-200 p-4">{center}</div>
+      <div className="col-span-3 bg-gray-300 p-4">{right}</div>
     </div>
   );
 };
@@ -50,7 +51,7 @@ const Main = () => {
       <Header />
 
       <PageWrapper
-        left={<div>Left Content</div>}
+        left={<div><LeftBar /></div>}
         center={
           <div className="flex flex-col gap-4">
             {units.map((unit) => (
