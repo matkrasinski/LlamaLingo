@@ -25,7 +25,7 @@ export const createUserStore = (set) => ({
     set(() => ({
       user: {
         uid: null,
-        language: [],
+        courses: [],
       },
     })),
 });
