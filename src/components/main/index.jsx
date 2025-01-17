@@ -64,8 +64,21 @@ const Main = () => {
           <Courses />
           <h1>Selected Language:</h1>
           <p>
-            user: { user.uid } <br />
-            currLangcure: {user.language.join(", ")} <br />
+            user: {user.uid} <br />
+          </p>
+          <p>
+            <strong>Selected Language(s):</strong>
+            <ul className="list-disc pl-5">
+              {user.courses.length > 0 ? (
+                user.courses.map((course, index) => (
+                  <li key={index} className="text-sm text-gray-700">
+                    {course.code || "Unknown Language"}
+                  </li>
+                ))
+              ) : (
+                <span>No courses added yet</span>
+              )}
+            </ul>
           </p>
           <p>
             Name: {language.name} <br />

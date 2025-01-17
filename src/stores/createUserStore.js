@@ -1,8 +1,7 @@
 export const createUserStore = (set) => ({
   user: {
     uid: null,
-    language: [],
-    progress: {},
+    courses: [],
   },
 
   setUser: (userData) =>
@@ -13,28 +12,20 @@ export const createUserStore = (set) => ({
       },
     })),
 
-  addUserLanguage: (language) =>
+  addUserCourses: (courses) =>
     set((state) => ({
       user: {
         ...state.user,
-        language: [...state.user.language, language],
+        courses: [...state.user.courses, courses],
       },
     })),
 
-  updateUserProgress: (progress) =>
-    set((state) => ({
-      user: {
-        ...state.user,
-        progress: { ...state.user.progress, ...progress },
-      },
-    })),
 
   resetUser: () =>
     set(() => ({
       user: {
         uid: null,
         language: [],
-        progress: {},
       },
     })),
 });

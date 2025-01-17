@@ -1,13 +1,33 @@
 import React, { useState } from "react";
 import { Flag } from "./Flag";
-import { units, courses } from "../../utils/units";
+import { units } from "../../utils/units";
 import languages from "../../utils/languages";
+import { useBoundStore } from "../../hooks/useBoundStore";
+
+export const courses = [
+  {
+    code: "es",
+    units: units,
+  },
+  {
+    code: "en",
+    units: units,
+  },
+  {
+    code: "pl",
+    units: units,
+  },
+];
 
 const Courses = () => {
   const [currentCourses, setCurrentCourses] = useState(courses);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // Access user state and addUserCourses from the store
+  const { user, addUserCourses } = useBoundStore();
+
   const handleCourseClick = (code) => {
+    // Move the clicked course to the top
     setCurrentCourses((prevCourses) => {
       const clickedCourse = prevCourses.find((course) => course.code === code);
       const remainingCourses = prevCourses.filter((course) => course.code !== code);
@@ -16,23 +36,30 @@ const Courses = () => {
   };
 
   const handleAddCourse = (code) => {
+    // Check if the course is already added
     if (currentCourses.find((course) => course.code === code)) {
       alert("Course already added!");
       return;
     }
 
+    // Find the selected language by code
     const selectedLanguage = languages.find((language) => language.code === code);
     if (selectedLanguage) {
+      // Add course to the state and also update the store
       setCurrentCourses((prevCourses) => [
         ...prevCourses,
         { code: selectedLanguage.code, units: units },
       ]);
-      setIsModalOpen(false);
+
+      // Add the course to the user store (Persisting the courses in the store)
+      addUserCourses({ code: selectedLanguage.code, units: units });
+
+      setIsModalOpen(false); // Close the modal after adding the course
     }
   };
 
   const closeModal = () => {
-    setIsModalOpen(false);
+    setIsModalOpen(false); // Close modal
   };
 
   return (
@@ -67,14 +94,15 @@ const Courses = () => {
         Select a Language
       </button>
 
+      {/* Modal */}
       {isModalOpen && (
         <div
           className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50"
-          onClick={closeModal}
+          onClick={closeModal} // Close modal when clicking the background
         >
           <div
-            className="bg-white rounded-lg shadow-lg p-6 w-96 max-h-[80vh] overflow-y-auto"
-            onClick={(e) => e.stopPropagation()}
+            className="bg-white rounded-lg shadow-lg p-6 w-96 max-h-[80vh] overflow-y-auto" // Max height + scroll
+            onClick={(e) => e.stopPropagation()} // Prevent click from closing when inside modal
           >
             <div className="flex justify-between items-center">
               <h3 className="text-xl font-semibold">Add a New Course</h3>
