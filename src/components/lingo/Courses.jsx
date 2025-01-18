@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Flag } from "./Flag";
-import { units } from "../../utils/units";
+import { units, courses } from "../../utils/units";
 import languages from "../../utils/languages";
 import { useBoundStore } from "../../hooks/useBoundStore";
-
 const Courses = () => {
   const [currentCourses, setCurrentCourses] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Get user data and functions from the store
-  const { user, addUserCourses } = useBoundStore();
+  const { user, addUserCourses, updateUserCourses } = useBoundStore();
 
   // Effect hook to set initial courses when user data changes
   useEffect(() => {
@@ -17,11 +16,13 @@ const Courses = () => {
   }, [user.courses]);
 
   const handleCourseClick = (code) => {
-    setCurrentCourses((prevCourses) => {
-      const clickedCourse = prevCourses.find((course) => course.code === code);
-      const remainingCourses = prevCourses.filter((course) => course.code !== code);
-      return [clickedCourse, ...remainingCourses];
-    });
+    const clickedCourse = currentCourses.find((course) => course.code === code);
+    const remainingCourses = currentCourses.filter((course) => course.code !== code);
+    const updatedCourses = [clickedCourse, ...remainingCourses];
+
+    // Update state and store outside of render
+    setCurrentCourses(updatedCourses);
+    updateUserCourses(updatedCourses);
   };
 
   const handleAddCourse = (code) => {
@@ -32,12 +33,13 @@ const Courses = () => {
 
     const selectedLanguage = languages.find((language) => language.code === code);
     if (selectedLanguage) {
-      setCurrentCourses((prevCourses) => [
-        ...prevCourses,
-        { code: selectedLanguage.code, units: units },
-      ]);
+      const getUnit = courses.find((course) => course.code === code);
+      const newCourse = { code: selectedLanguage.code, units: getUnit.units};
+      const updatedCourses = [...currentCourses, newCourse];
 
-      addUserCourses({ code: selectedLanguage.code, units: units });
+      // Update state and store outside of render
+      setCurrentCourses(updatedCourses);
+      addUserCourses(newCourse);
 
       setIsModalOpen(false);
     }
@@ -92,7 +94,7 @@ const Courses = () => {
           onClick={closeModal}
         >
           <div
-            className="bg-white rounded-lg shadow-lg p-6 w-96 max-h-[80vh] overflow-y-auto" // Max height + scroll
+            className="bg-white rounded-lg shadow-lg p-6 w-96 max-h-[80vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-center">

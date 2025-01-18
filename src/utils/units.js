@@ -520,51 +520,53 @@ export const units = [
   },
 ];
 
-const sp = {
-  unitNumber: 1,
-  description: "xd",
-  backgroundColor: "bg-[#00cd9c]",
-  textColor: "text-[#00cd9c]",
-  borderColor: "border-[#00a47d]",
-  tiles: [
-    {
-      type: "fast-forward", description: "Order food and drink",
-      tasks: [
-        {
-          question: ['Which word matches the picture?'],
-          answer: 'Apple'
-        },
-        {
-          question: ['Amurika', 'great', 'again', 'make'],
-          answer: ['make', 'Amurika', 'great', 'again']
-        },
-        {
-          ogQuestion: 'Dzien dobry Panie Siarra',
-          question: ['Buenos', 'Señor Siarra'],
-          answer: 'dias'
-        }
-      ]
-    },
-    {
-      type: "book", description: "The passport",
-      tasks: [
-        {
-          question: ['Which word matches the picture?'],
-          answer: 'Apple'
-        },
-        {
-          question: ['Amurika', 'great', 'again', 'make'],
-          answer: ['make', 'Amurika', 'great', 'again']
-        },
-        {
-          ogQuestion: 'Dzien dobry Panie Siarra',
-          question: ['Buenos', 'Señor Siarra'],
-          answer: 'dias'
-        }
-      ]
-    },
-  ],
-}
+const sp = [
+  {
+    unitNumber: 1,
+    description: "xd",
+    backgroundColor: "bg-[#00cd9c]",
+    textColor: "text-[#00cd9c]",
+    borderColor: "border-[#00a47d]",
+    tiles: [
+      {
+        type: "fast-forward", description: "Order food and drink",
+        tasks: [
+          {
+            question: ['Which word matches the picture?'],
+            answer: 'Apple'
+          },
+          {
+            question: ['Amurika', 'great', 'again', 'make'],
+            answer: ['make', 'Amurika', 'great', 'again']
+          },
+          {
+            ogQuestion: 'Dzien dobry Panie Siarra',
+            question: ['Buenos', 'Señor Siarra'],
+            answer: 'dias'
+          }
+        ]
+      },
+      {
+        type: "book", description: "The passport",
+        tasks: [
+          {
+            question: ['Which word matches the picture?'],
+            answer: 'Apple'
+          },
+          {
+            question: ['Amurika', 'great', 'again', 'make'],
+            answer: ['make', 'Amurika', 'great', 'again']
+          },
+          {
+            ogQuestion: 'Dzien dobry Panie Siarra',
+            question: ['Buenos', 'Señor Siarra'],
+            answer: 'dias'
+          }
+        ]
+      },
+    ],
+  }
+]
 
 
 export const courses = [
@@ -574,7 +576,7 @@ export const courses = [
   { code: "de", units: units },
   { code: "el", units: units },
   { code: "en", units: units },
-  { code: "es", units: units },
+  { code: "es", units: sp },
   { code: "fr", units: units },
   { code: "hi", units: units },
   { code: "hu", units: units },

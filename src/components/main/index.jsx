@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 // import Header from "../header";
 import { useBoundStore } from "../../hooks/useBoundStore";
-import { units } from "../../utils/units";
+// import { units } from "../../utils/units";
 import LeftBar from "../lingo/LeftBar";
 import Courses from "../lingo/Courses";
 
@@ -46,7 +46,7 @@ const UnitTile = ({ unit }) => {
 const Main = () => {
   const language = useBoundStore((state) => state.language);
   const { user } = useBoundStore();
-
+  console.log(user.courses);
   return (
     <>
       {/* <Header /> */}
@@ -55,9 +55,13 @@ const Main = () => {
         left={<div><LeftBar /></div>}
         center={
           <div className="flex flex-col gap-4">
-            {units.map((unit) => (
-              <UnitTile key={unit.unitNumber} unit={unit} />
-            ))}
+            {user.courses && user.courses.length > 0 ? (
+              user.courses[0].units.map((unit) => (
+                <UnitTile key={unit.unitNumber} unit={unit} />
+              ))
+            ) : (
+              <p> gowno </p>
+            )}
           </div>
         }
         right={<div>

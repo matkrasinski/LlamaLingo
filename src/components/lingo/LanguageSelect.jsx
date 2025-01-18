@@ -1,18 +1,27 @@
 import React from "react";
-import languages from '../../utils/languages.js';
+import languages from "../../utils/languages.js";
+import { courses }from "../../utils/units.js";
 import { useBoundStore } from "../../hooks/useBoundStore";
-import { Flag } from '../lingo/Flag.jsx';
+import { Flag } from "../lingo/Flag.jsx";
 import { Link } from "react-router-dom";
 
 const LanguageSelect = () => {
   const { setLanguage, user, addUserCourses } = useBoundStore();
 
   const handleLanguageSelect = (language) => {
-    setLanguage(language);
+    const { code } = language;
+    const selectedCourse = courses.find((course) => course.code === code);
 
-    if (!user.courses.some(course => course.code === language.code)) {
-      addUserCourses(language);
+    const newCourse = {
+      ...language,
+      units: selectedCourse ? selectedCourse.units : [],
+    };
+
+    if (!user.courses.some((course) => course.code === code)) {
+      addUserCourses(newCourse);
     }
+
+    setLanguage(language);
   };
 
   return (
