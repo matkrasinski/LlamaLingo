@@ -568,7 +568,6 @@ const sp = [
   }
 ]
 
-
 export const courses = [
   { code: "ar", units: units },
   { code: "bn", units: units },
@@ -596,3 +595,31 @@ export const courses = [
   { code: "vi", units: units },
   { code: "code-CN", units: units },
 ];
+
+export const coursesObj = {
+  ar: units,
+  bn: units,
+  cs: units,
+  de: units,
+  el: units,
+  en: units,
+  es: sp,
+  fr: units,
+  hi: units,
+  hu: units,
+  id: units,
+  it: units,
+  ja: units,
+  ko: units,
+  "code-NL": units,
+  pl: units,
+  pt: units,
+  ro: units,
+  ru: units,
+  th: units,
+  tl: units,
+  tr: units,
+  uk: units,
+  vi: units,
+  "code-CN": units,
+};

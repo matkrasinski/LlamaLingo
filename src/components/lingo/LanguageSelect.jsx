@@ -1,6 +1,6 @@
 import React from "react";
 import languages from "../../utils/languages.js";
-import { courses }from "../../utils/units.js";
+import { courses, coursesObj } from "../../utils/units.js"; // Key-value pair object
 import { useBoundStore } from "../../hooks/useBoundStore";
 import { Flag } from "../lingo/Flag.jsx";
 import { Link } from "react-router-dom";
@@ -10,17 +10,19 @@ const LanguageSelect = () => {
 
   const handleLanguageSelect = (language) => {
     const { code } = language;
-    const selectedCourse = courses.find((course) => course.code === code);
 
+    // Access the course units directly using the key-value structure
     const newCourse = {
       ...language,
-      units: selectedCourse ? selectedCourse.units : [],
+      units: coursesObj[code] || [], // Use the code as the key to get units
     };
 
+    // Check if the course already exists
     if (!user.courses.some((course) => course.code === code)) {
-      addUserCourses(newCourse);
+      addUserCourses(newCourse); // Add course to the store
     }
 
+    // Set the selected language in the store
     setLanguage(language);
   };
 

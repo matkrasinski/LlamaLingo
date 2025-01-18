@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Flag } from "./Flag";
-import { units, courses } from "../../utils/units";
+import { units, courses, coursesObj } from "../../utils/units";
 import languages from "../../utils/languages";
 import { useBoundStore } from "../../hooks/useBoundStore";
 const Courses = () => {
@@ -33,8 +33,8 @@ const Courses = () => {
 
     const selectedLanguage = languages.find((language) => language.code === code);
     if (selectedLanguage) {
-      const getUnit = courses.find((course) => course.code === code);
-      const newCourse = { code: selectedLanguage.code, units: getUnit.units};
+      // const getUnit = courses.find((course) => course.code === code);
+      const newCourse = { code: selectedLanguage.code, units: coursesObj[code] || []};
       const updatedCourses = [...currentCourses, newCourse];
 
       // Update state and store outside of render
