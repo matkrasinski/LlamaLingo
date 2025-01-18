@@ -1,15 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Header from "../header";
+// import Header from "../header";
 import { useBoundStore } from "../../hooks/useBoundStore";
-import units from "../../utils/units";
+// import { units } from "../../utils/units";
+import LeftBar from "../lingo/LeftBar";
+import Courses from "../lingo/Courses";
 
 const PageWrapper = ({ left, center, right }) => {
   return (
-    <div className="grid grid-cols-6 h-screen gap-4">
-      <div className="col-span-1 bg-gray-100 p-4">{left}</div>
-      <div className="col-span-3 bg-gray-200 p-4">{center}</div>
-      <div className="col-span-2 bg-gray-300 p-4">{right}</div>
+    <div className="grid grid-cols-12 h-screen gap-4">
+      <div className="col-span-3 bg-gray-100 p-4">{left}</div>
+      <div className="col-span-6 bg-gray-200 p-4">{center}</div>
+      <div className="col-span-3 bg-gray-300 p-4">{right}</div>
     </div>
   );
 };
@@ -44,26 +46,42 @@ const UnitTile = ({ unit }) => {
 const Main = () => {
   const language = useBoundStore((state) => state.language);
   const { user } = useBoundStore();
-
+  console.log(user.courses);
   return (
     <>
-      <Header />
+      {/* <Header /> */}
 
       <PageWrapper
-        left={<div>Left Content</div>}
+        left={<div><LeftBar /></div>}
         center={
           <div className="flex flex-col gap-4">
-            {units.map((unit) => (
-              <UnitTile key={unit.unitNumber} unit={unit} />
-            ))}
+            {user.courses && user.courses.length > 0 ? (
+              user.courses[0].units.map((unit) => (
+                <UnitTile key={unit.unitNumber} unit={unit} />
+              ))
+            ) : (
+              <p> gowno </p>
+            )}
           </div>
         }
         right={<div>
+          <Courses />
           <h1>Selected Language:</h1>
           <p>
-            user: { user.uid } <br />
-            currLangcure: {user.language.join(", ")} <br />
+            user: {user.uid} <br />
           </p>
+          <strong>Selected Language(s):</strong>
+          <ul className="list-disc pl-5">
+            {user.courses.length > 0 ? (
+              user.courses.map((course, index) => (
+                <li key={index} className="text-sm text-gray-700">
+                  {course.code || "Unknown Language"}
+                </li>
+              ))
+            ) : (
+              <span>No courses added yet</span>
+            )}
+          </ul>
           <p>
             Name: {language.name} <br />
             Native Name: {language.nativeName} <br />

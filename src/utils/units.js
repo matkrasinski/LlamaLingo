@@ -1,4 +1,6 @@
-const units = [
+import { collection, doc, setDoc } from "firebase/firestore";
+
+export const units = [
   {
     unitNumber: 1,
     description: "Form basic sentences, greet people",
@@ -9,86 +11,115 @@ const units = [
       {
         type: "star",
         description: "Form basic sentences",
-        tasks:[
+        tasks: [
           {
-            question:['Which word matches the picture?'],
-            answer:'Apple'
+            taskType: "",
+            question: ['Which word matches the picture?'],
+            answer: 'Apple'
           },
           {
-            question:['Amurika', 'great', 'again', 'make'],
-            answer:['make', 'Amurika', 'great', 'again']
+            question: ['Amurika', 'great', 'again', 'make'],
+            answer: ['make', 'Amurika', 'great', 'again']
           },
           {
-            ogQuestion:'Dzien dobry Panie Siarra',
-            question: ['Buenos','Señor Siarra'],
-            answer:'dias'
+            ogQuestion: 'Dzien dobry Panie Siarra',
+            question: ['Buenos', 'Señor Siarra'],
+            answer: 'dias'
           }
         ]
       },
       {
         type: "book",
         description: "Good morning",
-        questions: [
-          {Photo: ''}, //tutaj pytaniem jest obrazek
-          {Word: ''}, // tasowana odpowiedź w zadaniu
-          {Sentence: ['Nie mam pomysłu na pytanie', 'I do not have ', ' on question']}
-        ],
-        answers: [
-          {Photo: 'Women'},
-          {Word: ['hamster', 'play', 'on', 'ukulele', 'becouse', 'roe', 'cachalot']},
-          {Sentence: ['idea']}
+        tasks: [
+          {
+            question: ['Which word matches the picture?'],
+            answer: 'Apple'
+          },
+          {
+            question: ['Amurika', 'great', 'again', 'make'],
+            answer: ['make', 'Amurika', 'great', 'again']
+          },
+          {
+            ogQuestion: 'Dzien dobry Panie Siarra',
+            question: ['Buenos', 'Señor Siarra'],
+            answer: 'dias'
+          }
         ]
       },
       {
         type: "star",
         description: "Greet people",
-        questions: [
-          {Photo: ''}, //tutaj pytaniem jest obrazek
-          {Word: ''}, // tasowana odpowiedź w zadaniu
-          {Sentence: ['Muszę coś wymyślić', 'I have to ', ' something']}
-        ],
-        answers: [
-          {Photo: 'Apple'},
-          {Word: ['I', 'love', 'big', 'pizzas']},
-          {Sentence: ['come up with']}
+        tasks: [
+          {
+            question: ['Which word matches the picture?'],
+            answer: 'Apple'
+          },
+          {
+            question: ['Amurika', 'great', 'again', 'make'],
+            answer: ['make', 'Amurika', 'great', 'again']
+          },
+          {
+            ogQuestion: 'Dzien dobry Panie Siarra',
+            question: ['Buenos', 'Señor Siarra'],
+            answer: 'dias'
+          }
         ]
       },
-      { type: "treasure",
-        questions: [
-          {Photo: ''}, //tutaj pytaniem jest obrazek
-          {Word: ''}, // tasowana odpowiedź w zadaniu
-          {Sentence: ['Ta kobieta ma nibieską sukienkę', 'That women have a blue ', '']}
-        ],
-        answers: [
-          {Photo: 'Women'},
-          {Word: ['I', 'have', 'taken', 'a', 'credit']},
-          {Sentence: ['skirt']}
+      {
+        type: "treasure",
+        tasks: [
+          {
+            question: ['Which word matches the picture?'],
+            answer: 'Apple'
+          },
+          {
+            question: ['Amurika', 'great', 'again', 'make'],
+            answer: ['make', 'Amurika', 'great', 'again']
+          },
+          {
+            ogQuestion: 'Dzien dobry Panie Siarra',
+            question: ['Buenos', 'Señor Siarra'],
+            answer: 'dias'
+          }
         ]
-       },
-      { type: "book", 
+      },
+      {
+        type: "book",
         description: "A date",
-        questions: [
-          {Photo: ''}, //tutaj pytaniem jest obrazek
-          {Word: ''}, // tasowana odpowiedź w zadaniu
-          {Sentence: ['We no zamów pizzę', 'Could you ', ' a pizza?']}
-        ],
-        answers: [
-          {Photo: 'Apple'},
-          {Word: ['This', 'monkey', 'is', 'very', 'funny']},
-          {Sentence: ['order']}
+        tasks: [
+          {
+            question: ['Which word matches the picture?'],
+            answer: 'Apple'
+          },
+          {
+            question: ['Amurika', 'great', 'again', 'make'],
+            answer: ['make', 'Amurika', 'great', 'again']
+          },
+          {
+            ogQuestion: 'Dzien dobry Panie Siarra',
+            question: ['Buenos', 'Señor Siarra'],
+            answer: 'dias'
+          }
         ]
-       },
-      { type: "trophy", 
-        description: "Unit 1 review" ,
-        questions: [
-          {Photo: ''}, //tutaj pytaniem jest obrazek
-          {Word: ''}, // tasowana odpowiedź w zadaniu
-          {Sentence: ['Poszedłem do sklepu i spotkałem Pawła', 'I went to the shop and I ', ' Pawel']}
-        ],
-        answers: [
-          {Photo: 'Boy'},
-          {Word: ['I', 'love', 'cotton', 'candy']},
-          {Sentence: ['met']}
+      },
+      {
+        type: "trophy",
+        description: "Unit 1 review",
+        tasks: [
+          {
+            question: ['Which word matches the picture?'],
+            answer: 'Apple'
+          },
+          {
+            question: ['Amurika', 'great', 'again', 'make'],
+            answer: ['make', 'Amurika', 'great', 'again']
+          },
+          {
+            ogQuestion: 'Dzien dobry Panie Siarra',
+            question: ['Buenos', 'Señor Siarra'],
+            answer: 'dias'
+          }
         ]
       },
     ],
@@ -100,142 +131,203 @@ const units = [
     textColor: "text-[#ce82ff]",
     borderColor: "border-[#a568cc]",
     tiles: [
-      { type: "fast-forward", 
+      {
+        type: "fast-forward",
         description: "Get around in a city",
-        tasks:[
+        tasks: [
           {
-            question:['Gdzie jest samica?'],
-            answer:'Woman'
+            question: ['Gdzie jest samica?'],
+            answer: 'Woman'
           },
           {
-            question:['like', 'my', 'professor', 'i'],
-            answer:['i', 'like', 'my', 'professor']
+            question: ['like', 'my', 'professor', 'i'],
+            answer: ['i', 'like', 'my', 'professor']
           },
           {
-            ogQuestion:'kolano rośnie szybko',
-            question: ['Knee','fast'],
-            answer:'grow'
+            ogQuestion: 'kolano rośnie szybko',
+            question: ['Knee', 'fast'],
+            answer: 'grow'
           }
         ]
       },
-      { type: "dumbbell", description: "Personalized practice",
-        questions: [
-          {Photo: ''}, //tutaj pytaniem jest obrazek
-          {Word: ''}, // tasowana odpowiedź w zadaniu
-          {Sentence: ['Kupiłem butelkę z wodą w żabce', 'I bought a ', ' of water']}
-        ],
-        answers: [
-          {Photo: 'Women'},
-          {Word: ['Cocacola', 'is', 'very', 'tasty']},
-          {Sentence: ['bottle']}
+      {
+        type: "dumbbell", description: "Personalized practice",
+        tasks: [
+          {
+            question: ['Which word matches the picture?'],
+            answer: 'Apple'
+          },
+          {
+            question: ['Amurika', 'great', 'again', 'make'],
+            answer: ['make', 'Amurika', 'great', 'again']
+          },
+          {
+            ogQuestion: 'Dzien dobry Panie Siarra',
+            question: ['Buenos', 'Señor Siarra'],
+            answer: 'dias'
+          }
         ]
       },
-      { type: "book", description: "One thing",
-        questions: [
-          {Photo: ''}, //tutaj pytaniem jest obrazek
-          {Word: ''}, // tasowana odpowiedź w zadaniu
-          {Sentence: ['W szafie mam trzy koszulki i skarpetkę', 'In the wardrobe I have a thee ', ' and a sock']}
-        ],
-        answers: [
-          {Photo: 'Women'},
-          {Word: ['Wardrobe', 'is', 'very', 'big']},
-          {Sentence: ['shirts']}
+      {
+        type: "book", description: "One thing",
+        tasks: [
+          {
+            question: ['Which word matches the picture?'],
+            answer: 'Apple'
+          },
+          {
+            question: ['Amurika', 'great', 'again', 'make'],
+            answer: ['make', 'Amurika', 'great', 'again']
+          },
+          {
+            ogQuestion: 'Dzien dobry Panie Siarra',
+            question: ['Buenos', 'Señor Siarra'],
+            answer: 'dias'
+          }
         ]
       },
-      { type: "treasure", 
-        questions: [
-          {Photo: ''}, //tutaj pytaniem jest obrazek
-          {Word: ''}, // tasowana odpowiedź w zadaniu
-          {Sentence: ['Wczoraj widziałem zółwia', 'I saw a ', ' yesterday']}
-        ],
-        answers: [
-          {Photo: 'Women'},
-          {Word: ['Turtles', 'do', 'not', 'like', 'plastic']},
-          {Sentence: ['turtle']}
+      {
+        type: "treasure",
+        tasks: [
+          {
+            question: ['Which word matches the picture?'],
+            answer: 'Apple'
+          },
+          {
+            question: ['Amurika', 'great', 'again', 'make'],
+            answer: ['make', 'Amurika', 'great', 'again']
+          },
+          {
+            ogQuestion: 'Dzien dobry Panie Siarra',
+            question: ['Buenos', 'Señor Siarra'],
+            answer: 'dias'
+          }
         ]
       },
-      { type: "star", description: "Get around in a city",
-        questions: [
-          {Photo: ''}, //tutaj pytaniem jest obrazek
-          {Word: ''}, // tasowana odpowiedź w zadaniu
-          {Sentence: ['Karolina ma bardzo duży samochód', 'Karolina have very', 'car']}
-        ],
-        answers: [
-          {Photo: 'Women'},
-          {Word: ['This', 'car', 'is', 'very', 'loud']},
-          {Sentence: ['big']}
+      {
+        type: "star", description: "Get around in a city",
+        tasks: [
+          {
+            question: ['Which word matches the picture?'],
+            answer: 'Apple'
+          },
+          {
+            question: ['Amurika', 'great', 'again', 'make'],
+            answer: ['make', 'Amurika', 'great', 'again']
+          },
+          {
+            ogQuestion: 'Dzien dobry Panie Siarra',
+            question: ['Buenos', 'Señor Siarra'],
+            answer: 'dias'
+          }
         ]
       },
-      { type: "book", description: "A very big family",
-        questions: [
-          {Photo: ''}, //tutaj pytaniem jest obrazek
-          {Word: ''}, // tasowana odpowiedź w zadaniu
-          {Sentence: ['Kampania w tej grze jest bardzo trudna', 'A campain in that ', ' is very hard']}
-        ],
-        answers: [
-          {Photo: 'Women'},
-          {Word: ['Tom', 'like', 'play', 'in', 'Call of Duty']},
-          {Sentence: ['game']}
+      {
+        type: "book", description: "A very big family",
+        tasks: [
+          {
+            question: ['Which word matches the picture?'],
+            answer: 'Apple'
+          },
+          {
+            question: ['Amurika', 'great', 'again', 'make'],
+            answer: ['make', 'Amurika', 'great', 'again']
+          },
+          {
+            ogQuestion: 'Dzien dobry Panie Siarra',
+            question: ['Buenos', 'Señor Siarra'],
+            answer: 'dias'
+          }
         ]
       },
-      { type: "star", description: "Greet people",
-        questions: [
-          {Photo: ''}, //tutaj pytaniem jest obrazek
-          {Word: ''}, // tasowana odpowiedź w zadaniu
-          {Sentence: ['Lubisz jabłka?', 'Do you ', ' apples?']}
-        ],
-        answers: [
-          {Photo: 'Women'},
-          {Word: ['Apples', 'are', 'very', 'good', 'fruit']},
-          {Sentence: ['like']}
+      {
+        type: "star", description: "Greet people",
+        tasks: [
+          {
+            question: ['Which word matches the picture?'],
+            answer: 'Apple'
+          },
+          {
+            question: ['Amurika', 'great', 'again', 'make'],
+            answer: ['make', 'Amurika', 'great', 'again']
+          },
+          {
+            ogQuestion: 'Dzien dobry Panie Siarra',
+            question: ['Buenos', 'Señor Siarra'],
+            answer: 'dias'
+          }
         ]
       },
-      { type: "book", description: "The red jacket",
-        questions: [
-          {Photo: ''}, //tutaj pytaniem jest obrazek
-          {Word: ''}, // tasowana odpowiedź w zadaniu
-          {Sentence: ['To jest żart bracie', 'I is a ', ' bro']}
-        ],
-        answers: [
-          {Photo: 'Women'},
-          {Word: ['Pranks', 'are', 'very', 'dangerous']},
-          {Sentence: ['prank']}
+      {
+        type: "book", description: "The red jacket",
+        tasks: [
+          {
+            question: ['Which word matches the picture?'],
+            answer: 'Apple'
+          },
+          {
+            question: ['Amurika', 'great', 'again', 'make'],
+            answer: ['make', 'Amurika', 'great', 'again']
+          },
+          {
+            ogQuestion: 'Dzien dobry Panie Siarra',
+            question: ['Buenos', 'Señor Siarra'],
+            answer: 'dias'
+          }
         ]
-       },
-      { type: "treasure",
-        questions: [
-          {Photo: ''}, //tutaj pytaniem jest obrazek
-          {Word: ''}, // tasowana odpowiedź w zadaniu
-          {Sentence: ['Muszę zacząć pisanie książki', 'I have to ', ' write the book']}
-        ],
-        answers: [
-          {Photo: 'Women'},
-          {Word: ['Reading', 'books', 'is', 'very', 'important']},
-          {Sentence: ['start']}
+      },
+      {
+        type: "treasure",
+        tasks: [
+          {
+            question: ['Which word matches the picture?'],
+            answer: 'Apple'
+          },
+          {
+            question: ['Amurika', 'great', 'again', 'make'],
+            answer: ['make', 'Amurika', 'great', 'again']
+          },
+          {
+            ogQuestion: 'Dzien dobry Panie Siarra',
+            question: ['Buenos', 'Señor Siarra'],
+            answer: 'dias'
+          }
         ]
-       },
-      { type: "dumbbell", description: "Personalized practice",
-        questions: [
-          {Photo: ''}, //tutaj pytaniem jest obrazek
-          {Word: ''}, // tasowana odpowiedź w zadaniu
-          {Sentence: ['Miałem sen o żółwiach', 'I had a ', ' about turtles']}
-        ],
-        answers: [
-          {Photo: 'Women'},
-          {Word: ['Dreams', 'can', 'be', 'very', 'odd']},
-          {Sentence: ['dream']}
+      },
+      {
+        type: "dumbbell", description: "Personalized practice",
+        tasks: [
+          {
+            question: ['Which word matches the picture?'],
+            answer: 'Apple'
+          },
+          {
+            question: ['Amurika', 'great', 'again', 'make'],
+            answer: ['make', 'Amurika', 'great', 'again']
+          },
+          {
+            ogQuestion: 'Dzien dobry Panie Siarra',
+            question: ['Buenos', 'Señor Siarra'],
+            answer: 'dias'
+          }
         ]
-       },
-      { type: "trophy", description: "Unit 2 review",
-        questions: [
-          {Photo: ''}, //tutaj pytaniem jest obrazek
-          {Word: ''}, // tasowana odpowiedź w zadaniu
-          {Sentence: ['To hest ostatnie zadanie', 'This is the ', ' task']}
-        ],
-        answers: [
-          {Photo: 'Women'},
-          {Word: ['Tasks', 'are', 'almoust', 'finished']},
-          {Sentence: ['last']}
+      },
+      {
+        type: "trophy", description: "Unit 2 review",
+        tasks: [
+          {
+            question: ['Which word matches the picture?'],
+            answer: 'Apple'
+          },
+          {
+            question: ['Amurika', 'great', 'again', 'make'],
+            answer: ['make', 'Amurika', 'great', 'again']
+          },
+          {
+            ogQuestion: 'Dzien dobry Panie Siarra',
+            question: ['Buenos', 'Señor Siarra'],
+            answer: 'dias'
+          }
         ]
       },
     ],
@@ -247,18 +339,307 @@ const units = [
     textColor: "text-[#00cd9c]",
     borderColor: "border-[#00a47d]",
     tiles: [
-      { type: "fast-forward", description: "Order food and drink" },
-      { type: "book", description: "The passport" },
-      { type: "star", description: "Order food and drinks" },
-      { type: "treasure" },
-      { type: "book", description: "The honeymoon" },
-      { type: "star", description: "Get around in a city" },
-      { type: "treasure" },
-      { type: "dumbbell", description: "Personalized practice" },
-      { type: "book", description: "Doctor Eddy" },
-      { type: "trophy", description: "Unit 2 review" },
+      {
+        type: "fast-forward", description: "Order food and drink",
+        tasks: [
+          {
+            question: ['Which word matches the picture?'],
+            answer: 'Apple'
+          },
+          {
+            question: ['Amurika', 'great', 'again', 'make'],
+            answer: ['make', 'Amurika', 'great', 'again']
+          },
+          {
+            ogQuestion: 'Dzien dobry Panie Siarra',
+            question: ['Buenos', 'Señor Siarra'],
+            answer: 'dias'
+          }
+        ]
+      },
+      {
+        type: "book", description: "The passport",
+        tasks: [
+          {
+            question: ['Which word matches the picture?'],
+            answer: 'Apple'
+          },
+          {
+            question: ['Amurika', 'great', 'again', 'make'],
+            answer: ['make', 'Amurika', 'great', 'again']
+          },
+          {
+            ogQuestion: 'Dzien dobry Panie Siarra',
+            question: ['Buenos', 'Señor Siarra'],
+            answer: 'dias'
+          }
+        ]
+      },
+      {
+        type: "star", description: "Order food and drinks",
+        tasks: [
+          {
+            question: ['Which word matches the picture?'],
+            answer: 'Apple'
+          },
+          {
+            question: ['Amurika', 'great', 'again', 'make'],
+            answer: ['make', 'Amurika', 'great', 'again']
+          },
+          {
+            ogQuestion: 'Dzien dobry Panie Siarra',
+            question: ['Buenos', 'Señor Siarra'],
+            answer: 'dias'
+          }
+        ]
+      },
+      {
+        type: "treasure",
+        tasks: [
+          {
+            question: ['Which word matches the picture?'],
+            answer: 'Apple'
+          },
+          {
+            question: ['Amurika', 'great', 'again', 'make'],
+            answer: ['make', 'Amurika', 'great', 'again']
+          },
+          {
+            ogQuestion: 'Dzien dobry Panie Siarra',
+            question: ['Buenos', 'Señor Siarra'],
+            answer: 'dias'
+          }
+        ]
+      },
+      {
+        type: "book", description: "The honeymoon",
+        tasks: [
+          {
+            question: ['Which word matches the picture?'],
+            answer: 'Apple'
+          },
+          {
+            question: ['Amurika', 'great', 'again', 'make'],
+            answer: ['make', 'Amurika', 'great', 'again']
+          },
+          {
+            ogQuestion: 'Dzien dobry Panie Siarra',
+            question: ['Buenos', 'Señor Siarra'],
+            answer: 'dias'
+          }
+        ]
+      },
+      {
+        type: "star", description: "Get around in a city",
+        tasks: [
+          {
+            question: ['Which word matches the picture?'],
+            answer: 'Apple'
+          },
+          {
+            question: ['Amurika', 'great', 'again', 'make'],
+            answer: ['make', 'Amurika', 'great', 'again']
+          },
+          {
+            ogQuestion: 'Dzien dobry Panie Siarra',
+            question: ['Buenos', 'Señor Siarra'],
+            answer: 'dias'
+          }
+        ]
+      },
+      {
+        type: "treasure",
+        tasks: [
+          {
+            question: ['Which word matches the picture?'],
+            answer: 'Apple'
+          },
+          {
+            question: ['Amurika', 'great', 'again', 'make'],
+            answer: ['make', 'Amurika', 'great', 'again']
+          },
+          {
+            ogQuestion: 'Dzien dobry Panie Siarra',
+            question: ['Buenos', 'Señor Siarra'],
+            answer: 'dias'
+          }
+        ]
+      },
+      {
+        type: "dumbbell", description: "Personalized practice",
+        tasks: [
+          {
+            question: ['Which word matches the picture?'],
+            answer: 'Apple'
+          },
+          {
+            question: ['Amurika', 'great', 'again', 'make'],
+            answer: ['make', 'Amurika', 'great', 'again']
+          },
+          {
+            ogQuestion: 'Dzien dobry Panie Siarra',
+            question: ['Buenos', 'Señor Siarra'],
+            answer: 'dias'
+          }
+        ]
+      },
+      {
+        type: "book", description: "Doctor Eddy",
+        tasks: [
+          {
+            question: ['Which word matches the picture?'],
+            answer: 'Apple'
+          },
+          {
+            question: ['Amurika', 'great', 'again', 'make'],
+            answer: ['make', 'Amurika', 'great', 'again']
+          },
+          {
+            ogQuestion: 'Dzien dobry Panie Siarra',
+            question: ['Buenos', 'Señor Siarra'],
+            answer: 'dias'
+          }
+        ]
+      },
+      {
+        type: "trophy", description: "Unit 2 review",
+        tasks: [
+          {
+            question: ['Which word matches the picture?'],
+            answer: 'Apple'
+          },
+          {
+            question: ['Amurika', 'great', 'again', 'make'],
+            answer: ['make', 'Amurika', 'great', 'again']
+          },
+          {
+            ogQuestion: 'Dzien dobry Panie Siarra',
+            question: ['Buenos', 'Señor Siarra'],
+            answer: 'dias'
+          }
+        ]
+      },
     ],
   },
 ];
 
-export default units;
+const sp = [
+  {
+    unitNumber: 1,
+    description: "xd",
+    backgroundColor: "bg-[#00cd9c]",
+    textColor: "text-[#00cd9c]",
+    borderColor: "border-[#00a47d]",
+    tiles: [
+      {
+        type: "fast-forward", description: "Order food and drink",
+        tasks: [
+          {
+            question: ['Which word matches the picture?'],
+            answer: 'Apple'
+          },
+          {
+            question: ['Amurika', 'great', 'again', 'make'],
+            answer: ['make', 'Amurika', 'great', 'again']
+          },
+          {
+            ogQuestion: 'Dzien dobry Panie Siarra',
+            question: ['Buenos', 'Señor Siarra'],
+            answer: 'dias'
+          }
+        ]
+      },
+      {
+        type: "book", description: "The passport",
+        tasks: [
+          {
+            question: ['Which word matches the picture?'],
+            answer: 'Apple'
+          },
+          {
+            question: ['Amurika', 'great', 'again', 'make'],
+            answer: ['make', 'Amurika', 'great', 'again']
+          },
+          {
+            ogQuestion: 'Dzien dobry Panie Siarra',
+            question: ['Buenos', 'Señor Siarra'],
+            answer: 'dias'
+          }
+        ]
+      },
+    ],
+  }
+]
+
+export const courses = [
+  { code: "ar", units: units },
+  { code: "bn", units: units },
+  { code: "cs", units: units },
+  { code: "de", units: units },
+  { code: "el", units: units },
+  { code: "en", units: units },
+  { code: "es", units: sp },
+  { code: "fr", units: units },
+  { code: "hi", units: units },
+  { code: "hu", units: units },
+  { code: "id", units: units },
+  { code: "it", units: units },
+  { code: "ja", units: units },
+  { code: "ko", units: units },
+  { code: "code-NL", units: units },
+  { code: "pl", units: units },
+  { code: "pt", units: units },
+  { code: "ro", units: units },
+  { code: "ru", units: units },
+  { code: "th", units: units },
+  { code: "tl", units: units },
+  { code: "tr", units: units },
+  { code: "uk", units: units },
+  { code: "vi", units: units },
+  { code: "code-CN", units: units },
+];
+
+export const coursesObj = {
+  // ar: units,
+  // bn: units,
+  // cs: units,
+  de: units,
+  // el: units,
+  en: units,
+  es: units,
+  fr: units,
+  // hi: units,
+  // hu: units,
+  // id: units,
+  // it: units,
+  // ja: units,
+  // ko: units,
+  // nl: units,
+  // pl: units,
+  // pt: units,
+  // ro: units,
+  // ru: units,
+  // th: units,
+  // tl: units,
+  // tr: units,
+  // uk: units,
+  vi: units,
+  // cn: units,
+};
+
+export async function loadCoursesToFirestore(db) {
+  for (const [languageCode, units] of Object.entries(coursesObj)) {
+    console.log(`Processing language: ${languageCode}`);
+    const unitData = {
+      units: units
+    };
+
+    try {
+      await setDoc(doc(collection(db, "courses"), languageCode), unitData);
+      console.log(`Added course: ${languageCode}`);
+    } catch (error) {
+      console.error(`Error adding lesson ${languageCode}:`, error);
+    }
+  }
+  console.log("Finished uploading all lessons.");
+}
