@@ -568,16 +568,29 @@ const sp = {
 
 
 export const courses = [
-  {
-    code: 'es',
-    units: units,
-  },
-  {
-    code: 'en',
-    units: units,
-  },
-  {
-    code: 'pl',
-    units: sp,
-  },
+  { code: "ar", units: units },
+  { code: "bn", units: units },
+  { code: "cs", units: units },
+  { code: "de", units: units },
+  { code: "el", units: units },
+  { code: "en", units: units },
+  { code: "es", units: units },
+  { code: "fr", units: units },
+  { code: "hi", units: units },
+  { code: "hu", units: units },
+  { code: "id", units: units },
+  { code: "it", units: units },
+  { code: "ja", units: units },
+  { code: "ko", units: units },
+  { code: "code-NL", units: units },
+  { code: "pl", units: units },
+  { code: "pt", units: units },
+  { code: "ro", units: units },
+  { code: "ru", units: units },
+  { code: "th", units: units },
+  { code: "tl", units: units },
+  { code: "tr", units: units },
+  { code: "uk", units: units },
+  { code: "vi", units: units },
+  { code: "code-CN", units: units },
 ];
