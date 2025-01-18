@@ -20,7 +20,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app)
 const db = getFirestore(app);
-// await loadCoursesToFirestore(db)
+await loadCoursesToFirestore(db)
 // await loadSampleTasks(db)
 // await loadSampleLessons(db)
 

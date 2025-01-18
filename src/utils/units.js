@@ -13,6 +13,7 @@ export const units = [
         description: "Form basic sentences",
         tasks: [
           {
+            taskType: "",
             question: ['Which word matches the picture?'],
             answer: 'Apple'
           },
@@ -602,7 +603,7 @@ export const coursesObj = {
   // ar: units,
   // bn: units,
   // cs: units,
-  // de: units,
+  de: units,
   // el: units,
   en: units,
   es: units,
@@ -614,59 +615,30 @@ export const coursesObj = {
   // ja: units,
   // ko: units,
   // nl: units,
-  pl: units,
+  // pl: units,
   // pt: units,
   // ro: units,
   // ru: units,
   // th: units,
   // tl: units,
   // tr: units,
-  uk: units,
+  // uk: units,
   vi: units,
   // cn: units,
 };
 
-
-// TODO do poprawki taka konstukcja jka wyzej
 export async function loadCoursesToFirestore(db) {
-  // Iterate over each language in coursesObj
-  //  { uk: {}, en: {}}
   for (const [languageCode, units] of Object.entries(coursesObj)) {
     console.log(`Processing language: ${languageCode}`);
-    let unitCounter = 0; // Counter for unit numbers
+    const unitData = {
+      units: units
+    };
 
-    // Iterate over each unit for the current language
-    for (const unit of units) {
-      unitCounter++;
-      let tileCounter = 0; // Counter for tiles within the unit
-
-      // Iterate over each tile in the unit
-      for (const tile of unit.tiles) {
-        tileCounter++;
-        let taskCounter = 0; // Counter for tasks within the tile
-
-        // Iterate over each task in the tile
-        for (const task of tile.tasks) {
-          taskCounter++;
-          const lessonId = `lesson_${languageCode}_unit${unitCounter}_tile${tileCounter}_task${taskCounter}`;
-          const lessonData = {
-            languageCode,
-            unitNumber: unit.unitNumber,
-            unitDescription: unit.description,
-            tileType: tile.type,
-            tileDescription: tile.description || "",
-            task,
-          };
-
-          // Add lesson data to Firestore
-          try {
-            await setDoc(doc(collection(db, "lessons"), lessonId), lessonData);
-            console.log(`Added lesson: ${lessonId}`);
-          } catch (error) {
-            console.error(`Error adding lesson ${lessonId}:`, error);
-          }
-        }
-      }
+    try {
+      await setDoc(doc(collection(db, "courses"), languageCode), unitData);
+      console.log(`Added course: ${languageCode}`);
+    } catch (error) {
+      console.error(`Error adding lesson ${languageCode}:`, error);
     }
   }
   console.log("Finished uploading all lessons.");
