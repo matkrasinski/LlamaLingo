@@ -1,3 +1,5 @@
+import { collection, doc, setDoc } from "firebase/firestore";
+
 export const units = [
   {
     unitNumber: 1,
@@ -597,29 +599,75 @@ export const courses = [
 ];
 
 export const coursesObj = {
-  ar: units,
-  bn: units,
-  cs: units,
-  de: units,
-  el: units,
+  // ar: units,
+  // bn: units,
+  // cs: units,
+  // de: units,
+  // el: units,
   en: units,
-  es: sp,
+  es: units,
   fr: units,
-  hi: units,
-  hu: units,
-  id: units,
-  it: units,
-  ja: units,
-  ko: units,
-  "code-NL": units,
+  // hi: units,
+  // hu: units,
+  // id: units,
+  // it: units,
+  // ja: units,
+  // ko: units,
+  // nl: units,
   pl: units,
-  pt: units,
-  ro: units,
-  ru: units,
-  th: units,
-  tl: units,
-  tr: units,
+  // pt: units,
+  // ro: units,
+  // ru: units,
+  // th: units,
+  // tl: units,
+  // tr: units,
   uk: units,
   vi: units,
-  "code-CN": units,
+  // cn: units,
 };
+
+
+// TODO do poprawki taka konstukcja jka wyzej
+export async function loadCoursesToFirestore(db) {
+  // Iterate over each language in coursesObj
+  //  { uk: {}, en: {}}
+  for (const [languageCode, units] of Object.entries(coursesObj)) {
+    console.log(`Processing language: ${languageCode}`);
+    let unitCounter = 0; // Counter for unit numbers
+
+    // Iterate over each unit for the current language
+    for (const unit of units) {
+      unitCounter++;
+      let tileCounter = 0; // Counter for tiles within the unit
+
+      // Iterate over each tile in the unit
+      for (const tile of unit.tiles) {
+        tileCounter++;
+        let taskCounter = 0; // Counter for tasks within the tile
+
+        // Iterate over each task in the tile
+        for (const task of tile.tasks) {
+          taskCounter++;
+          const lessonId = `lesson_${languageCode}_unit${unitCounter}_tile${tileCounter}_task${taskCounter}`;
+          const lessonData = {
+            languageCode,
+            unitNumber: unit.unitNumber,
+            unitDescription: unit.description,
+            tileType: tile.type,
+            tileDescription: tile.description || "",
+            task,
+          };
+
+          // Add lesson data to Firestore
+          try {
+            await setDoc(doc(collection(db, "lessons"), lessonId), lessonData);
+            console.log(`Added lesson: ${lessonId}`);
+          } catch (error) {
+            console.error(`Error adding lesson ${lessonId}:`, error);
+          }
+        }
+      }
+    }
+  }
+  console.log("Finished uploading all lessons.");
+}

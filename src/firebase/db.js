@@ -1,4 +1,4 @@
-import { doc, getDoc } from "firebase/firestore"; 
+import { doc, getDoc, collection, getDocs } from "firebase/firestore"; 
 import { db } from "./firebase"
 
 export async function getLevel(level_id) {
@@ -16,5 +16,23 @@ export async function getLevel(level_id) {
     } catch (error) {
         console.error("Error getting document:", error);
         return null;
+    }
+}
+
+export async function getCourses() {
+    try {
+        const coursesCollectionRef = collection(db, "lessons");
+        const querySnapshot = await getDocs(coursesCollectionRef);
+        
+        const courses = [];
+        querySnapshot.forEach((doc) => {
+            courses.push({ id: doc.id, ...doc.data() });
+        });
+
+        console.log("Courses data:", courses);
+        return courses;
+    } catch (error) {
+        console.error("Error getting courses:", error);
+        return [];
     }
 }
