@@ -21,7 +21,11 @@ function App() {
   const routesArray = [
     {
       path: "*",
-      element: <Home />,
+      element: (
+        <div><SplashScreen />
+        <Home />
+        </div>
+      ),
     },
     {
       path: "/login",
@@ -63,7 +67,7 @@ function App() {
 
   const routesElement = useRoutes(routesArray);
   return (
-    <div><SplashScreen />
+    <div>
     <AuthProvider>
       <div className="w-full h-screen flex flex-col">{routesElement}</div>
     </AuthProvider>
