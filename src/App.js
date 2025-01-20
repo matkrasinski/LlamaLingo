@@ -11,13 +11,17 @@ import SplashScreen from "./components/lingo/SplashScreen";
 
 import { AuthProvider } from "./contexts/authContext";
 import { useRoutes } from "react-router-dom";
-import { getCourses } from "./firebase/db";
+import { getCourses, getDocsFromCollection } from "./firebase/db";
+import { useEffect } from "react";
+import { query } from "firebase/firestore";
 
 function App() {
-  // const elo = async () => {
-  //   await getCourses();
-  // }
-  // elo()
+
+  useEffect(() => {
+    const q = async () => console.log(await getDocsFromCollection("courses"))
+    q()
+  }, [])
+
   const routesArray = [
     {
       path: "*",
