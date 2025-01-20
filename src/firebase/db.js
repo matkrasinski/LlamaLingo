@@ -1,4 +1,4 @@
-import { doc, getDoc, collection, getDocs, query, where } from "firebase/firestore"; 
+import { doc, getDoc, collection, getDocs, query, setDoc } from "firebase/firestore"; 
 import { db } from "./firebase"
 
 
@@ -40,4 +40,10 @@ export async function getDocsFromCollection(collection_name, q = undefined) {
         console.error("Error getting document:", error);
         return null;
     }
+}
+
+
+export async function setDocFromCollection(collection_name, object_id, data) {
+    const docRef = collection(db, collection_name);
+    await setDoc(doc(docRef, object_id), data);
 }

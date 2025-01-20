@@ -4,7 +4,8 @@ import { getDocs, getFirestore } from "firebase/firestore";
 import { loadSampleTasks } from "./sample/tasks";
 import { loadSampleLessons } from "./sample/lessons";
 import { loadCoursesToFirestore } from "../utils/units"
-import { getDocsFromCollection } from "./db";
+import { getDocsFromCollection, setDocFromCollection } from "./db";
+
 
 
 const firebaseConfig = {
@@ -26,5 +27,7 @@ const db = getFirestore(app);
 // await loadCoursesToFirestore(db)
 // await loadSampleTasks(db)
 // await loadSampleLessons(db)
+
+
 
 export { app, auth, db };
