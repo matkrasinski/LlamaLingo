@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Flag } from "./Flag";
-import { units, courses, coursesObj } from "../../utils/units";
+// import { units, courses, coursesObj } from "../../utils/units";
 import languages from "../../utils/languages";
 import { useBoundStore } from "../../hooks/useBoundStore";
+
 const Courses = () => {
   const [currentCourses, setCurrentCourses] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Get user data and functions from the store
-  const { user, addUserCourses, updateUserCourses } = useBoundStore();
+  const { user, coursesAll, addUserCourses, updateUserCourses } = useBoundStore();
 
-  // Effect hook to set initial courses when user data changes
   useEffect(() => {
     setCurrentCourses(user.courses);
   }, [user.courses]);
@@ -34,7 +33,7 @@ const Courses = () => {
     const selectedLanguage = languages.find((language) => language.code === code);
     if (selectedLanguage) {
       // const getUnit = courses.find((course) => course.code === code);
-      const newCourse = { code: selectedLanguage.code, units: coursesObj[code] || []};
+      const newCourse = { code: selectedLanguage.code, units: coursesAll[code] || []};
       const updatedCourses = [...currentCourses, newCourse];
 
       // Update state and store outside of render

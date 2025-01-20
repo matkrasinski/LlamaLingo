@@ -1,4 +1,4 @@
-import { doc, getDoc, collection, getDocs, query, where } from "firebase/firestore"; 
+import { doc, getDoc, collection, getDocs, query } from "firebase/firestore"; 
 import { db } from "./firebase"
 
 
@@ -22,7 +22,8 @@ export async function getDocFromCollection(object_id, collection_name) {
 
 
 export async function getDocsFromCollection(collection_name, q = undefined) {
-    if (q == undefined) {
+    console.log("fetch data")
+    if (q === undefined) {
         q = query(collection(db , collection_name))
     }
 
@@ -31,7 +32,11 @@ export async function getDocsFromCollection(collection_name, q = undefined) {
 
         if (!querySnapshot.empty) {
             console.log("Document data:", querySnapshot.docs);
-            return querySnapshot.docs.map((doc) => doc.data());
+            const data = {};
+            querySnapshot.forEach((doc) => {
+                data[doc.id] = doc.data().units;
+            });
+            return data;
         } else {
             console.log("No such document!");
             return {};

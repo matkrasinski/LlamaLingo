@@ -11,17 +11,28 @@ import SplashScreen from "./components/lingo/SplashScreen";
 
 import { AuthProvider } from "./contexts/authContext";
 import { useRoutes } from "react-router-dom";
-import { getCourses, getDocsFromCollection } from "./firebase/db";
+import { getDocsFromCollection } from "./firebase/db";
 import { useEffect } from "react";
-import { query } from "firebase/firestore";
+import { useBoundStore } from "./hooks/useBoundStore";
 
 function App() {
+  const setCourses = useBoundStore((state) => state.setCourses);
 
   useEffect(() => {
-    const q = async () => console.log(await getDocsFromCollection("courses"))
-    q()
-  }, [])
+    const fetchCourses = async () => {
+      try {
+        const courses = await getDocsFromCollection("courses");
+        console.log(courses)
+        if (courses) {
+          setCourses(courses);
+        }
+      } catch (error) {
+        console.error("Error fetching courses:", error);
+      }
+    };
 
+    fetchCourses();
+  }, [setCourses]);
   const routesArray = [
     {
       path: "*",
@@ -68,9 +79,9 @@ function App() {
   const routesElement = useRoutes(routesArray);
   return (
     <div><SplashScreen />
-    <AuthProvider>
-      <div className="w-full h-screen flex flex-col">{routesElement}</div>
-    </AuthProvider>
+      <AuthProvider>
+        <div className="w-full h-screen flex flex-col">{routesElement}</div>
+      </AuthProvider>
     </div>
   );
 }
