@@ -1,9 +1,10 @@
-import { doc, getDoc, collection, getDocs } from "firebase/firestore"; 
+import { doc, getDoc, collection, getDocs, query, where } from "firebase/firestore"; 
 import { db } from "./firebase"
 
-export async function getLevel(level_id) {
+
+export async function getDocFromCollection(object_id, collection_name) {
     try {
-        const docRef = doc(db, "levels", level_id);
+        const docRef = doc(db, collection_name, object_id);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
@@ -19,20 +20,24 @@ export async function getLevel(level_id) {
     }
 }
 
-export async function getCourses() {
-    try {
-        const coursesCollectionRef = collection(db, "lessons");
-        const querySnapshot = await getDocs(coursesCollectionRef);
-        
-        const courses = [];
-        querySnapshot.forEach((doc) => {
-            courses.push({ id: doc.id, ...doc.data() });
-        });
 
-        console.log("Courses data:", courses);
-        return courses;
+export async function getDocsFromCollection(collection_name, q = undefined) {
+    if (q == undefined) {
+        q = query(collection(db , collection_name))
+    }
+
+    try {
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+            console.log("Document data:", querySnapshot.docs);
+            return querySnapshot.docs.map((doc) => doc.data());
+        } else {
+            console.log("No such document!");
+            return {};
+        }
     } catch (error) {
-        console.error("Error getting courses:", error);
-        return [];
+        console.error("Error getting document:", error);
+        return null;
     }
 }
