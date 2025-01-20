@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Flag } from "./Flag";
-// import { units, courses, coursesObj } from "../../utils/units";
 import languages from "../../utils/languages";
 import { useBoundStore } from "../../hooks/useBoundStore";
+import { setDocFromCollection } from "../../firebase/db";
 
 const Courses = () => {
   const [currentCourses, setCurrentCourses] = useState([]);
@@ -11,15 +11,33 @@ const Courses = () => {
   const { user, coursesAll, addUserCourses, updateUserCourses } = useBoundStore();
 
   useEffect(() => {
-    setCurrentCourses(user.courses);
+    if (user.uid) {
+      const syncToFirebase = async () => {
+        try {
+          const courseCodes = user.courses.map((course) => course.code);
+
+          await setDocFromCollection("users", user.uid, { courses: courseCodes });
+          console.log("User course codes synced to Firebase:", courseCodes);
+        } catch (error) {
+          console.error("Error syncing user course codes to Firebase:", error);
+        }
+      };
+
+      syncToFirebase();
+    }
+  }, [user.courses, user.uid]);
+
+  useEffect(() => {
+    setCurrentCourses(user.courses || []);
   }, [user.courses]);
+
 
   const handleCourseClick = (code) => {
     const clickedCourse = currentCourses.find((course) => course.code === code);
     const remainingCourses = currentCourses.filter((course) => course.code !== code);
     const updatedCourses = [clickedCourse, ...remainingCourses];
 
-    // Update state and store outside of render
+    // Update store and state
     setCurrentCourses(updatedCourses);
     updateUserCourses(updatedCourses);
   };
@@ -32,11 +50,10 @@ const Courses = () => {
 
     const selectedLanguage = languages.find((language) => language.code === code);
     if (selectedLanguage) {
-      // const getUnit = courses.find((course) => course.code === code);
-      const newCourse = { code: selectedLanguage.code, units: coursesAll[code] || []};
+      const newCourse = { code: selectedLanguage.code, units: coursesAll[code] || [] };
       const updatedCourses = [...currentCourses, newCourse];
 
-      // Update state and store outside of render
+      // Update store and state
       setCurrentCourses(updatedCourses);
       addUserCourses(newCourse);
 
@@ -126,3 +143,4 @@ const Courses = () => {
 };
 
 export default Courses;
+
