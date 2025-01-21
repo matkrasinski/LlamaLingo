@@ -35,11 +35,17 @@ const LessonPagePhoto = ({ health,changeHealth,indexUnit,indexLesson,indexTask,u
     setIsCorrect(null);
     setChecked(false);
     console.log(health);
-    if (health === 0){
+    if (health === 0 || indexTask + 2 >units[indexUnit].tiles[indexLesson].tasks.length){
       navigate('/main');
     } else {
       const currentUrl = window.location.pathname;
-    const updatedUrl = currentUrl.replace(/\/(\d+)$/, (match, p1) => `/${parseInt(p1, 10) + 1}`);
+      const nextTask = units[indexUnit].tiles[indexLesson].tasks[indexTask+1].taskType;
+      const updatedUrl = currentUrl.replace(
+        /\/lessons\/(\d+)\/(\d+)\/(\d+)\/\w+$/,
+        `/lessons/${indexUnit+1}/${indexLesson+1}/${indexTask + 2}/${nextTask}`
+      );
+      console.log(updatedUrl)
+      console.log(nextTask)
     navigate(updatedUrl);
     }
   };
