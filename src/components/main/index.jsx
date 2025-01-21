@@ -46,7 +46,9 @@ const UnitTile = ({ unit }) => {
 const Main = () => {
   const language = useBoundStore((state) => state.language);
   const { user } = useBoundStore();
-  console.log(user.courses);
+  // console.log("user courses obj");
+  // console.log(user.courses);
+  // console.log("---------------------");
   return (
     <>
       {/* <Header /> */}

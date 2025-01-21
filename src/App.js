@@ -12,18 +12,19 @@ import Profile from "./components/lingo/Profile";
 
 import { AuthProvider } from "./contexts/authContext";
 import { useRoutes } from "react-router-dom";
-import { getDocsFromCollection } from "./firebase/db";
+import { getDocsFromCollection, getUserCoursesFromFirebase } from "./firebase/db";
 import { useEffect } from "react";
 import { useBoundStore } from "./hooks/useBoundStore";
 
 function App() {
   const setCourses = useBoundStore((state) => state.setCourses);
+  const { user, setUserCourses, coursesAll } = useBoundStore();
+  console.log("GLOBAL USR", user.courses)
 
   useEffect(() => {
     const fetchCourses = async () => {
       try {
         const courses = await getDocsFromCollection("courses");
-        console.log(courses)
         if (courses) {
           setCourses(courses);
         }
@@ -34,6 +35,30 @@ function App() {
 
     fetchCourses();
   }, [setCourses]);
+
+  useEffect(() => {
+    /*
+    { code: 'de', units: Array(3) }
+    */
+    if (user.uid) {
+      const fetchUserCourses = async () => {
+        try {
+          const userCourseCodes = await getUserCoursesFromFirebase(user.uid);
+
+          const fullCourses= userCourseCodes.map((code) => {
+            return {code : code, units: coursesAll[code] || []}
+          });
+
+          setUserCourses(fullCourses);
+        } catch (error) {
+          console.error("Error fetching user courses:", error);
+        }
+      };
+
+      fetchUserCourses();
+    }
+  }, [user.uid, coursesAll, setUserCourses]);
+
   const routesArray = [
     {
       path: "*",
@@ -42,7 +67,7 @@ function App() {
           <SplashScreen />
           <Home />
         </div>
-    ),
+      ),
     },
     {
       path: "/login",
@@ -79,13 +104,13 @@ function App() {
     {
       path: "/languageSelect",
       element: (
-      <ProtectedRoute>
-        <LanguageSelect />
-      </ProtectedRoute>
+        <ProtectedRoute>
+          <LanguageSelect />
+        </ProtectedRoute>
       ),
     },
     {
-      
+
       path: "/Profile",
       element: (
         <ProtectedRoute>

@@ -1,4 +1,4 @@
-import { doc, getDoc, collection, getDocs, query, setDoc } from "firebase/firestore"; 
+import { doc, getDoc, collection, getDocs, query, setDoc, updateDoc } from "firebase/firestore"; 
 import { db } from "./firebase"
 
 
@@ -52,3 +52,33 @@ export async function setDocFromCollection(collection_name, object_id, data) {
     const docRef = collection(db, collection_name);
     await setDoc(doc(docRef, object_id), data);
 }
+
+export async function getUserCoursesFromFirebase(userId) {
+  try {
+    const userDocRef = doc(db, "users", userId);
+    const docSnap = await getDoc(userDocRef);
+    
+    if (docSnap.exists()) {
+      console.log(docSnap.data().courses);
+      return docSnap.data().courses || [];
+    } else {
+      console.log("No such document!");
+      return [];
+    }
+  } catch (error) {
+    console.error("Error getting user courses:", error);
+    return [];
+  }
+}
+
+export const updateUserCoursesInFirebase = async (uid, courses) => {
+  try {
+    const userDocRef = doc(db, "users", uid);
+    await updateDoc(userDocRef, {
+      courses: courses, // Update courses field with the new list
+    });
+    console.log("User courses updated in Firebase");
+  } catch (error) {
+    console.error("Error updating user courses in Firebase:", error);
+  }
+};
