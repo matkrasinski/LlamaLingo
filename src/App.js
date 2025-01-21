@@ -19,7 +19,6 @@ import { useBoundStore } from "./hooks/useBoundStore";
 function App() {
   const setCourses = useBoundStore((state) => state.setCourses);
   const { user, setUserCourses, coursesAll } = useBoundStore();
-  console.log("GLOBAL USR", user.courses)
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -40,7 +39,7 @@ function App() {
     /*
     { code: 'de', units: Array(3) }
     */
-    if (user.uid) {
+    if (user && user.uid) {
       const fetchUserCourses = async () => {
         try {
           const userCourseCodes = await getUserCoursesFromFirebase(user.uid);
