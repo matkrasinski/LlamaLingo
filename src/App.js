@@ -7,6 +7,7 @@ import RedirectIfLoggedIn from "./components/RedirectIfLoggedIn";
 import LanguageSelect from "./components/lingo/LanguageSelect";
 import Lessons from "./components/lessons";
 import SplashScreen from "./components/lingo/SplashScreen";
+import Profile from "./components/lingo/Profile";
 
 
 import { AuthProvider } from "./contexts/authContext";
@@ -36,7 +37,12 @@ function App() {
   const routesArray = [
     {
       path: "*",
-      element: <Home />,
+      element: (
+        <div>
+          <SplashScreen />
+          <Home />
+        </div>
+    ),
     },
     {
       path: "/login",
@@ -72,13 +78,26 @@ function App() {
     },
     {
       path: "/languageSelect",
-      element: <LanguageSelect />,
+      element: (
+      <ProtectedRoute>
+        <LanguageSelect />
+      </ProtectedRoute>
+      ),
+    },
+    {
+      
+      path: "/Profile",
+      element: (
+        <ProtectedRoute>
+          <Profile />
+        </ProtectedRoute>
+      ),
     },
   ];
 
   const routesElement = useRoutes(routesArray);
   return (
-    <div><SplashScreen />
+    <div>
       <AuthProvider>
         <div className="w-full h-screen flex flex-col">{routesElement}</div>
       </AuthProvider>
