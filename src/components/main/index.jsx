@@ -62,7 +62,7 @@ const Main = () => {
                 <UnitTile key={unit.unitNumber} unit={unit} />
               ))
             ) : (
-              <p> gowno </p>
+              <p> Nie wybrano jezyka </p>
             )}
           </div>
         }

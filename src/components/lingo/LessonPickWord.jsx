@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { WomanSvg, BoySvg, AppleSvg } from "../Svgs";
 import { useNavigate } from "react-router-dom";
 import { useMemo } from "react";
+import { ToastContainer, toast } from 'react-toastify';
 
 const LessonPickWord = ({ health,changeHealth,indexUnit,indexLesson,indexTask,units }) => {
   const [selectedAnswers, setSelectedAnswers] =  useState([]);
@@ -22,7 +23,7 @@ const LessonPickWord = ({ health,changeHealth,indexUnit,indexLesson,indexTask,un
 
   const handleCheck = () => {
      if (selectedAnswers.length !== correctAnswer.length) {
-      alert("Please pick all world first.");
+      toast("Please pick all world first.");
       return false;
      } 
 
@@ -64,6 +65,7 @@ const LessonPickWord = ({ health,changeHealth,indexUnit,indexLesson,indexTask,un
 
   return (
     <div className="min-h-screen bg-blue-50 flex flex-col items-center justify-center p-4">
+      <ToastContainer/>
       {/* <h1 className="text-2xl font-bold mb-6 text-gray-800">Put words in the right order</h1> */}
       <div className="flex grow flex-col items-center gap-5">
         <div className="w-full max-w-5xl sm:mt-8 sm:px-5">

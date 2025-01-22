@@ -535,16 +535,16 @@ const sp = [
         type: "fast-forward", description: "Order food and drink",
         tasks: [
           {
-            taskType:'translate',
-            ogQuestion: 'Dzien dobry Panie Siarra',
-            question: ['Buenos', 'Señor Siarra'],
-            answer: 'dias'
-          },
-          {
             taskType:'pickPhoto',
             question: 'Which word is Apple?',
             options: ['Woman','Boy','Apple'],
             answer: 'Apple'
+          },
+          {
+            taskType:'translate',
+            ogQuestion: 'Dzien dobry Panie Siarra',
+            question: ['Buenos', 'Señor Siarra'],
+            answer: 'dias'
           },
           {
             taskType:'pickWords',
