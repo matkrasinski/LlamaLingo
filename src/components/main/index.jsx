@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 // import Header from "../header";
 import { useBoundStore } from "../../hooks/useBoundStore";
-// import { units } from "../../utils/units";
 import LeftBar from "../lingo/LeftBar";
 import Courses from "../lingo/Courses";
 
@@ -33,7 +32,7 @@ const UnitTile = ({ unit }) => {
             key={index}
             className="flex h-10 w-10 items-center justify-center rounded-full border-2 bg-white text-xs font-bold text-gray-600"
             title={tile.description || tile.type}
-            to={`/lessons/${unit.unitNumber}/${index + 1}/1`}
+            to={`/lessons/${unit.unitNumber}/${index + 1}/1/${unit.tiles[index].tasks[0].taskType}`}
           >
             {tile.type[0].toUpperCase()}
           </Link>
@@ -46,7 +45,9 @@ const UnitTile = ({ unit }) => {
 const Main = () => {
   const language = useBoundStore((state) => state.language);
   const { user } = useBoundStore();
-  console.log(user.courses);
+  // console.log("user courses obj");
+  // console.log(user.courses);
+  // console.log("---------------------");
   return (
     <>
       {/* <Header /> */}
@@ -60,7 +61,7 @@ const Main = () => {
                 <UnitTile key={unit.unitNumber} unit={unit} />
               ))
             ) : (
-              <p> gowno </p>
+              <p> Nie wybrano jezyka </p>
             )}
           </div>
         }

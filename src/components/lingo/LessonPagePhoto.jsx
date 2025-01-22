@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { WomanSvg, BoySvg, AppleSvg } from "../Svgs";
+import { ToastContainer, toast } from 'react-toastify';
 
-const LessonPagePhoto = ({ health,changeHealth,indexUnit,indexLesson,indexTask,units}) => {
+const LessonPagePhoto = ({ health, changeHealth, indexUnit, indexLesson, indexTask, units }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
   const [checked, setChecked] = useState(false); // Tracks whether the check button was clicked
@@ -20,11 +21,11 @@ const LessonPagePhoto = ({ health,changeHealth,indexUnit,indexLesson,indexTask,u
     if (selectedOption) {
       setIsCorrect(selectedOption === correctAnswer);
       setChecked(true);
-      if (selectedOption !== correctAnswer){
+      if (selectedOption !== correctAnswer) {
         changeHealth();
       }
     } else {
-      alert("Please select an option first.");
+      toast("Please select an option first.");
     }
   };
 
@@ -35,43 +36,50 @@ const LessonPagePhoto = ({ health,changeHealth,indexUnit,indexLesson,indexTask,u
     setIsCorrect(null);
     setChecked(false);
     console.log(health);
-    if (health === 0){
+    if (health === 0 || indexTask + 2 > units[indexUnit].tiles[indexLesson].tasks.length) {
       navigate('/main');
     } else {
       const currentUrl = window.location.pathname;
-    const updatedUrl = currentUrl.replace(/\/(\d+)$/, (match, p1) => `/${parseInt(p1, 10) + 1}`);
-    navigate(updatedUrl);
+      const nextTask = units[indexUnit].tiles[indexLesson].tasks[indexTask + 1].taskType;
+      const updatedUrl = currentUrl.replace(
+        /\/lessons\/(\d+)\/(\d+)\/(\d+)\/\w+$/,
+        `/lessons/${indexUnit + 1}/${indexLesson + 1}/${indexTask + 2}/${nextTask}`
+      );
+      console.log(updatedUrl)
+      console.log(nextTask)
+      navigate(updatedUrl);
     }
   };
 
   return (
     <div className="min-h-screen bg-blue-50 flex flex-col items-center justify-center p-4">
+      <ToastContainer />
       Unit: {unit}, Lesson: {lessonId}
       <h1 className="text-2xl font-bold mb-6 text-gray-800">{question}</h1>
 
       <div className="grid grid-cols-3 gap-6 max-w-4xl mb-6">
         <div
-          onClick={() => handleOptionClick("Woman")}
+          onClick={() => !checked && handleOptionClick("Woman")}
           className={`bg-white p-4 rounded-lg shadow-lg hover:bg-blue-100 transition cursor-pointer flex flex-col items-center ${selectedOption === "Woman" ? "border-4 border-blue-500" : ""
-            }`}
+            } ${checked ? "pointer-events-none opacity-50" : ""}`}
         >
           <WomanSvg />
           <span className="text-gray-700 text-lg font-medium">Woman</span>
         </div>
 
         <div
-          onClick={() => handleOptionClick("Boy")}
+          onClick={() => !checked && handleOptionClick("Boy")}
           className={`bg-white p-4 rounded-lg shadow-lg hover:bg-blue-100 transition cursor-pointer flex flex-col items-center ${selectedOption === "Boy" ? "border-4 border-blue-500" : ""
-            }`}
+            } ${checked ? "pointer-events-none opacity-50" : ""}`}
         >
           <BoySvg />
           <span className="text-gray-700 text-lg font-medium">Boy</span>
         </div>
 
         <div
-          onClick={() => handleOptionClick("Apple")}
+          onClick={() => !checked && handleOptionClick("Apple")}
           className={`bg-white p-4 rounded-lg shadow-lg hover:bg-blue-100 transition cursor-pointer flex flex-col items-center ${selectedOption === "Apple" ? "border-4 border-blue-500" : ""
-            }`}
+            } ${checked ? "pointer-events-none opacity-50" : ""}`}
         >
           <AppleSvg />
           <span className="text-gray-700 text-lg font-medium">Apple</span>
