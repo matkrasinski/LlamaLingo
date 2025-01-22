@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Navigate, Link } from 'react-router-dom'
 import { doSignInWithEmailAndPassword, doSignInWithGoogle } from '../../../firebase/auth'
 import { useAuth } from '../../../contexts/authContext'
+
 const Login = () => {
     const { userLoggedIn } = useAuth()
 
@@ -12,13 +13,13 @@ const Login = () => {
 
     const onSubmit = async (e) => {
         e.preventDefault()
-        if (!isSigningIn) {
-            try {
-                await doSignInWithEmailAndPassword(email, password)
+        if(!isSigningIn) {
+            try{
                 setIsSigningIn(true)
+                await doSignInWithEmailAndPassword(email, password)
                 // doSendEmailVerification()
             }
-            catch (error) {
+            catch(error){
                 setErrorMessage(error.message);
             }
         }
@@ -27,10 +28,10 @@ const Login = () => {
     const onGoogleSignIn = (e) => {
         e.preventDefault()
         if (!isSigningIn) {
+            setIsSigningIn(true)
             doSignInWithGoogle().catch(err => {
                 setIsSigningIn(false)
             })
-            setIsSigningIn(true)
         }
     }
 
@@ -79,6 +80,7 @@ const Login = () => {
                         {errorMessage && (
                             <span className='text-red-600 font-bold'>{errorMessage}</span>
                         )}
+
                         <button
                             type="submit"
                             disabled={isSigningIn}

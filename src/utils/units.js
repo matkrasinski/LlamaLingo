@@ -535,78 +535,41 @@ const sp = [
         type: "fast-forward", description: "Order food and drink",
         tasks: [
           {
-            taskType:'pickPhoto',
-            question: 'Which word is Apple?',
-            options: ['Woman','Boy','Apple'],
+            question: ['Which word matches the picture?'],
             answer: 'Apple'
           },
           {
-            taskType:'translate',
+            question: ['Amurika', 'great', 'again', 'make'],
+            answer: ['make', 'Amurika', 'great', 'again']
+          },
+          {
             ogQuestion: 'Dzien dobry Panie Siarra',
             question: ['Buenos', 'Señor Siarra'],
             answer: 'dias'
-          },
-          {
-            taskType:'pickWords',
-            answer: ['yo', 'soy', 'el', 'nino']
-          },
+          }
         ]
       },
       {
         type: "book", description: "The passport",
         tasks: [
           {
-            taskType:'pickPhoto',
-            question: 'Which word is boy?',
-            options: ['Woman','Boy','Apple'],
-            answer: 'Boy'
+            question: ['Which word matches the picture?'],
+            answer: 'Apple'
           },
           {
-            taskType:'pickWords',
-            answer: ['yo', 'bebo', 'aqua']
+            question: ['Amurika', 'great', 'again', 'make'],
+            answer: ['make', 'Amurika', 'great', 'again']
           },
           {
-            taskType:'translate',
-            ogQuestion: 'Ja potrzebuje chleba',
-            question: ['Yo', 'un pan'],
-            answer: 'neccesito'
+            ogQuestion: 'Dzien dobry Panie Siarra',
+            question: ['Buenos', 'Señor Siarra'],
+            answer: 'dias'
           }
         ]
       },
     ],
-  },
-  {
-    unitNumber: 2,
-    description: "Basic conversation",
-    backgroundColor: "bg-[#ff5733]",
-    textColor: "text-[#ff5733]",
-    borderColor: "border-[#c44128]",
-    tiles: [
-      {
-        type: "chat", description: "Greetings",
-        tasks: [
-          {
-            taskType:'pickPhoto',
-            question: 'Which word is woman?',
-            options: ['Woman','Boy','Apple'],
-            answer: 'Woman'
-          },
-          {
-            taskType:'pickWords',
-            answer: ['yo', 'neccesito', 'aqua']
-          },
-          {
-            taskType:'translate',
-            ogQuestion: 'Ja potrzebuje jablka',
-            question: ['Yo', 'una manzana'],
-            answer: 'neccesito'
-          }
-        ]
-      },
-    ],
-  },
-];
-
+  }
+]
 
 export const courses = [
   { code: "ar", units: units },
@@ -643,7 +606,7 @@ export const coursesObj = {
   de: units,
   // el: units,
   en: units,
-  es: sp,
+  es: units,
   fr: units,
   // hi: units,
   // hu: units,
