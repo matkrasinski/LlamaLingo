@@ -14,8 +14,8 @@ export const useBoundStore = create(
     }
     ),
     {
-      name: 'food-storage',
-      storage: createJSONStorage(() => sessionStorage),
+      name: 'store-storage',
+      storage: createJSONStorage(() => localStorage),
     },
   )
 );
