@@ -23,19 +23,7 @@ const LessonPageSentence = ({ health,changeHealth,indexUnit,indexLesson,indexTas
     setIsCorrect(null);
     setChecked(false);
     console.log(health);
-    if (health === 0 || indexTask + 2 >units[indexUnit].tiles[indexLesson].tasks.length){
-      navigate('/main');
-    } else {
-      const currentUrl = window.location.pathname;
-      const nextTask = units[indexUnit].tiles[indexLesson].tasks[indexTask+1].taskType;
-      const updatedUrl = currentUrl.replace(
-        /\/lessons\/(\d+)\/(\d+)\/(\d+)\/\w+$/,
-        `/lessons/${indexUnit+1}/${indexLesson+1}/${indexTask + 2}/${nextTask}`
-      );
-      console.log(updatedUrl)
-      console.log(nextTask)
-    navigate(updatedUrl);
-    }
+    navigate('/main');
   };
 
   return (

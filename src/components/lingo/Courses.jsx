@@ -1,59 +1,43 @@
 import React, { useState, useEffect } from "react";
 import { Flag } from "./Flag";
+import { units, courses, coursesObj } from "../../utils/units";
 import languages from "../../utils/languages";
 import { useBoundStore } from "../../hooks/useBoundStore";
-import { setDocFromCollection } from "../../firebase/db";
-import { ToastContainer, toast } from 'react-toastify';
 const Courses = () => {
   const [currentCourses, setCurrentCourses] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { user, coursesAll, addUserCourses, updateUserCourses } = useBoundStore();
+  // Get user data and functions from the store
+  const { user, addUserCourses, updateUserCourses } = useBoundStore();
 
+  // Effect hook to set initial courses when user data changes
   useEffect(() => {
-    if (user.uid) {
-      const syncToFirebase = async () => {
-        try {
-          const courseCodes = user.courses.map((course) => course.code);
-
-          await setDocFromCollection("users", user.uid, { courses: courseCodes });
-          console.log("User course codes synced to Firebase:", courseCodes);
-        } catch (error) {
-          console.error("Error syncing user course codes to Firebase:", error);
-        }
-      };
-
-      syncToFirebase();
-    }
-  }, [user.courses, user.uid]);
-
-  useEffect(() => {
-    setCurrentCourses(user.courses || []);
+    setCurrentCourses(user.courses);
   }, [user.courses]);
-
 
   const handleCourseClick = (code) => {
     const clickedCourse = currentCourses.find((course) => course.code === code);
     const remainingCourses = currentCourses.filter((course) => course.code !== code);
     const updatedCourses = [clickedCourse, ...remainingCourses];
 
-    // Update store and state
+    // Update state and store outside of render
     setCurrentCourses(updatedCourses);
     updateUserCourses(updatedCourses);
   };
 
   const handleAddCourse = (code) => {
     if (currentCourses.find((course) => course.code === code)) {
-      toast("Course already added!");
+      alert("Course already added!");
       return;
     }
 
     const selectedLanguage = languages.find((language) => language.code === code);
     if (selectedLanguage) {
-      const newCourse = { code: selectedLanguage.code, units: coursesAll[code] || [] };
+      // const getUnit = courses.find((course) => course.code === code);
+      const newCourse = { code: selectedLanguage.code, units: coursesObj[code] || []};
       const updatedCourses = [...currentCourses, newCourse];
 
-      // Update store and state
+      // Update state and store outside of render
       setCurrentCourses(updatedCourses);
       addUserCourses(newCourse);
 
@@ -67,7 +51,6 @@ const Courses = () => {
 
   return (
     <div className="p-6">
-      <ToastContainer/>
       <h2 className="text-xl font-bold mb-4">Your Courses</h2>
 
       {currentCourses.length === 0 ? (
@@ -144,4 +127,3 @@ const Courses = () => {
 };
 
 export default Courses;
-
