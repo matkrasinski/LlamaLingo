@@ -20,6 +20,14 @@ export const createUserStore = (set) => ({
       },
     })),
 
+  setUserCourses: (courses) =>
+    set((state) => ({
+      user: {
+        ...state.user,
+        courses: courses,
+      },
+    })),
+
   updateUserCourses: (updatedCourses) =>
     set((state) => ({ user: { ...state.user, courses: updatedCourses } })),
 

@@ -6,13 +6,13 @@ import LessonPageSentence from "../lingo/LessonPageSentence";
 import { useBoundStore } from "../../hooks/useBoundStore";
 
 const Lessons = () => {
-  const { unit, lessonId, taskId } = useParams();
+  const { unit, lessonId,taskId, taskType } = useParams();
   const { user } = useBoundStore();
 
   const indexUnit = unit-1;
   const indexLesson = lessonId-1;
   const indexTask = taskId-1;
-
+  console.log(taskType);
   const [health,setHealth] = useState(1);
   // choose language
   const language = user.courses[0];
@@ -22,12 +22,12 @@ const Lessons = () => {
     setHealth(newHealth);
   };
 
-  switch (indexTask) {
-    case 0:
+  switch (taskType) {
+    case 'pickPhoto':
       return <LessonPagePhoto health = {health} changeHealth={changeHealth} indexUnit={indexUnit} indexLesson={indexLesson} indexTask={indexTask} units={language.units}/>;
-    case 1:
+    case 'pickWords':
       return <LessonPickWord health = {health} changeHealth={changeHealth} indexUnit={indexUnit} indexLesson={indexLesson} indexTask={indexTask} units={language.units}/>;
-    case 2:
+    case 'translate':
       return <LessonPageSentence health = {health} changeHealth={changeHealth} indexUnit={indexUnit} indexLesson={indexLesson} indexTask={indexTask} units={language.units}/>;
     default:
       return (

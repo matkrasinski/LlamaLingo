@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { LanguageDropDown } from "./LanguageDropDown";
 import { useAuth } from '../../contexts/authContext'
 import { doSignOut } from '../../firebase/auth'
 const LanguageHeader = () => {
@@ -11,7 +10,6 @@ const LanguageHeader = () => {
       <Link className="text-4xl" to="/">
         llamalingo
       </Link>
-      <LanguageDropDown />
       {
         userLoggedIn
           ?
