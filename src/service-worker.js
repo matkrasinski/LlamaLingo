@@ -22,12 +22,15 @@ registerRoute(
 
 // Cache Firestore API responses
 registerRoute(
-  ({ url }) => url.hostname.includes('firestore.googleapis.com'),
+  ({ url }) => {
+    console.log('Intercepted request to:', url.toString());
+    return url.hostname.includes('firestore.googleapis.com');
+  },
   new NetworkFirst({
     cacheName: 'firestore-cache',
     plugins: [
       new ExpirationPlugin({
-        maxEntries: 100, // Limit the number of cached entries
+        maxEntries: 100,
         maxAgeSeconds: 7 * 24 * 60 * 60, // Cache for 1 week
       }),
     ],
@@ -50,15 +53,16 @@ registerRoute(
 
 // Handle fetch fallback for uncached resources or when offline
 self.addEventListener('fetch', (event) => {
+  console.log('Fetch event for:', event.request.url);
   if (!navigator.onLine) {
     event.respondWith(
       caches.match(event.request).then((response) => {
-        return (
-          response ||
-          new Response(
-            JSON.stringify({ error: 'Offline and resource not cached.' }),
-            { headers: { 'Content-Type': 'application/json' } }
-          )
+        if (response) {
+          return response;
+        }
+        return new Response(
+          JSON.stringify({ error: 'Offline and resource not cached.' }),
+          { headers: { 'Content-Type': 'application/json' } }
         );
       })
     );
@@ -78,6 +82,7 @@ const urlsToCache = [
 ];
 
 self.addEventListener('install', (event) => {
+  console.log('Service worker installing...');
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(urlsToCache);
