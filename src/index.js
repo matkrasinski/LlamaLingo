@@ -5,13 +5,6 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
-);
-
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker
@@ -25,5 +18,12 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-
 serviceWorkerRegistration.register();
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+);
+

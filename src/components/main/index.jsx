@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useBoundStore } from "../../hooks/useBoundStore";
 import LeftBar from "../lingo/LeftBar";
 import Courses from "../lingo/Courses";
+import UpdateNotification from "../lingo/UpdateNotification";
 
 const PageWrapper = ({ left, center, right }) => {
   return (
@@ -67,6 +68,7 @@ const Main = () => {
         }
         right={<div>
           <Courses />
+          <UpdateNotification />
           <h1>Selected Language:</h1>
           <p>
             user: {user.uid} <br />
