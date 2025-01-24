@@ -5,7 +5,7 @@ import { loadSampleTasks } from "./sample/tasks";
 import { loadSampleLessons } from "./sample/lessons";
 import { loadCoursesToFirestore } from "../utils/units"
 import { getDocsFromCollection, setDocFromCollection } from "./db";
-import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import { getMessaging, getToken } from "firebase/messaging";
 
 
 const firebaseConfig = {
@@ -43,7 +43,7 @@ Notification.requestPermission()
       // Use the service worker with Firebase Messaging
       return getToken(messaging, {
         vapidKey: "BARKrFULp2YR-Vox_G9QVwzfGrmH6ZoBD82w0GhrvwZIfLL7xagVNdtB-OmNrfLJFlYzptKprsP9AwDYuV35-tM",
-        serviceWorkerRegistration: registration, // Pass the valid ServiceWorkerRegistration here
+        // serviceWorkerRegistration: registration, // Pass the valid ServiceWorkerRegistration here
       });
     }
     return null;
@@ -60,9 +60,9 @@ Notification.requestPermission()
   });
 
 // Listen for foreground messages
-onMessage(messaging, (payload) => {
-  console.log("Received foreground message:", payload);
-});
+// onMessage(messaging, (payload) => {
+//   console.log("Received foreground message:", payload);
+// });
 
 // console.log(await getDocsFromCollection("courses"))
 // await loadCoursesToFirestore(db)

@@ -16,11 +16,20 @@ import Profile from "./components/lingo/Profile";
 
 // Import react-toastify components
 import { ToastContainer, toast } from "react-toastify";
+import { onMessage } from "firebase/messaging";
+import { messaging } from "./firebase/firebase";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const setCourses = useBoundStore((state) => state.setCourses);
   const { user, setUserCourses, coursesAll } = useBoundStore();
+
+  useEffect(() => {
+    onMessage(messaging, (payload) => {
+      console.log("Received foreground message:", payload);
+      toast("elo")
+    });
+  }, [])
 
   // Handle Wake Lock API
   useEffect(() => {
