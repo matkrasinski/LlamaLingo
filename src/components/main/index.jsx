@@ -2,6 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 // import Header from "../header";
 import { useBoundStore } from "../../hooks/useBoundStore";
+import { getFirebaseToken, onForegroundMessage } from "../../firebase/firebase";
+import { useEffect, useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
 import LeftBar from "../lingo/LeftBar";
 import Courses from "../lingo/Courses";
 
@@ -32,7 +35,9 @@ const UnitTile = ({ unit }) => {
             key={index}
             className="flex h-10 w-10 items-center justify-center rounded-full border-2 bg-white text-xs font-bold text-gray-600"
             title={tile.description || tile.type}
-            to={`/lessons/${unit.unitNumber}/${index + 1}/1/${unit.tiles[index].tasks[0].taskType}`}
+            to={`/lessons/${unit.unitNumber}/${index + 1}/1/${
+              unit.tiles[index].tasks[0].taskType
+            }`}
           >
             {tile.type[0].toUpperCase()}
           </Link>
@@ -45,15 +50,51 @@ const UnitTile = ({ unit }) => {
 const Main = () => {
   const language = useBoundStore((state) => state.language);
   const { user } = useBoundStore();
+  const [showNotificationBanner, setShowNotificationBanner] = useState(Notification.permission === 'default');
+
   // console.log("user courses obj");
   // console.log(user.courses);
   // console.log("---------------------");
+
+
+  useEffect(() => {
+    onForegroundMessage()
+      .then((payload) => {
+        console.log('Received foreground message: ', payload);
+        const { notification: { title, body } } = payload;
+        toast(<ToastifyNotification title={title} body={body} />);
+      })
+      .catch(err => console.log('An error occured while retrieving foreground message. ', err));
+  }, []);
+
+  const handleGetFirebaseToken = () => {
+    getFirebaseToken()
+      .then((firebaseToken) => {
+        console.log('Firebase token: ', firebaseToken);
+        if (firebaseToken) {
+          setShowNotificationBanner(false);
+        }
+      })
+      .catch((err) => console.error('An error occured while retrieving firebase token. ', err))
+  }
+
+  const ToastifyNotification = ({ title, body }) => (
+    <div className="push-notification">
+      <h2 className="push-notification-title">{title}</h2>
+      <p className="push-notification-text">{body}</p>
+    </div>
+  );
+
   return (
     <>
       {/* <Header /> */}
 
       <PageWrapper
-        left={<div><LeftBar /></div>}
+        left={
+          <div>
+            <LeftBar />
+          </div>
+        }
         center={
           <div className="flex flex-col gap-4">
             {user.courses && user.courses.length > 0 ? (
@@ -65,30 +106,56 @@ const Main = () => {
             )}
           </div>
         }
-        right={<div>
-          <Courses />
-          <h1>Selected Language:</h1>
-          <p>
-            user: {user.uid} <br />
-          </p>
-          <strong>Selected Language(s):</strong>
-          <ul className="list-disc pl-5">
-            {user.courses.length > 0 ? (
-              user.courses.map((course, index) => (
-                <li key={index} className="text-sm text-gray-700">
-                  {course.code || "Unknown Language"}
-                </li>
-              ))
-            ) : (
-              <span>No courses added yet</span>
+        right={
+          <div>
+            {showNotificationBanner && (
+              <div className="notification-banner">
+                <span>The app needs permission to</span>
+                <a
+                  href="#"
+                  className="notification-banner-link"
+                  onClick={handleGetFirebaseToken}
+                >
+                  enable push notifications.
+                </a>
+              </div>
             )}
-          </ul>
-          <p>
-            Name: {language.name} <br />
-            Native Name: {language.nativeName} <br />
-            Code: {language.code}
-          </p>
-        </div>}
+
+            <button
+              className="btn-primary"
+              onClick={() =>
+                toast(
+                  <ToastifyNotification title="New Message" body="Hi there!" />
+                )
+              }
+            >
+              Show toast notification
+            </button>
+            <ToastContainer hideProgressBar />
+            <Courses />
+            <h1>Selected Language:</h1>
+            <p>
+              user: {user.uid} <br />
+            </p>
+            <strong>Selected Language(s):</strong>
+            <ul className="list-disc pl-5">
+              {user.courses.length > 0 ? (
+                user.courses.map((course, index) => (
+                  <li key={index} className="text-sm text-gray-700">
+                    {course.code || "Unknown Language"}
+                  </li>
+                ))
+              ) : (
+                <span>No courses added yet</span>
+              )}
+            </ul>
+            <p>
+              Name: {language.name} <br />
+              Native Name: {language.nativeName} <br />
+              Code: {language.code}
+            </p>
+          </div>
+        }
       />
     </>
   );
