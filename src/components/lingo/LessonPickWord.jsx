@@ -4,6 +4,20 @@ import { WomanSvg, BoySvg, AppleSvg } from "../Svgs";
 import { useNavigate } from "react-router-dom";
 import { useMemo } from "react";
 import { ToastContainer, toast } from 'react-toastify';
+import done from "../../utils/coursesDone.json"
+
+
+const addElementToLanguage = (data, language, unitElement, lessonElement) => {
+  console.log(data[language][unitElement+1][String(lessonElement)])
+
+  data[language][unitElement][String(lessonElement)] = "done";
+  // if (!data[language]) {
+  //   data[language] = [[], []];
+  // }
+  // data[language][0].push(unitElement);
+  // data[language][1].push(lessonElement);
+  // return data;
+};
 
 const LessonPickWord = ({ health,changeHealth,indexUnit,indexLesson,indexTask,units }) => {
   const [selectedAnswers, setSelectedAnswers] =  useState([]);
@@ -40,6 +54,7 @@ const LessonPickWord = ({ health,changeHealth,indexUnit,indexLesson,indexTask,un
      }
      setChecked(true);
      setIsCorrect(true);
+     addElementToLanguage(done,'es',indexUnit,indexLesson+1)
      return true;
   };
 
