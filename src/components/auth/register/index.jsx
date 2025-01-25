@@ -20,8 +20,8 @@ const Register = () => {
         e.preventDefault()
         if(!isRegistering) {
             try{
-                setIsRegistering(true)
                 await doCreateUserWithEmailAndPassword(email, password)
+                setIsRegistering(true)
             }
             catch(error){
                 setErrorMessage(error.message)
@@ -33,7 +33,11 @@ const Register = () => {
     return (
         <>
             {userLoggedIn && (<Navigate to={'/'} replace={true} />)}
-
+            <header className="w-full bg-indigo-600 p-4 flex justify-center shadow-md">
+                <Link to="/" className="text-white text-xl font-bold flex items-center space-x-2">
+                    <span>llamalingo</span>
+                </Link>
+            </header>
             <main className="w-full h-screen flex self-center place-content-center place-items-center">
                 <div className="w-96 text-gray-600 space-y-5 p-4 shadow-xl border rounded-xl">
                     <div className="text-center mb-6">

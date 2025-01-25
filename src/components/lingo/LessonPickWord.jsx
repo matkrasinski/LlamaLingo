@@ -67,7 +67,7 @@ const LessonPickWord = ({ health,changeHealth,indexUnit,indexLesson,indexTask,un
     <div className="min-h-screen bg-blue-50 flex flex-col items-center justify-center p-4">
       <ToastContainer/>
       {/* <h1 className="text-2xl font-bold mb-6 text-gray-800">Put words in the right order</h1> */}
-      <div className="flex grow flex-col items-center gap-5">
+      <div className="flex flex-col items-center gap-5 mb-5">
         <div className="w-full max-w-5xl sm:mt-8 sm:px-5">
           {/* <ProgressBar
             correctAnswerCount={correctAnswerCount}
@@ -76,7 +76,7 @@ const LessonPickWord = ({ health,changeHealth,indexUnit,indexLesson,indexTask,un
             hearts={hearts}
           /> */}
         </div>
-        <section className="flex max-w-2xl grow flex-col gap-5 self-center sm:items-center sm:justify-center sm:gap-24">
+        <section className="flex max-w-2xl grow flex-col gap-5 self-center sm:items-center justify-center sm:gap-24">
           <h1 className="mb-2 text-2xl font-bold sm:text-3xl">
             Put words in the right order
           </h1>

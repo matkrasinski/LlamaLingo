@@ -5,6 +5,7 @@ import { doSignOut } from '../../firebase/auth'
 const LanguageHeader = () => {
   const navigate = useNavigate()
   const { userLoggedIn } = useAuth()
+  const isSmallScreen = window.innerWidth < 640;
   return (
     <header className="fixed left-0 right-0 top-0 mx-auto flex min-h-[70px] max-w-5xl items-center justify-between bg-[#235390] px-10 font-bold text-white">
       {/* Logo on the far left */}
@@ -28,6 +29,7 @@ const LanguageHeader = () => {
             Logout
           </button>
         ) : (
+          !isSmallScreen && (
           <>
             <Link
               className="rounded-2xl border-2 border-b-4 border-[#042c60] bg-[#235390] px-4 py-2 transition hover:bg-[#204b82]"
@@ -41,7 +43,7 @@ const LanguageHeader = () => {
             >
               Register New Account
             </Link>
-          </>
+          </>)
         )}
       </div>
     </header>

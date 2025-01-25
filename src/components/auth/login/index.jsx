@@ -1,42 +1,47 @@
-import React, { useState } from 'react'
-import { Navigate, Link } from 'react-router-dom'
-import { doSignInWithEmailAndPassword, doSignInWithGoogle } from '../../../firebase/auth'
-import { useAuth } from '../../../contexts/authContext'
-const Login = () => {
-    const { userLoggedIn } = useAuth()
+import React, { useState } from 'react';
+import { Navigate, Link } from 'react-router-dom';
+import { doSignInWithEmailAndPassword, doSignInWithGoogle } from '../../../firebase/auth';
+import { useAuth } from '../../../contexts/authContext';
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [isSigningIn, setIsSigningIn] = useState(false)
-    const [errorMessage, setErrorMessage] = useState('')
+const Login = () => {
+    const { userLoggedIn } = useAuth();
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [isSigningIn, setIsSigningIn] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const onSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         if (!isSigningIn) {
             try {
-                await doSignInWithEmailAndPassword(email, password)
-                setIsSigningIn(true)
-                // doSendEmailVerification()
-            }
-            catch (error) {
+                await doSignInWithEmailAndPassword(email, password);
+                setIsSigningIn(true);
+            } catch (error) {
                 setErrorMessage(error.message);
             }
         }
-    }
+    };
 
     const onGoogleSignIn = (e) => {
-        e.preventDefault()
+        e.preventDefault();
         if (!isSigningIn) {
             doSignInWithGoogle().catch(err => {
-                setIsSigningIn(false)
-            })
-            setIsSigningIn(true)
+                setIsSigningIn(false);
+            });
+            setIsSigningIn(true);
         }
-    }
+    };
 
     return (
         <div>
             {userLoggedIn && (<Navigate to={'/main'} replace={true} />)}
+
+            <header className="w-full bg-indigo-600 p-4 flex justify-center shadow-md">
+                <Link to="/" className="text-white text-xl font-bold flex items-center space-x-2">
+                    <span>llamalingo</span>
+                </Link>
+            </header>
 
             <main className="w-full h-screen flex self-center place-content-center place-items-center">
                 <div className="w-96 text-gray-600 space-y-5 p-4 shadow-xl border rounded-xl">
@@ -45,33 +50,27 @@ const Login = () => {
                             <h3 className="text-gray-800 text-xl font-semibold sm:text-2xl">Welcome Back</h3>
                         </div>
                     </div>
-                    <form
-                        onSubmit={onSubmit}
-                        className="space-y-5"
-                    >
+                    <form onSubmit={onSubmit} className="space-y-5">
                         <div>
-                            <label className="text-sm text-gray-600 font-bold">
-                                Email
-                            </label>
+                            <label className="text-sm text-gray-600 font-bold">Email</label>
                             <input
                                 type="email"
                                 autoComplete='email'
                                 required
-                                value={email} onChange={(e) => { setEmail(e.target.value) }}
+                                value={email}
+                                onChange={(e) => { setEmail(e.target.value); }}
                                 className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg transition duration-300"
                             />
                         </div>
 
-
                         <div>
-                            <label className="text-sm text-gray-600 font-bold">
-                                Password
-                            </label>
+                            <label className="text-sm text-gray-600 font-bold">Password</label>
                             <input
                                 type="password"
                                 autoComplete='current-password'
                                 required
-                                value={password} onChange={(e) => { setPassword(e.target.value) }}
+                                value={password}
+                                onChange={(e) => { setPassword(e.target.value); }}
                                 className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg transition duration-300"
                             />
                         </div>
@@ -79,6 +78,7 @@ const Login = () => {
                         {errorMessage && (
                             <span className='text-red-600 font-bold'>{errorMessage}</span>
                         )}
+
                         <button
                             type="submit"
                             disabled={isSigningIn}
@@ -87,14 +87,20 @@ const Login = () => {
                             {isSigningIn ? 'Signing In...' : 'Sign In'}
                         </button>
                     </form>
+
                     <p className="text-center text-sm">Don't have an account? <Link to={'/register'} className="hover:underline font-bold">Sign up</Link></p>
+
                     <div className='flex flex-row text-center w-full'>
-                        <div className='border-b-2 mb-2.5 mr-2 w-full'></div><div className='text-sm font-bold w-fit'>OR</div><div className='border-b-2 mb-2.5 ml-2 w-full'></div>
+                        <div className='border-b-2 mb-2.5 mr-2 w-full'></div>
+                        <div className='text-sm font-bold w-fit'>OR</div>
+                        <div className='border-b-2 mb-2.5 ml-2 w-full'></div>
                     </div>
+
                     <button
                         disabled={isSigningIn}
-                        onClick={(e) => { onGoogleSignIn(e) }}
-                        className={`w-full flex items-center justify-center gap-x-3 py-2.5 border rounded-lg text-sm font-medium  ${isSigningIn ? 'cursor-not-allowed' : 'hover:bg-gray-100 transition duration-300 active:bg-gray-100'}`}>
+                        onClick={(e) => { onGoogleSignIn(e); }}
+                        className={`w-full flex items-center justify-center gap-x-3 py-2.5 border rounded-lg text-sm font-medium ${isSigningIn ? 'cursor-not-allowed' : 'hover:bg-gray-100 transition duration-300 active:bg-gray-100'}`}
+                    >
                         <svg className="w-5 h-5" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clipPath="url(#clip0_17_40)">
                                 <path d="M47.532 24.5528C47.532 22.9214 47.3997 21.2811 47.1175 19.6761H24.48V28.9181H37.4434C36.9055 31.8988 35.177 34.5356 32.6461 36.2111V42.2078H40.3801C44.9217 38.0278 47.532 31.8547 47.532 24.5528Z" fill="#4285F4" />
@@ -113,7 +119,7 @@ const Login = () => {
                 </div>
             </main>
         </div>
-    )
-}
+    );
+};
 
-export default Login
+export default Login;
