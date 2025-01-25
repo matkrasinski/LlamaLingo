@@ -4,6 +4,7 @@ import languages from "../../utils/languages";
 import { useBoundStore } from "../../hooks/useBoundStore";
 import { setDocFromCollection } from "../../firebase/db";
 import { ToastContainer, toast } from 'react-toastify';
+
 const Courses = () => {
   const [currentCourses, setCurrentCourses] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -15,14 +16,12 @@ const Courses = () => {
       const syncToFirebase = async () => {
         try {
           const courseCodes = user.courses.map((course) => course.code);
-
           await setDocFromCollection("users", user.uid, { courses: courseCodes });
           console.log("User course codes synced to Firebase:", courseCodes);
         } catch (error) {
           console.error("Error syncing user course codes to Firebase:", error);
         }
       };
-
       syncToFirebase();
     }
   }, [user.courses, user.uid]);
@@ -31,13 +30,11 @@ const Courses = () => {
     setCurrentCourses(user.courses || []);
   }, [user.courses]);
 
-
   const handleCourseClick = (code) => {
     const clickedCourse = currentCourses.find((course) => course.code === code);
     const remainingCourses = currentCourses.filter((course) => course.code !== code);
     const updatedCourses = [clickedCourse, ...remainingCourses];
 
-    // Update store and state
     setCurrentCourses(updatedCourses);
     updateUserCourses(updatedCourses);
   };
@@ -53,7 +50,6 @@ const Courses = () => {
       const newCourse = { code: selectedLanguage.code, units: coursesAll[code] || [] };
       const updatedCourses = [...currentCourses, newCourse];
 
-      // Update store and state
       setCurrentCourses(updatedCourses);
       addUserCourses(newCourse);
 
@@ -67,7 +63,7 @@ const Courses = () => {
 
   return (
     <div className="p-6">
-      <ToastContainer/>
+      <ToastContainer />
       <h2 className="text-xl font-bold mb-4">Your Courses</h2>
 
       {currentCourses.length === 0 ? (
@@ -75,7 +71,7 @@ const Courses = () => {
           You have no courses yet. Add a new course!
         </div>
       ) : (
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div className="max-h-[300px] overflow-auto grid grid-cols-2 lg:grid-cols-2 gap-4 mb-8">
           {currentCourses.map((course) => {
             const language = languages.find((lang) => lang.code === course.code);
             return (
@@ -144,4 +140,3 @@ const Courses = () => {
 };
 
 export default Courses;
-
