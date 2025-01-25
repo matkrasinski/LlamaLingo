@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Link } from "react-router-dom";
 // import Header from "../header";
 import { useBoundStore } from "../../hooks/useBoundStore";
@@ -7,7 +7,7 @@ import Courses from "../lingo/Courses";
 
 const PageWrapper = ({ left, center, right }) => {
   return (
-    <div className="grid grid-cols-12 h-screen w-screen gap-4">
+    <div className="grid grid-cols-12 w-screen h-screen overflow-y-auto gap-4">
       <div className="col-span-2 bg-gray-100 p-4 lg:col-span-3 bg-gray-100 p-4">{left}</div>
       <div className="col-span-5 bg-gray-100 p-4 lg:col-span-6 bg-gray-200 p-4">{center}</div>
       <div className="col-span-5 bg-gray-100 p-4 lg:col-span-3 bg-gray-300 p-4">{right}</div>
@@ -34,7 +34,7 @@ const UnitTile = ({ unit }) => {
             title={tile.description || tile.type}
             to={`/lessons/${unit.unitNumber}/${index + 1}/1/${unit.tiles[index].tasks[0].taskType}`}
           >
-            {tile.type[0].toUpperCase()}
+            {index}
           </Link>
         ))}
       </div>
@@ -45,6 +45,7 @@ const UnitTile = ({ unit }) => {
 const Main = () => {
   const language = useBoundStore((state) => state.language);
   const { user } = useBoundStore();
+  const [lastLesson, setLastLesson] = useState({unit: 0, lesson: 0});
   // console.log("user courses obj");
   // console.log(user.courses);
   // console.log("---------------------");
