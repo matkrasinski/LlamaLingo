@@ -21,7 +21,7 @@ const LeftBar = () => {
                 className="menu-button md:hidden fixed top-4 left-4 bg-gray-200 p-2 rounded-lg shadow-lg"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
-                <img src="/icons/menu.png" alt="Menu" className="w-8 h-8" />
+                <img src="/icons/hamburger.png" alt="Menu" className="w-8 h-8" />
         </button>
 
         {isMenuOpen && (
@@ -31,7 +31,7 @@ const LeftBar = () => {
         <div className={`leftbar-container fixed top-0 left-0 h-full bg-white shadow-lg p-4 flex flex-col gap-6 
                 transition-transform duration-300 z-50 
                 ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} 
-                md:translate-x-0 w-1/4 min-w-[64px]
+                md:translate-x-0 w-1/4 min-w-[200px] overflow-hidden
         `}>
             
 

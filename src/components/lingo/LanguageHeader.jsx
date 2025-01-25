@@ -29,7 +29,6 @@ const LanguageHeader = () => {
             Logout
           </button>
         ) : (
-          !isSmallScreen && (
           <>
             <Link
               className="rounded-2xl border-2 border-b-4 border-[#042c60] bg-[#235390] px-4 py-2 transition hover:bg-[#204b82]"
@@ -43,7 +42,7 @@ const LanguageHeader = () => {
             >
               Register New Account
             </Link>
-          </>)
+          </>
         )}
       </div>
     </header>
