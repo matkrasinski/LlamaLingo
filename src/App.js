@@ -17,6 +17,7 @@ import {
 } from "./firebase/db";
 import { useEffect } from "react";
 import { useBoundStore } from "./hooks/useBoundStore";
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   const setCourses = useBoundStore((state) => state.setCourses);
@@ -124,9 +125,8 @@ function App() {
   return (
     <div>
       <AuthProvider>
-        <div className="w-full min-h-screen flex flex-col overflow-hidden">
-          {routesElement}
-        </div>
+        <ToastContainer />
+        <div className="w-full h-screen flex flex-col">{routesElement}</div>
       </AuthProvider>
     </div>
   );

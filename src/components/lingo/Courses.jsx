@@ -3,8 +3,7 @@ import { Flag } from "./Flag";
 import languages from "../../utils/languages";
 import { useBoundStore } from "../../hooks/useBoundStore";
 import { setDocFromCollection } from "../../firebase/db";
-import { ToastContainer, toast } from 'react-toastify';
-
+import { toast } from 'react-toastify';
 const Courses = () => {
   const [currentCourses, setCurrentCourses] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -63,36 +62,7 @@ const Courses = () => {
   };
 
   return (
-    <>
-    <button
-  className="menu-button lg:hidden fixed top-4 right-4 bg-gray-200 p-2 rounded-lg shadow-lg"
-  onClick={() => setIsMenuOpen(!isMenuOpen)}
->
-  {currentCourses.length > 0 ? (
-    <Flag 
-      language={languages.find((lang) => lang.code === currentCourses[0]?.code)} 
-      width={32} 
-    />
-  ) : (
-    <img src="/icons/hamburger.png" alt="Menu" className="w-8 h-8" />
-  )}
-</button>
-
-    {isMenuOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40"
-          onClick={() => setIsMenuOpen(false)}
-        ></div>
-      )}
-
-    <div
-        className={`rightbar-container fixed top-0 right-0 h-full bg-white shadow-lg p-6 flex flex-col gap-6 
-          transition-transform duration-300 z-50 
-          ${isMenuOpen ? "translate-x-0" : "translate-x-full"} 
-          lg:translate-x-0 md:min-w-[250px] max-w-[300px] overflow-hidden
-`}
->
-      <ToastContainer />
+    <div className="p-6">
       <h2 className="text-xl font-bold mb-4">Your Courses</h2>
 
       {currentCourses.length === 0 ? (
@@ -167,7 +137,6 @@ const Courses = () => {
         </div>
       )}
     </div>
-    </>
   );
 };
 
