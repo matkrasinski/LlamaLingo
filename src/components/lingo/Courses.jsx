@@ -3,7 +3,7 @@ import { Flag } from "./Flag";
 import languages from "../../utils/languages";
 import { useBoundStore } from "../../hooks/useBoundStore";
 import { setDocFromCollection } from "../../firebase/db";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 const Courses = () => {
   const [currentCourses, setCurrentCourses] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -67,7 +67,6 @@ const Courses = () => {
 
   return (
     <div className="p-6">
-      <ToastContainer/>
       <h2 className="text-xl font-bold mb-4">Your Courses</h2>
 
       {currentCourses.length === 0 ? (
