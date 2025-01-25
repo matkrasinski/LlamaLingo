@@ -7,10 +7,10 @@ import Courses from "../lingo/Courses";
 
 const PageWrapper = ({ left, center, right }) => {
   return (
-    <div className="grid grid-cols-12 h-screen gap-4">
-      <div className="col-span-3 bg-gray-100 p-4">{left}</div>
-      <div className="col-span-6 bg-gray-200 p-4">{center}</div>
-      <div className="col-span-3 bg-gray-300 p-4">{right}</div>
+    <div className="grid grid-cols-12 h-screen w-screen gap-4">
+      <div className="col-span-2 bg-gray-100 p-4 lg:col-span-3 bg-gray-100 p-4">{left}</div>
+      <div className="col-span-5 bg-gray-100 p-4 lg:col-span-6 bg-gray-200 p-4">{center}</div>
+      <div className="col-span-5 bg-gray-100 p-4 lg:col-span-3 bg-gray-300 p-4">{right}</div>
     </div>
   );
 };

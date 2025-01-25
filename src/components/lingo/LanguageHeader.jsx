@@ -31,13 +31,13 @@ const LanguageHeader = () => {
         ) : (
           <>
             <Link
-              className="rounded-2xl border-2 border-b-4 border-[#042c60] bg-[#235390] px-4 py-2 transition hover:bg-[#204b82]"
+              className={`rounded-2xl border-2 border-b-4 border-[#042c60] bg-[#235390] px-4 py-2 transition hover:bg-[#204b82] hidden md:block`}
               to="/login"
             >
               Login
             </Link>
             <Link
-              className="rounded-2xl border-b-4 border-green-700 bg-green-600 px-4 py-2 text-center font-bold transition hover:border-green-600 hover:bg-green-500 "
+              className="rounded-2xl border-b-4 border-green-700 bg-green-600 px-4 py-2 text-center font-bold transition hover:border-green-600 hover:bg-green-500 hidden md:block"
               to="/register"
             >
               Register New Account
