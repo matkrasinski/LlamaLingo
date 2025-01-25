@@ -1,9 +1,8 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 // import Header from "../header";
 import { useBoundStore } from "../../hooks/useBoundStore";
 import { getFirebaseToken, onForegroundMessage } from "../../firebase/firebase";
-import { useEffect, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import LeftBar from "../lingo/LeftBar";
 import Courses from "../lingo/Courses";
@@ -35,7 +34,7 @@ const UnitTile = ({ unit,done }) => {
         {unit.tiles.map((tile, index) => (
           <Link
             key={index}
-            className={`flex h-10 w-10 items-center justify-center rounded-full border-2 text-xs font-bold text-gray-600 ${done[unit.unitNumber-1][String(index+1)]==='done' ? "bg-green-500":"bg-white"}`}
+            // className={`flex h-10 w-10 items-center justify-center rounded-full border-2 text-xs font-bold text-gray-600 ${done[unit.unitNumber-1][String(index+1)]==='done' ? "bg-green-500":"bg-white"}`}
             title={tile.description || tile.type}
             to={`/lessons/${unit.unitNumber}/${index + 1}/1/${
               unit.tiles[index].tasks[0].taskType
