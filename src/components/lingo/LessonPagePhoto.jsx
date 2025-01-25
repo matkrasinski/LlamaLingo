@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { WomanSvg, BoySvg, AppleSvg } from "../Svgs";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 const LessonPagePhoto = ({ health, changeHealth, indexUnit, indexLesson, indexTask, units }) => {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -53,7 +53,6 @@ const LessonPagePhoto = ({ health, changeHealth, indexUnit, indexLesson, indexTa
 
   return (
     <div className="min-h-screen bg-blue-50 flex flex-col items-center justify-center p-4">
-      <ToastContainer />
       Unit: {unit}, Lesson: {lessonId}
       <h1 className="text-2xl font-bold mb-6 text-gray-800">{question}</h1>
 
