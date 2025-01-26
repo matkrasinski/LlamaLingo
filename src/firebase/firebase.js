@@ -27,7 +27,7 @@ const db = getFirestore(app);
 const messaging = getMessaging(app);
 
 // console.log(await getDocsFromCollection("courses"))
-await loadCoursesToFirestore(db)
+// await loadCoursesToFirestore(db)
 // await loadSampleTasks(db)
 // await loadSampleLessons(db)
 
