@@ -2,7 +2,6 @@ importScripts('https://www.gstatic.com/firebasejs/9.10.0/firebase-app-compat.js'
 importScripts('https://www.gstatic.com/firebasejs/9.10.0/firebase-messaging-compat.js');
 
 
-
 const firebaseConfig = {
   apiKey: "AIzaSyBuTZ-jxZT14Sa85NcJgs7CoT_NJrScKVc",
   authDomain: "llama-lingo.firebaseapp.com",
@@ -12,6 +11,7 @@ const firebaseConfig = {
   appId: "1:1066588036198:web:f1178fd1ba015519cc21a7",
   measurementId: "G-RTRLLEHSWC"
 };
+
 
 firebase.initializeApp(firebaseConfig);
 
