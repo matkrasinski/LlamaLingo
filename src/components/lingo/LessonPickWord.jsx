@@ -4,26 +4,25 @@ import { WomanSvg, BoySvg, AppleSvg } from "../Svgs";
 import { useNavigate } from "react-router-dom";
 import { useMemo } from "react";
 import { ToastContainer, toast } from 'react-toastify';
-import done from "../../utils/coursesDone.json"
+// import done from "../../utils/coursesDone.json"
 import { useBoundStore } from "../../hooks/useBoundStore";
 import { setDocFromCollection } from "../../firebase/db";
-import { toast } from 'react-toastify';
 
 
 const addElementToLanguage = (data, language, unitElement, lessonElement) => {
   console.log(data[language][`unit${unitElement}`]?.[String(lessonElement)])
 
-  if(data[language][`unit${unitElement}`]){
+  if (data[language][`unit${unitElement}`]) {
     data[language][`unit${unitElement}`][String(lessonElement)] = "done";
   }
-  
+
 };
 
 const LessonPickWord = ({ health, changeHealth, indexUnit, indexLesson, indexTask, units }) => {
   const [selectedAnswers, setSelectedAnswers] = useState([]);
   const [isCorrect, setIsCorrect] = useState(null);
   const [checked, setChecked] = useState(false);
-  const { user,addUserProgress,updateUserProgress } = useBoundStore();
+  const { user, addUserProgress, updateUserProgress } = useBoundStore();
 
   function shuffle(array) {
     return array.sort(() => 0.5 - Math.random());
@@ -35,7 +34,7 @@ const LessonPickWord = ({ health, changeHealth, indexUnit, indexLesson, indexTas
 
   const handleCheck = () => {
     if (selectedAnswers.length !== correctAnswer.length) {
-      toast("Please pick all world first.");
+      toast("Please pick all words first.");
       return false;
     }
 
@@ -43,31 +42,39 @@ const LessonPickWord = ({ health, changeHealth, indexUnit, indexLesson, indexTas
 
     for (let i = 0; i < selectedWords.length; i++) {
       if (selectedWords[i] !== correctAnswer[i]) {
-        //alert("Wrong." + selectedWords[i] + ", "+ correctAnswer[i]);
         setChecked(true);
         setIsCorrect(false);
         changeHealth();
         return false;
       }
     }
+
     setChecked(true);
     setIsCorrect(true);
-    // addElementToLanguage(done, 'es', indexUnit+1, indexLesson + 1)
-    
-    if(user.progress[user.courses[0].code]=== undefined || user.progress[user.courses[0].code][`unit${indexUnit+1}`] === undefined || user.progress[user.courses[0].code][`unit${indexUnit+1}`][indexLesson+1] === undefined){
-      const progress = {}
-      progress['courses'] = {}
-      progress['courses'][user.courses[0].code] = {}
-      progress['courses'][user.courses[0].code][`unit${indexUnit+1}`] = {}
-      progress['courses'][user.courses[0].code][`unit${indexUnit+1}`][indexLesson+1] = 'done'
-      // console.log(progress)
-      // setDocFromCollection('users',user.uid, progress);
-      addUserProgress(progress);
+
+    const courseCode = user.courses[0]?.code; // Assume the first course is active
+    const unitKey = `unit${indexUnit + 1}`;
+    const lessonKey = String(indexLesson + 1);
+
+    if (courseCode) {
+      const progress = {
+        [String(courseCode)]: {
+          [unitKey]: {
+            [lessonKey]: "done",
+          },
+        },
+      };
+
+      console.log("progerss", progress)
+
+      // Add or update the progress in Zustand store
+      updateUserProgress(progress);
+      console.log(user);
     }
-    console.log(user)
-    
+
     return true;
   };
+
 
   const handleNext = () => {
     setSelectedAnswers([]);

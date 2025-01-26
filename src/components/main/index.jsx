@@ -1,8 +1,7 @@
-import React, {useEffect, useState} from "react";
+import { React, useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import { useBoundStore } from "../../hooks/useBoundStore";
 import { getFirebaseToken, onForegroundMessage } from "../../firebase/firebase";
-import { useEffect, useState } from "react";
 import { toast } from 'react-toastify';
 import LeftBar from "../lingo/LeftBar";
 import Courses from "../lingo/Courses";
@@ -103,7 +102,7 @@ const Main = () => {
           <div className="flex flex-col gap-4">
             {user.courses && user.courses.length > 0 ? (
               user.courses[0].units.map((unit) => (
-                <UnitTile key={unit.unitNumber} unit={unit} done={courses[user.courses[0].code]}/>
+                <UnitTile key={unit.unitNumber} unit={unit} done={courses[user.courses[0]?.code] || false}/>
               ))
             ) : (
               <p> Nie wybrano jezyka </p>
