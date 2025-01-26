@@ -124,7 +124,7 @@ function App() {
   return (
     <div>
       <AuthProvider>
-        <div className="w-full h-screen flex flex-col">{routesElement}</div>
+        <div className="w-full min-h-screen flex flex-col overflow-hidden">{routesElement}</div>
       </AuthProvider>
       <ToastContainer hideProgressBar/>
     </div>

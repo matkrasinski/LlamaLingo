@@ -3,7 +3,21 @@ import { useRef, useState } from "react";
 import { WomanSvg, BoySvg, AppleSvg } from "../Svgs";
 import { useNavigate } from "react-router-dom";
 import { useMemo } from "react";
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
+import done from "../../utils/coursesDone.json"
+
+
+const addElementToLanguage = (data, language, unitElement, lessonElement) => {
+  console.log(data[language][unitElement+1][String(lessonElement)])
+
+  data[language][unitElement][String(lessonElement)] = "done";
+  // if (!data[language]) {
+  //   data[language] = [[], []];
+  // }
+  // data[language][0].push(unitElement);
+  // data[language][1].push(lessonElement);
+  // return data;
+};
 
 const LessonPickWord = ({ health,changeHealth,indexUnit,indexLesson,indexTask,units }) => {
   const [selectedAnswers, setSelectedAnswers] =  useState([]);
@@ -40,6 +54,7 @@ const LessonPickWord = ({ health,changeHealth,indexUnit,indexLesson,indexTask,un
      }
      setChecked(true);
      setIsCorrect(true);
+     addElementToLanguage(done,'es',indexUnit,indexLesson+1)
      return true;
   };
 
@@ -66,7 +81,7 @@ const LessonPickWord = ({ health,changeHealth,indexUnit,indexLesson,indexTask,un
   return (
     <div className="min-h-screen bg-blue-50 flex flex-col items-center justify-center p-4">
       {/* <h1 className="text-2xl font-bold mb-6 text-gray-800">Put words in the right order</h1> */}
-      <div className="flex grow flex-col items-center gap-5">
+      <div className="flex flex-col items-center gap-5 mb-5">
         <div className="w-full max-w-5xl sm:mt-8 sm:px-5">
           {/* <ProgressBar
             correctAnswerCount={correctAnswerCount}
@@ -75,7 +90,7 @@ const LessonPickWord = ({ health,changeHealth,indexUnit,indexLesson,indexTask,un
             hearts={hearts}
           /> */}
         </div>
-        <section className="flex max-w-2xl grow flex-col gap-5 self-center sm:items-center sm:justify-center sm:gap-24">
+        <section className="flex max-w-2xl grow flex-col gap-5 self-center sm:items-center justify-center sm:gap-24">
           <h1 className="mb-2 text-2xl font-bold sm:text-3xl">
             Put words in the right order
           </h1>

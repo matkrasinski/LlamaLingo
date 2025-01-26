@@ -9,10 +9,10 @@ const Home = () => {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-[#235390] text-white">
       <LanguageHeader />
-      <div className="flex w-full flex-col items-center justify-center gap-3 px-4 py-16 md:flex-row md:gap-36">
+      <div className="flex w-full flex-col items-center justify-center gap-3 px-4 py-16 md:flex-row md:gap-30">
         <img src="/icons/favicon.ico" className="h-fit w-7/12 md:w-[450px]"></img>
         <div>
-          <p className="mb-6 max-w-[600px] text-center text-3xl font-bold md:mb-12">
+          <p className="mb-6 max-w-[500px] text-center text-3xl font-bold md:mb-12">
             The free, fun, and effective way to learn a language!
           </p>
           <div className="mx-auto mt-4 flex w-fit flex-col items-center gap-3">
