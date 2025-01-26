@@ -1,4 +1,5 @@
 import { collection, doc, setDoc } from "firebase/firestore";
+import { ar, bn, fr, es, cs, de, el, hi, hu, id, it, ja, ko, nl, pl, pt, ro, ru, th, tl, tr, uk, vi, zh } from "../components/lingo/courses/data";
 
 export const units = [
   {
@@ -523,148 +524,64 @@ export const units = [
   },
 ];
 
-const sp = [
-  {
-    unitNumber: 1,
-    description: "xd",
-    backgroundColor: "bg-[#00cd9c]",
-    textColor: "text-[#00cd9c]",
-    borderColor: "border-[#00a47d]",
-    tiles: [
-      {
-        type: "fast-forward", description: "Order food and drink",
-        tasks: [
-          {
-            taskType:'pickPhoto',
-            question: 'Which word is Apple?',
-            options: ['Woman','Boy','Apple'],
-            answer: 'Apple'
-          },
-          {
-            taskType:'translate',
-            ogQuestion: 'Dzien dobry Panie Siarra',
-            question: ['Buenos', 'Señor Siarra'],
-            answer: 'dias'
-          },
-          {
-            taskType:'pickWords',
-            answer: ['yo', 'soy', 'el', 'nino']
-          },
-        ]
-      },
-      {
-        type: "book", description: "The passport",
-        tasks: [
-          {
-            taskType:'pickPhoto',
-            question: 'Which word is boy?',
-            options: ['Woman','Boy','Apple'],
-            answer: 'Boy'
-          },
-          {
-            taskType:'pickWords',
-            answer: ['yo', 'bebo', 'aqua']
-          },
-          {
-            taskType:'translate',
-            ogQuestion: 'Ja potrzebuje chleba',
-            question: ['Yo', 'un pan'],
-            answer: 'neccesito'
-          }
-        ]
-      },
-    ],
-  },
-  {
-    unitNumber: 2,
-    description: "Basic conversation",
-    backgroundColor: "bg-[#ff5733]",
-    textColor: "text-[#ff5733]",
-    borderColor: "border-[#c44128]",
-    tiles: [
-      {
-        type: "chat", description: "Greetings",
-        tasks: [
-          {
-            taskType:'pickPhoto',
-            question: 'Which word is woman?',
-            options: ['Woman','Boy','Apple'],
-            answer: 'Woman'
-          },
-          {
-            taskType:'pickWords',
-            answer: ['yo', 'neccesito', 'aqua']
-          },
-          {
-            taskType:'translate',
-            ogQuestion: 'Ja potrzebuje jablka',
-            question: ['Yo', 'una manzana'],
-            answer: 'neccesito'
-          }
-        ]
-      },
-    ],
-  },
-];
-
-
 export const courses = [
-  { code: "ar", units: units },
-  { code: "bn", units: units },
-  { code: "cs", units: units },
-  { code: "de", units: units },
-  { code: "el", units: units },
+  { code: "ar", units: ar },
+  { code: "bn", units: bn },
+  { code: "cs", units: cs },
+  { code: "de", units: de },
+  { code: "el", units: el },
   { code: "en", units: units },
-  { code: "es", units: sp },
-  { code: "fr", units: units },
-  { code: "hi", units: units },
-  { code: "hu", units: units },
-  { code: "id", units: units },
-  { code: "it", units: units },
-  { code: "ja", units: units },
-  { code: "ko", units: units },
-  { code: "code-NL", units: units },
-  { code: "pl", units: units },
-  { code: "pt", units: units },
-  { code: "ro", units: units },
-  { code: "ru", units: units },
-  { code: "th", units: units },
-  { code: "tl", units: units },
-  { code: "tr", units: units },
-  { code: "uk", units: units },
-  { code: "vi", units: units },
-  { code: "code-CN", units: units },
+  { code: "es", units: es },
+  { code: "fr", units: fr },
+  { code: "hi", units: hi },
+  { code: "hu", units: hu },
+  { code: "id", units: id },
+  { code: "it", units: it },
+  { code: "ja", units: ja },
+  { code: "ko", units: ko },
+  { code: "code-NL", units: nl },
+  { code: "pl", units: pl },
+  { code: "pt", units: pt },
+  { code: "ro", units: ro },
+  { code: "ru", units: ru },
+  { code: "th", units: th },
+  { code: "tl", units: tl },
+  { code: "tr", units: tr },
+  { code: "uk", units: uk },
+  { code: "vi", units: vi },
+  { code: "code-CN", units: zh },
 ];
 
 export const coursesObj = {
-  // ar: units,
-  // bn: units,
-  // cs: units,
-  de: units,
-  // el: units,
+  ar: ar,
+  bn: bn,
+  cs: cs,
+  de: de,
+  el: el,
   en: units,
-  es: sp,
-  fr: units,
-  // hi: units,
-  // hu: units,
-  // id: units,
-  // it: units,
-  // ja: units,
-  // ko: units,
-  // nl: units,
-  // pl: units,
-  // pt: units,
-  // ro: units,
-  // ru: units,
-  // th: units,
-  // tl: units,
-  // tr: units,
-  // uk: units,
-  vi: units,
-  // cn: units,
+  es: es,
+  fr: fr,
+  hi: hi,
+  hu: hu,
+  id: id,
+  it: it,
+  ja: ja,
+  ko: ko,
+  nl: nl,
+  pl: pl,
+  pt: pt,
+  ro: ro,
+  ru: ru,
+  th: th,
+  tl: tl,
+  tr: tr,
+  uk: uk,
+  vi: vi,
+  cn: zh,
 };
 
 export async function loadCoursesToFirestore(db) {
+  console.log('Loading courses to firestore')
   for (const [languageCode, units] of Object.entries(coursesObj)) {
     console.log(`Processing language: ${languageCode}`);
     const unitData = {

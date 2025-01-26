@@ -24,7 +24,7 @@ const Lessons = () => {
 
   switch (taskType) {
     case 'pickPhoto':
-      return <LessonPagePhoto health = {health} changeHealth={changeHealth} indexUnit={indexUnit} indexLesson={indexLesson} indexTask={indexTask} units={language.units}/>;
+      return <LessonPagePhoto health = {health} changeHealth={changeHealth} indexUnit={indexUnit} indexLesson={indexLesson} indexTask={indexTask} language={language}/>;
     case 'pickWords':
       return <LessonPickWord health = {health} changeHealth={changeHealth} indexUnit={indexUnit} indexLesson={indexLesson} indexTask={indexTask} units={language.units}/>;
     case 'translate':

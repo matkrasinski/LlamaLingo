@@ -80,7 +80,6 @@ const LessonPickWord = ({ health,changeHealth,indexUnit,indexLesson,indexTask,un
 
   return (
     <div className="min-h-screen bg-blue-50 flex flex-col items-center justify-center p-4">
-      <ToastContainer/>
       {/* <h1 className="text-2xl font-bold mb-6 text-gray-800">Put words in the right order</h1> */}
       <div className="flex flex-col items-center gap-5 mb-5">
         <div className="w-full max-w-5xl sm:mt-8 sm:px-5">

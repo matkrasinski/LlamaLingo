@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
-// import Header from "../header";
 import { useBoundStore } from "../../hooks/useBoundStore";
 import { getFirebaseToken, onForegroundMessage } from "../../firebase/firebase";
 import { ToastContainer, toast } from 'react-toastify';
@@ -36,9 +35,8 @@ const UnitTile = ({ unit,done }) => {
             key={index}
             // className={`flex h-10 w-10 items-center justify-center rounded-full border-2 text-xs font-bold text-gray-600 ${done[unit.unitNumber-1][String(index+1)]==='done' ? "bg-green-500":"bg-white"}`}
             title={tile.description || tile.type}
-            to={`/lessons/${unit.unitNumber}/${index + 1}/1/${
-              unit.tiles[index].tasks[0].taskType
-            }`}
+            to={`/lessons/${unit.unitNumber}/${index + 1}/1/${unit.tiles[index].tasks[0].taskType
+              }`}
           >
             {index+1}
           </Link>
@@ -113,46 +111,23 @@ const Main = () => {
         right={
           <div>
             {showNotificationBanner && (
-              <div className="notification-banner">
-                <span>The app needs permission to</span>
-                <a
-                  href="#"
-                  className="notification-banner-link"
+              <div className="bg-green-100 border border-green-500 text-green-800 p-4 flex items-center justify-between rounded-xl shadow-md">
+                <div className="flex items-center gap-3">
+                  <span className="text-lg font-bold">
+                    Enable push notifications for a better experience!
+                  </span>
+                </div>
+                <button
+                  className="bg-green-500 text-white font-semibold px-4 py-2 rounded-full hover:bg-green-600 transition shadow-md"
                   onClick={handleGetFirebaseToken}
                 >
-                  enable push notifications.
-                </a>
+                  Grant Permission
+                </button>
               </div>
             )}
 
-            <button
-              className="btn-primary"
-              onClick={() =>
-                toast(
-                  <ToastifyNotification title="New Message" body="Hi there!" />
-                )
-              }
-            >
-              Show toast notification
-            </button>
-            <ToastContainer hideProgressBar />
+
             <Courses />
-            <h1>Selected Language:</h1>
-            <p>
-              user: {user.uid} <br />
-            </p>
-            <strong>Selected Language(s):</strong>
-            <ul className="list-disc pl-5">
-              {user.courses.length > 0 ? (
-                user.courses.map((course, index) => (
-                  <li key={index} className="text-sm text-gray-700">
-                    {course.code || "Unknown Language"}
-                  </li>
-                ))
-              ) : (
-                <span>No courses added yet</span>
-              )}
-            </ul>
             <p>
               Name: {language.name} <br />
               Native Name: {language.nativeName} <br />
