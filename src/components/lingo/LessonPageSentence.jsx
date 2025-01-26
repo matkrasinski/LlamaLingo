@@ -13,6 +13,8 @@ const LessonPageSentence = ({ health,changeHealth,indexUnit,indexLesson,indexTas
   const handleCheckAnswer = () => {
     setChecked(true);
     setIsCorrect(userInput.trim().toLowerCase() === correctAnswer);
+    console.log('input: ' + userInput.trim().toLowerCase())
+    console.log('correct answer: ' + correctAnswer)
     if (userInput.trim().toLowerCase() !== correctAnswer){
       changeHealth();
     }

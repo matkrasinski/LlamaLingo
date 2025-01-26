@@ -17,8 +17,8 @@ export const fr = [
             // },
             {
               taskType:'translate',
-              ogQuestion: 'Bonjour Monsieur Siarra',
-              question: ['Bonjour', 'Monsieur Siarra'],
+              ogQuestion: 'Dzien dobry Panie Siarra',
+              question: ['Bonjour', 'Siarra'],
               answer: 'Monsieur'
             },
             {
