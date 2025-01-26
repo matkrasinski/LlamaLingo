@@ -4,6 +4,7 @@ import { persist, createJSONStorage } from 'zustand/middleware'
 import { createLanguageSlice } from "../stores/createLanguageSlice";
 import { createUserStore } from "../stores/createUserStore";
 import { createCoursesStore } from "../stores/createCourseStore";
+import { useWakeLockStore } from "../stores/useWakeLockStore";
 
 export const useBoundStore = create(
   persist(
@@ -11,6 +12,7 @@ export const useBoundStore = create(
       ...createLanguageSlice(set),
       ...createUserStore(set),
       ...createCoursesStore(set),
+      ...useWakeLockStore(set)
     }
     ),
     {
