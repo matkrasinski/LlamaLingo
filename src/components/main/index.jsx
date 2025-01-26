@@ -34,7 +34,7 @@ const UnitTile = ({ unit,done }) => {
         {unit.tiles.map((tile, index) => (
           <Link
             key={index}
-            // className={`flex h-10 w-10 items-center justify-center rounded-full border-2 text-xs font-bold text-gray-600 ${done[unit.unitNumber-1][String(index+1)]==='done' ? "bg-green-500":"bg-white"}`}
+            className={`flex h-10 w-10 items-center justify-center rounded-full border-2 text-xs font-bold text-gray-600 ${done[`unit${unit.unitNumber}`]?.[String(index+1)]==='done' ? "bg-green-500":"bg-white"}`}
             title={tile.description || tile.type}
             to={`/lessons/${unit.unitNumber}/${index + 1}/1/${
               unit.tiles[index].tasks[0].taskType
@@ -54,6 +54,7 @@ const Main = () => {
   const [showNotificationBanner, setShowNotificationBanner] = useState(Notification.permission === 'default');
   const [lastLesson, setLastLesson] = useState({unit: 0, lesson: 0});
   const [courses, setCourses] = useState(coursesDone);
+  console.log(user)
   // console.log(courses)
   // console.log(courses[user.courses[0].code])
   // console.log("user courses obj");

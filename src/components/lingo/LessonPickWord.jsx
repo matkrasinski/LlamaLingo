@@ -5,24 +5,24 @@ import { useNavigate } from "react-router-dom";
 import { useMemo } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import done from "../../utils/coursesDone.json"
+import { useBoundStore } from "../../hooks/useBoundStore";
+import { setDocFromCollection } from "../../firebase/db";
 
 
 const addElementToLanguage = (data, language, unitElement, lessonElement) => {
-  console.log(data[language][unitElement+1][String(lessonElement)])
+  console.log(data[language][`unit${unitElement}`]?.[String(lessonElement)])
 
-  data[language][unitElement][String(lessonElement)] = "done";
-  // if (!data[language]) {
-  //   data[language] = [[], []];
-  // }
-  // data[language][0].push(unitElement);
-  // data[language][1].push(lessonElement);
-  // return data;
+  if(data[language][`unit${unitElement}`]){
+    data[language][`unit${unitElement}`][String(lessonElement)] = "done";
+  }
+  
 };
 
-const LessonPickWord = ({ health,changeHealth,indexUnit,indexLesson,indexTask,units }) => {
-  const [selectedAnswers, setSelectedAnswers] =  useState([]);
+const LessonPickWord = ({ health, changeHealth, indexUnit, indexLesson, indexTask, units }) => {
+  const [selectedAnswers, setSelectedAnswers] = useState([]);
   const [isCorrect, setIsCorrect] = useState(null);
-  const [checked, setChecked] = useState(false); 
+  const [checked, setChecked] = useState(false);
+  const { user,addUserProgress,updateUserProgress } = useBoundStore();
 
   function shuffle(array) {
     return array.sort(() => 0.5 - Math.random());
@@ -31,19 +31,16 @@ const LessonPickWord = ({ health,changeHealth,indexUnit,indexLesson,indexTask,un
   const answerTiles = useMemo(() => shuffle([...correctAnswer]), [correctAnswer]);
   console.log(health)
   const navigate = useNavigate();
-  // const handleOptionClick = (word) => {
-  //   alert(`You selected: ${word}`);
-  // };
 
   const handleCheck = () => {
-     if (selectedAnswers.length !== correctAnswer.length) {
+    if (selectedAnswers.length !== correctAnswer.length) {
       toast("Please pick all world first.");
       return false;
-     } 
+    }
 
-     const selectedWords = selectedAnswers.map((i) => answerTiles[i]);
+    const selectedWords = selectedAnswers.map((i) => answerTiles[i]);
 
-     for (let i = 0; i < selectedWords.length; i++){
+    for (let i = 0; i < selectedWords.length; i++) {
       if (selectedWords[i] !== correctAnswer[i]) {
         //alert("Wrong." + selectedWords[i] + ", "+ correctAnswer[i]);
         setChecked(true);
@@ -51,11 +48,24 @@ const LessonPickWord = ({ health,changeHealth,indexUnit,indexLesson,indexTask,un
         changeHealth();
         return false;
       }
-     }
-     setChecked(true);
-     setIsCorrect(true);
-     addElementToLanguage(done,'es',indexUnit,indexLesson+1)
-     return true;
+    }
+    setChecked(true);
+    setIsCorrect(true);
+    // addElementToLanguage(done, 'es', indexUnit+1, indexLesson + 1)
+    
+    if(user.progress[user.courses[0].code]=== undefined || user.progress[user.courses[0].code][`unit${indexUnit+1}`] === undefined || user.progress[user.courses[0].code][`unit${indexUnit+1}`][indexLesson+1] === undefined){
+      const progress = {}
+      progress['courses'] = {}
+      progress['courses'][user.courses[0].code] = {}
+      progress['courses'][user.courses[0].code][`unit${indexUnit+1}`] = {}
+      progress['courses'][user.courses[0].code][`unit${indexUnit+1}`][indexLesson+1] = 'done'
+      // console.log(progress)
+      // setDocFromCollection('users',user.uid, progress);
+      addUserProgress(progress);
+    }
+    console.log(user)
+    
+    return true;
   };
 
   const handleNext = () => {
@@ -63,24 +73,24 @@ const LessonPickWord = ({ health,changeHealth,indexUnit,indexLesson,indexTask,un
     setIsCorrect(null);
     setChecked(false);
     console.log(health);
-    if (health === 0 || indexTask + 2 >units[indexUnit].tiles[indexLesson].tasks.length){
+    if (health === 0 || indexTask + 2 > units[indexUnit].tiles[indexLesson].tasks.length) {
       navigate('/main');
     } else {
       const currentUrl = window.location.pathname;
-      const nextTask = units[indexUnit].tiles[indexLesson].tasks[indexTask+1].taskType;
+      const nextTask = units[indexUnit].tiles[indexLesson].tasks[indexTask + 1].taskType;
       const updatedUrl = currentUrl.replace(
         /\/lessons\/(\d+)\/(\d+)\/(\d+)\/\w+$/,
-        `/lessons/${indexUnit+1}/${indexLesson+1}/${indexTask + 2}/${nextTask}`
+        `/lessons/${indexUnit + 1}/${indexLesson + 1}/${indexTask + 2}/${nextTask}`
       );
-      console.log(updatedUrl)
-      console.log(nextTask)
-    navigate(updatedUrl);
+      // console.log(updatedUrl)
+      // console.log(nextTask)
+      navigate(updatedUrl);
     }
   };
 
   return (
     <div className="min-h-screen bg-blue-50 flex flex-col items-center justify-center p-4">
-      <ToastContainer/>
+      <ToastContainer />
       {/* <h1 className="text-2xl font-bold mb-6 text-gray-800">Put words in the right order</h1> */}
       <div className="flex flex-col items-center gap-5 mb-5">
         <div className="w-full max-w-5xl sm:mt-8 sm:px-5">
@@ -98,7 +108,7 @@ const LessonPickWord = ({ health,changeHealth,indexUnit,indexLesson,indexTask,un
 
           <div className="w-full">
             <div className="flex items-center gap-2 px-2">
-            {/* <WomanSvg />
+              {/* <WomanSvg />
               <div className="relative ml-2 w-fit rounded-2xl border-2 border-gray-200 p-4">
                 Tutto per tutto
                 <div
@@ -156,7 +166,7 @@ const LessonPickWord = ({ health,changeHealth,indexUnit,indexLesson,indexTask,un
           </div>
         </section>
       </div>
-      
+
       {/* Check Button */}
       {!checked && (
         <button

@@ -9,10 +9,12 @@ import Lessons from "./components/lessons";
 import SplashScreen from "./components/lingo/SplashScreen";
 import Profile from "./components/lingo/Profile";
 
-
 import { AuthProvider } from "./contexts/authContext";
 import { useRoutes } from "react-router-dom";
-import { getDocsFromCollection, getUserCoursesFromFirebase } from "./firebase/db";
+import {
+  getDocsFromCollection,
+  getUserCoursesFromFirebase,
+} from "./firebase/db";
 import { useEffect } from "react";
 import { useBoundStore } from "./hooks/useBoundStore";
 
@@ -44,8 +46,8 @@ function App() {
         try {
           const userCourseCodes = await getUserCoursesFromFirebase(user.uid);
 
-          const fullCourses= userCourseCodes.map((code) => {
-            return {code : code, units: coursesAll[code] || []}
+          const fullCourses = userCourseCodes.map((code) => {
+            return { code: code, units: coursesAll[code] || [] };
           });
 
           setUserCourses(fullCourses);
@@ -109,7 +111,6 @@ function App() {
       ),
     },
     {
-
       path: "/Profile",
       element: (
         <ProtectedRoute>
@@ -123,11 +124,12 @@ function App() {
   return (
     <div>
       <AuthProvider>
-        <div className="w-full min-h-screen flex flex-col overflow-hidden">{routesElement}</div>
+        <div className="w-full min-h-screen flex flex-col overflow-hidden">
+          {routesElement}
+        </div>
       </AuthProvider>
     </div>
   );
 }
 
 export default App;
-
