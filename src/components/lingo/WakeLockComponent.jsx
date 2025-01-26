@@ -1,54 +1,36 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { toast } from "react-toastify";
+import { useBoundStore } from "../../hooks/useBoundStore";
 
 const WakeLockComponent = () => {
-  const [wakeLock, setWakeLock] = useState(null);
-  const [isWakeLockActive, setIsWakeLockActive] = useState(false);
-
-  const requestWakeLock = async () => {
-    try {
-      if ("wakeLock" in navigator) {
-        const wakeLockObj = await navigator.wakeLock.request("screen");
-        setWakeLock(wakeLockObj);
-        setIsWakeLockActive(true);
-
-        console.log("Wake Lock is active");
-        toast.success("Wake Lock is now active!");
-
-        // Listen for release events
-        wakeLockObj.addEventListener("release", () => {
-          console.log("Wake Lock was released");
-          setIsWakeLockActive(false);
-          toast.info("Wake Lock was released.");
-        });
-      } else {
-        console.log("Wake Lock API is not supported in this browser.");
-        toast.warning("Wake Lock API is not supported in this browser.");
-      }
-    } catch (err) {
-      console.error(`${err.name}, ${err.message}`);
-      toast.error(`Wake Lock Error: ${err.message}`);
-    }
-  };
-
-  const releaseWakeLock = () => {
-    if (wakeLock) {
-      wakeLock.release();
-      setWakeLock(null);
-      setIsWakeLockActive(false);
-      console.log("Wake Lock released manually");
-      toast.info("Wake Lock released manually.");
-    }
-  };
+  const {
+    wakeLock,
+    isWakeLockActive,
+    requestWakeLock,
+    releaseWakeLock,
+  } = useBoundStore();
 
   useEffect(() => {
-    return () => {
-      if (wakeLock) {
-        wakeLock.release();
-        console.log("Wake Lock released on unmount");
+    // Handle visibility changes to reacquire Wake Lock
+    const handleVisibilityChange = async () => {
+      if (document.visibilityState === "visible" && isWakeLockActive && !wakeLock) {
+        await requestWakeLock(); // Reacquire the Wake Lock
+        toast.info("Wake Lock reacquired after visibility change.");
       }
     };
-  }, [wakeLock]);
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [isWakeLockActive, wakeLock, requestWakeLock]);
+
+  useEffect(() => {
+    // Automatically reacquire Wake Lock on component mount if it's active
+    if (isWakeLockActive && !wakeLock) {
+      requestWakeLock();
+    }
+  }, [isWakeLockActive, wakeLock, requestWakeLock]);
 
   return (
     <div className="flex flex-col items-center justify-center gap-4 p-6">
