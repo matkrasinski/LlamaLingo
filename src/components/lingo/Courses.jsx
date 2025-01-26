@@ -65,7 +65,7 @@ const Courses = () => {
   return (
     <>
     <button
-  className="menu-button lg:hidden fixed top-4 right-4 bg-gray-200 p-2 rounded-lg shadow-lg z-50"
+  className="menu-button lg:hidden fixed top-4 right-4 bg-gray-200 p-2 rounded-lg shadow-lg"
   onClick={() => setIsMenuOpen(!isMenuOpen)}
 >
   {currentCourses.length > 0 ? (
@@ -87,11 +87,11 @@ const Courses = () => {
 
     <div
         className={`rightbar-container fixed top-0 right-0 h-full bg-white shadow-lg p-6 flex flex-col gap-6 
-                transition-transform duration-300 z-50 
-                ${isMenuOpen ? "translate-x-0" : "translate-x-full"} 
-                lg:translate-x-0 w-1/4 min-w-[200px] overflow-hidden
-        `}
-      >
+          transition-transform duration-300 z-50 
+          ${isMenuOpen ? "translate-x-0" : "translate-x-full"} 
+          lg:translate-x-0 md:min-w-[250px] max-w-[300px] overflow-hidden
+`}
+>
       <ToastContainer />
       <h2 className="text-xl font-bold mb-4">Your Courses</h2>
 
@@ -134,7 +134,7 @@ const Courses = () => {
 
       {isModalOpen && (
         <div
-          className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50"
+          className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center"
           onClick={closeModal}
         >
           <div
@@ -150,7 +150,7 @@ const Courses = () => {
                 X
               </button>
             </div>
-            <div className="mt-4 grid grid-cols-4 gap-4 max-h-[60vh] overflow-y-auto">
+            <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 max-h-[60vh] overflow-y-auto">
               {languages.map((language) => (
                 <div
                   key={language.code}
