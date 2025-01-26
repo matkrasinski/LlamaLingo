@@ -4,14 +4,23 @@ importScripts('https://www.gstatic.com/firebasejs/9.10.0/firebase-messaging-comp
 
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_API_KEY,
-  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_PROJECTID,
-  storageBucket: process.env.REACT_APP_STORAGEBUCKET,
-  messagingSenderId: process.env.REACT_APP_MESSAGINGSENDERID,
-  appId: process.env.REACT_APP_APPID,
-  measurementId: process.env.REACT_APP_MEASUREMENTID,
+
+  apiKey: "AIzaSyBuTZ-jxZT14Sa85NcJgs7CoT_NJrScKVc",
+
+  authDomain: "llama-lingo.firebaseapp.com",
+
+  projectId: "llama-lingo",
+
+  storageBucket: "llama-lingo.firebasestorage.app",
+
+  messagingSenderId: "1066588036198",
+
+  appId: "1:1066588036198:web:f1178fd1ba015519cc21a7",
+
+  measurementId: "G-RTRLLEHSWC"
+
 };
+
 
 firebase.initializeApp(firebaseConfig);
 

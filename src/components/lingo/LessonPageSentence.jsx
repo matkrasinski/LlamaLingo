@@ -12,10 +12,10 @@ const LessonPageSentence = ({ health,changeHealth,indexUnit,indexLesson,indexTas
   const navigate = useNavigate();
   const handleCheckAnswer = () => {
     setChecked(true);
-    setIsCorrect(userInput.trim().toLowerCase() === correctAnswer);
+    setIsCorrect(userInput.trim().toLowerCase() === correctAnswer.trim().toLowerCase());
     console.log('input: ' + userInput.trim().toLowerCase())
-    console.log('correct answer: ' + correctAnswer)
-    if (userInput.trim().toLowerCase() !== correctAnswer){
+    console.log('correct answer: ' + correctAnswer.trim().toLowerCase())
+    if (userInput.trim().toLowerCase() !== correctAnswer.trim().toLowerCase()){
       changeHealth();
     }
   };

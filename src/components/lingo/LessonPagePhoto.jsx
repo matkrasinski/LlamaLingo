@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { WomanSvg, BoySvg, AppleSvg } from "../Svgs";
 import { toast } from 'react-toastify';
+import { getWoman, getMan, getApple } from "./courses/photoTranslations";
 
-const LessonPagePhoto = ({ health, changeHealth, indexUnit, indexLesson, indexTask, units }) => {
+const LessonPagePhoto = ({ health, changeHealth, indexUnit, indexLesson, indexTask, language }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
   const [checked, setChecked] = useState(false); // Tracks whether the check button was clicked
   const { unit, lessonId } = useParams();
+  const units = language.units
+  const languageCode = language.code
   const correctAnswer = units[indexUnit].tiles[indexLesson].tasks[indexTask].answer;
   const question = units[indexUnit].tiles[indexLesson].tasks[indexTask].question;
   const navigate = useNavigate();
@@ -19,6 +22,9 @@ const LessonPagePhoto = ({ health, changeHealth, indexUnit, indexLesson, indexTa
 
   const handleCheck = () => {
     if (selectedOption) {
+      console.log('language: ' + JSON.stringify(language))
+      console.log('selectedOption: ' + selectedOption)
+      console.log('correctAnswer: ' + correctAnswer)
       setIsCorrect(selectedOption === correctAnswer);
       setChecked(true);
       if (selectedOption !== correctAnswer) {
@@ -58,30 +64,30 @@ const LessonPagePhoto = ({ health, changeHealth, indexUnit, indexLesson, indexTa
 
       <div className="grid grid-cols-3 gap-6 max-w-4xl mb-6">
         <div
-          onClick={() => !checked && handleOptionClick("Woman")}
-          className={`bg-white p-4 rounded-lg shadow-lg hover:bg-blue-100 transition cursor-pointer flex flex-col items-center ${selectedOption === "Woman" ? "border-4 border-blue-500" : ""
+          onClick={() => !checked && handleOptionClick(getWoman(languageCode))}
+          className={`bg-white p-4 rounded-lg shadow-lg hover:bg-blue-100 transition cursor-pointer flex flex-col items-center ${selectedOption === getWoman(languageCode) ? "border-4 border-blue-500" : ""
             } ${checked ? "pointer-events-none opacity-50" : ""}`}
         >
           <WomanSvg />
-          <span className="text-gray-700 text-lg font-medium">Woman</span>
+          <span className="text-gray-700 text-lg font-medium">{getWoman(languageCode)}</span>
         </div>
 
         <div
-          onClick={() => !checked && handleOptionClick("Boy")}
-          className={`bg-white p-4 rounded-lg shadow-lg hover:bg-blue-100 transition cursor-pointer flex flex-col items-center ${selectedOption === "Boy" ? "border-4 border-blue-500" : ""
+          onClick={() => !checked && handleOptionClick(getMan(languageCode))}
+          className={`bg-white p-4 rounded-lg shadow-lg hover:bg-blue-100 transition cursor-pointer flex flex-col items-center ${selectedOption === getMan(languageCode) ? "border-4 border-blue-500" : ""
             } ${checked ? "pointer-events-none opacity-50" : ""}`}
         >
           <BoySvg />
-          <span className="text-gray-700 text-lg font-medium">Boy</span>
+          <span className="text-gray-700 text-lg font-medium">{getMan(languageCode)}</span>
         </div>
 
         <div
-          onClick={() => !checked && handleOptionClick("Apple")}
-          className={`bg-white p-4 rounded-lg shadow-lg hover:bg-blue-100 transition cursor-pointer flex flex-col items-center ${selectedOption === "Apple" ? "border-4 border-blue-500" : ""
+          onClick={() => !checked && handleOptionClick(getApple(languageCode))}
+          className={`bg-white p-4 rounded-lg shadow-lg hover:bg-blue-100 transition cursor-pointer flex flex-col items-center ${selectedOption === getApple(languageCode) ? "border-4 border-blue-500" : ""
             } ${checked ? "pointer-events-none opacity-50" : ""}`}
         >
           <AppleSvg />
-          <span className="text-gray-700 text-lg font-medium">Apple</span>
+          <span className="text-gray-700 text-lg font-medium">{getApple(languageCode)}</span>
         </div>
       </div>
 
