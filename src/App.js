@@ -125,6 +125,7 @@ function App() {
       <AuthProvider>
         <div className="w-full h-screen flex flex-col">{routesElement}</div>
       </AuthProvider>
+      <ToastContainer hideProgressBar/>
     </div>
   );
 }
