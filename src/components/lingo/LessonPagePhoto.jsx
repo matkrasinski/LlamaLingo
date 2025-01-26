@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { WomanSvg, BoySvg, AppleSvg } from "../Svgs";
 import { toast } from 'react-toastify';
+import { getWoman, getMan, getApple } from "./courses/photoTranslations";
 
-const LessonPagePhoto = ({ health, changeHealth, indexUnit, indexLesson, indexTask, units }) => {
+const LessonPagePhoto = ({ health, changeHealth, indexUnit, indexLesson, indexTask, language }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
   const [checked, setChecked] = useState(false); // Tracks whether the check button was clicked
   const { unit, lessonId } = useParams();
+  const units = language.units
+  const languageCode = language.code
   const correctAnswer = units[indexUnit].tiles[indexLesson].tasks[indexTask].answer;
   const question = units[indexUnit].tiles[indexLesson].tasks[indexTask].question;
   const options = units[indexUnit].tiles[indexLesson].tasks[indexTask].options;
@@ -21,6 +24,9 @@ const LessonPagePhoto = ({ health, changeHealth, indexUnit, indexLesson, indexTa
   const handleCheck = () => {
     console.log(selectedOption);
     if (selectedOption) {
+      console.log('language: ' + JSON.stringify(language))
+      console.log('selectedOption: ' + selectedOption)
+      console.log('correctAnswer: ' + correctAnswer)
       setIsCorrect(selectedOption === correctAnswer);
       setChecked(true);
       if (selectedOption !== correctAnswer) {
