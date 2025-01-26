@@ -14,6 +14,7 @@ import { useRoutes } from "react-router-dom";
 import {
   getDocsFromCollection,
   getUserCoursesFromFirebase,
+  getUserProgressesFromFirebase,
 } from "./firebase/db";
 import { useEffect } from "react";
 import { useBoundStore } from "./hooks/useBoundStore";
@@ -46,11 +47,13 @@ function App() {
       const fetchUserCourses = async () => {
         try {
           const userCourseCodes = await getUserCoursesFromFirebase(user.uid);
-
+          // const userProgressCodes = await getUserProgressesFromFirebase(user.uid);
+          // console.log(userProgressCodes);
           const fullCourses = userCourseCodes.map((code) => {
             return { code: code, units: coursesAll[code] || [] };
           });
 
+          
           setUserCourses(fullCourses);
         } catch (error) {
           console.error("Error fetching user courses:", error);

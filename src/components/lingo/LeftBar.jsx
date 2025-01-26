@@ -19,10 +19,10 @@ const LeftBar = () => {
     return (
         <>
             <button
-                className="menu-button md:hidden fixed top-4 left-4 bg-gray-200 p-2 rounded-lg shadow-lg"
+                className="menu-button lg:hidden fixed top-4 left-4 bg-gray-200 p-2 rounded-lg shadow-lg"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
-                <img src="/icons/menu.png" alt="Menu" className="w-8 h-8" />
+                <img src="/icons/hamburger.png" alt="Menu" className="w-8 h-8" />
             </button>
 
             {isMenuOpen && (

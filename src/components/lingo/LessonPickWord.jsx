@@ -22,7 +22,7 @@ const LessonPickWord = ({ health, changeHealth, indexUnit, indexLesson, indexTas
   const [selectedAnswers, setSelectedAnswers] = useState([]);
   const [isCorrect, setIsCorrect] = useState(null);
   const [checked, setChecked] = useState(false);
-  const { user, addUserProgress, updateUserProgress } = useBoundStore();
+  const { user, updateUserProgress } = useBoundStore();
 
   function shuffle(array) {
     return array.sort(() => 0.5 - Math.random());
@@ -70,6 +70,8 @@ const LessonPickWord = ({ health, changeHealth, indexUnit, indexLesson, indexTas
       // Add or update the progress in Zustand store
       updateUserProgress(progress);
       console.log(user);
+      // const courseCodes = user.courses.map((course) => course.code);
+      // setDocFromCollection('users',user.uid,{courses: courseCodes ,progress:progress});
     }
 
     return true;

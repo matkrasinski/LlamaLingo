@@ -16,7 +16,8 @@ const Courses = () => {
       const syncToFirebase = async () => {
         try {
           const courseCodes = user.courses.map((course) => course.code);
-          await setDocFromCollection("users", user.uid, { courses: courseCodes });
+          console.log(user.progress)
+          await setDocFromCollection("users", user.uid, { courses: courseCodes, progress: user.progress });
           console.log("User course codes synced to Firebase:", courseCodes);
         } catch (error) {
           console.error("Error syncing user course codes to Firebase:", error);
