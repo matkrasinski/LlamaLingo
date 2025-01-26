@@ -13,7 +13,6 @@ const firebaseConfig = {
   measurementId: ""
 };
 
-
 firebase.initializeApp(firebaseConfig);
 
 const messaging = firebase.messaging();
