@@ -32,7 +32,9 @@ export const useWakeLockStore = (set) => ({
 
   // Release the wake lock
   async releaseWakeLock() {
-    const { wakeLock } = set.getState(); // Access current wakeLock
+    // const { wakeLock } = get()
+    // const { wakeLock } = set.getState(); // Access current wakeLock
+    const wakeLock = await navigator.wakeLock.request("screen");
     if (wakeLock) {
       await wakeLock.release();
       set({ wakeLock: null, isWakeLockActive: false });
