@@ -1,5 +1,5 @@
 import LeftBar from "./LeftBar";
-import {React, useState, useEffect } from "react";
+import { React, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useBoundStore } from "../../hooks/useBoundStore";
 
@@ -20,7 +20,7 @@ const Collapsible = ({ label, children }) => {
   );
 };
 
-const DataView = ({progress}) => {
+const DataView = ({ progress }) => {
   const renderData = (progress) => {
     return Object.entries(progress).map(([key, value]) => {
       if (typeof value === "object") {
@@ -43,41 +43,41 @@ const DataView = ({progress}) => {
 };
 
 const Profile = () => {
-    const {
-        wakeLock,
-        isWakeLockActive,
-        requestWakeLock,
-        user
-    } = useBoundStore();
-    useEffect(() => {
-        // Handle visibility changes to reacquire Wake Lock
-        const handleVisibilityChange = async () => {
-            if (document.visibilityState === "visible" && isWakeLockActive && !wakeLock) {
-                await requestWakeLock(); // Reacquire the Wake Lock
-                toast.info("Wake Lock reacquired after visibility change.");
-            }
-        };
+  const {
+    wakeLock,
+    isWakeLockActive,
+    requestWakeLock,
+    user
+  } = useBoundStore();
+  useEffect(() => {
+    // Handle visibility changes to reacquire Wake Lock
+    const handleVisibilityChange = async () => {
+      if (document.visibilityState === "visible" && isWakeLockActive && !wakeLock) {
+        await requestWakeLock(); // Reacquire the Wake Lock
+        toast.info("Wake Lock reacquired after visibility change.");
+      }
+    };
 
-        document.addEventListener("visibilitychange", handleVisibilityChange);
-        return () => {
-            document.removeEventListener("visibilitychange", handleVisibilityChange);
-        };
-    }, [isWakeLockActive, wakeLock, requestWakeLock]);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [isWakeLockActive, wakeLock, requestWakeLock]);
 
-    useEffect(() => {
-        // Automatically reacquire Wake Lock on component mount if it's active
-        if (isWakeLockActive && !wakeLock) {
-            requestWakeLock();
-        }
-    }, [isWakeLockActive, wakeLock, requestWakeLock]);
+  useEffect(() => {
+    // Automatically reacquire Wake Lock on component mount if it's active
+    if (isWakeLockActive && !wakeLock) {
+      requestWakeLock();
+    }
+  }, [isWakeLockActive, wakeLock, requestWakeLock]);
 
-    return (
-        <div className="grid grid-cols-12 h-screen gap-4">
-            <div className="col-span-3 p-4"><LeftBar /></div>
-            <DataView progress={user.progress}/>
-            <div className="col-span-9 p-4">Tak </div>
-        </div>
-    )
+  return (
+    <div className="grid grid-cols-12 h-screen gap-4">
+      <div className="col-span-3 p-4"><LeftBar /></div>
+      <DataView progress={user.progress} />
+      <div className="col-span-9 p-4">Tak </div>
+    </div>
+  )
 }
 
 export default Profile;

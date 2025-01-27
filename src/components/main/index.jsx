@@ -1,11 +1,10 @@
-import { React, useEffect, useState} from "react";
+import { React, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useBoundStore } from "../../hooks/useBoundStore";
-import { getFirebaseToken, onForegroundMessage } from "../../firebase/firebase";
+import { onForegroundMessage } from "../../firebase/firebase";
 import { ToastContainer, toast } from 'react-toastify';
 import LeftBar from "../lingo/LeftBar";
 import Courses from "../lingo/Courses";
-import coursesDone from "../../utils/coursesDone.json"
 
 const PageWrapper = ({ left, center, right }) => {
   return (
@@ -39,15 +38,13 @@ const UnitTile = ({ unit, done }) => {
         {unit.tiles.map((tile, index) => (
           <Link
             key={index}
-            className={`flex h-14 w-14 items-center justify-center rounded-full border-2 font-semibold ${
-              done[`unit${unit.unitNumber}`]?.[String(index + 1)] === "done"
+            className={`flex h-14 w-14 items-center justify-center rounded-full border-2 font-semibold ${done[`unit${unit.unitNumber}`]?.[String(index + 1)] === "done"
                 ? "bg-green-500 text-white border-green-500"
                 : "bg-white text-gray-600 border-gray-300"
-            } transition-transform transform hover:scale-110 hover:border-green-400`}
+              } transition-transform transform hover:scale-110 hover:border-green-400`}
             title={tile.description || tile.type}
-            to={`/lessons/${unit.unitNumber}/${index + 1}/1/${
-              unit.tiles[index].tasks[0].taskType
-            }`}
+            to={`/lessons/${unit.unitNumber}/${index + 1}/1/${unit.tiles[index].tasks[0].taskType
+              }`}
           >
             {index + 1}
           </Link>
@@ -61,13 +58,7 @@ const UnitTile = ({ unit, done }) => {
 const Main = () => {
   const language = useBoundStore((state) => state.language);
   const { user } = useBoundStore();
-  const [lastLesson, setLastLesson] = useState({unit: 0, lesson: 0});
-  console.log(user.progress[user.courses[0].code]);
-  // console.log(courses)
-  // console.log(courses[user.courses[0].code])
-  // console.log("user courses obj");
-  // console.log(user.courses);
-  // console.log("---------------------");
+  const [lastLesson, setLastLesson] = useState({ unit: 0, lesson: 0 });
 
 
   useEffect(() => {
@@ -91,7 +82,7 @@ const Main = () => {
 
   return (
     <>
-      <ToastContainer/>
+      <ToastContainer />
 
       <PageWrapper
         left={
@@ -103,7 +94,7 @@ const Main = () => {
           <div className="flex flex-col gap-4">
             {user.courses && user.courses.length > 0 ? (
               user.courses[0].units.map((unit) => (
-                <UnitTile key={unit.unitNumber} unit={unit} done={user.progress[user.courses[0]?.code] || false}/>
+                <UnitTile key={unit.unitNumber} unit={unit} done={user.progress[user.courses[0]?.code] || false} />
               ))
             ) : (
               <p> Nie wybrano jezyka </p>
@@ -112,7 +103,7 @@ const Main = () => {
         }
         right={
           <div>
-            <Courses className="z-100"/>
+            <Courses className="z-100" />
           </div>
         }
       />

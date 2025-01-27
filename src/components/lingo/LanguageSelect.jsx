@@ -1,6 +1,5 @@
 import React from "react";
 import languages from "../../utils/languages.js";
-// import { courses, coursesObj } from "../../utils/units.js"; // Key-value pair object
 import { useBoundStore } from "../../hooks/useBoundStore";
 import { Flag } from "../lingo/Flag.jsx";
 import { Link } from "react-router-dom";

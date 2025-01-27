@@ -1,11 +1,9 @@
 import React from "react";
-import { useRef, useState } from "react";
-import { WomanSvg, BoySvg, AppleSvg } from "../Svgs";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMemo } from "react";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useBoundStore } from "../../hooks/useBoundStore";
-import { setDocFromCollection } from "../../firebase/db";
 
 
 const LessonPickWord = ({ health, changeHealth, indexUnit, indexLesson, indexTask, units }) => {
@@ -19,7 +17,6 @@ const LessonPickWord = ({ health, changeHealth, indexUnit, indexLesson, indexTas
   }
   const correctAnswer = units[indexUnit].tiles[indexLesson].tasks[indexTask].answer;
   const answerTiles = useMemo(() => shuffle([...correctAnswer]), [correctAnswer]);
-  console.log(health)
   const navigate = useNavigate();
 
   const handleCheck = () => {
@@ -42,11 +39,11 @@ const LessonPickWord = ({ health, changeHealth, indexUnit, indexLesson, indexTas
     setChecked(true);
     setIsCorrect(true);
 
-    if(indexTask+1 ===3){
+    if (indexTask + 1 === 3) {
       const courseCode = user.courses[0]?.code; // Assume the first course is active
       const unitKey = `unit${indexUnit + 1}`;
       const lessonKey = String(indexLesson + 1);
-  
+
       if (courseCode) {
         const progress = {
           [String(courseCode)]: {
@@ -55,12 +52,9 @@ const LessonPickWord = ({ health, changeHealth, indexUnit, indexLesson, indexTas
             },
           },
         };
-  
-        console.log("progress", progress)
-  
+
         // Add or update the progress in Zustand store
         updateUserProgress(progress);
-        console.log(user);
         // const courseCodes = user.courses.map((course) => course.code);
         // setDocFromCollection('users',user.uid,{courses: courseCodes ,progress:progress});
       }
@@ -74,7 +68,6 @@ const LessonPickWord = ({ health, changeHealth, indexUnit, indexLesson, indexTas
     setSelectedAnswers([]);
     setIsCorrect(null);
     setChecked(false);
-    console.log(health);
     if (health === 0 || indexTask + 2 > units[indexUnit].tiles[indexLesson].tasks.length) {
       navigate('/main');
     } else {
@@ -84,23 +77,14 @@ const LessonPickWord = ({ health, changeHealth, indexUnit, indexLesson, indexTas
         /\/lessons\/(\d+)\/(\d+)\/(\d+)\/\w+$/,
         `/lessons/${indexUnit + 1}/${indexLesson + 1}/${indexTask + 2}/${nextTask}`
       );
-      // console.log(updatedUrl)
-      // console.log(nextTask)
       navigate(updatedUrl);
     }
   };
 
   return (
     <div className="min-h-screen bg-blue-50 flex flex-col items-center justify-center p-4">
-      {/* <h1 className="text-2xl font-bold mb-6 text-gray-800">Put words in the right order</h1> */}
       <div className="flex flex-col items-center gap-5 mb-5">
         <div className="w-full max-w-5xl sm:mt-8 sm:px-5">
-          {/* <ProgressBar
-            correctAnswerCount={correctAnswerCount}
-            totalCorrectAnswersNeeded={totalCorrectAnswersNeeded}
-            setQuitMessageShown={setQuitMessageShown}
-            hearts={hearts}
-          /> */}
         </div>
         <section className="flex max-w-2xl grow flex-col gap-5 self-center sm:items-center justify-center sm:gap-24">
           <h1 className="mb-2 text-2xl font-bold sm:text-3xl">
@@ -109,17 +93,6 @@ const LessonPickWord = ({ health, changeHealth, indexUnit, indexLesson, indexTas
 
           <div className="w-full">
             <div className="flex items-center gap-2 px-2">
-              {/* <WomanSvg />
-              <div className="relative ml-2 w-fit rounded-2xl border-2 border-gray-200 p-4">
-                Tutto per tutto
-                <div
-                  className="absolute h-4 w-4 rotate-45 border-b-2 border-l-2 border-gray-200 bg-white"
-                  style={{
-                    top: "calc(50% - 8px)",
-                    left: "-10px",
-                  }}
-                ></div>
-              </div> */}
             </div>
 
             <div className="flex min-h-[60px] flex-wrap gap-1 border-b-2 border-t-2 border-gray-200 py-1">
