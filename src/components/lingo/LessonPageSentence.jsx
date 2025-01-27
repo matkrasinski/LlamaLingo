@@ -1,11 +1,14 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useBoundStore } from "../../hooks/useBoundStore";
 
 const LessonPageSentence = ({ health,changeHealth,indexUnit,indexLesson,indexTask,units }) => {
   const [userInput, setUserInput] = useState("");
   const [checked, setChecked] = useState(false);
   const [isCorrect, setIsCorrect] = useState(null);
+  const { user, updateUserProgress } = useBoundStore();
+
   const correctAnswer = units[indexUnit].tiles[indexLesson].tasks[indexTask].answer;
   const ogQuestion = units[indexUnit].tiles[indexLesson].tasks[indexTask].ogQuestion;
   const question = units[indexUnit].tiles[indexLesson].tasks[indexTask].question;
@@ -17,6 +20,30 @@ const LessonPageSentence = ({ health,changeHealth,indexUnit,indexLesson,indexTas
     console.log('correct answer: ' + correctAnswer.trim().toLowerCase())
     if (userInput.trim().toLowerCase() !== correctAnswer.trim().toLowerCase()){
       changeHealth();
+    } else{
+      if(indexTask+1 ===3){
+        const courseCode = user.courses[0]?.code; // Assume the first course is active
+        const unitKey = `unit${indexUnit + 1}`;
+        const lessonKey = String(indexLesson + 1);
+    
+        if (courseCode) {
+          const progress = {
+            [String(courseCode)]: {
+              [unitKey]: {
+                [lessonKey]: "done",
+              },
+            },
+          };
+    
+          console.log("progress", progress)
+    
+          // Add or update the progress in Zustand store
+          updateUserProgress(progress);
+          console.log(user);
+          // const courseCodes = user.courses.map((course) => course.code);
+          // setDocFromCollection('users',user.uid,{courses: courseCodes ,progress:progress});
+        }
+      }
     }
   };
 

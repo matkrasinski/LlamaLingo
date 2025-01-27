@@ -42,26 +42,28 @@ const LessonPickWord = ({ health, changeHealth, indexUnit, indexLesson, indexTas
     setChecked(true);
     setIsCorrect(true);
 
-    const courseCode = user.courses[0]?.code; // Assume the first course is active
-    const unitKey = `unit${indexUnit + 1}`;
-    const lessonKey = String(indexLesson + 1);
-
-    if (courseCode) {
-      const progress = {
-        [String(courseCode)]: {
-          [unitKey]: {
-            [lessonKey]: "done",
+    if(indexTask+1 ===3){
+      const courseCode = user.courses[0]?.code; // Assume the first course is active
+      const unitKey = `unit${indexUnit + 1}`;
+      const lessonKey = String(indexLesson + 1);
+  
+      if (courseCode) {
+        const progress = {
+          [String(courseCode)]: {
+            [unitKey]: {
+              [lessonKey]: "done",
+            },
           },
-        },
-      };
-
-      console.log("progerss", progress)
-
-      // Add or update the progress in Zustand store
-      updateUserProgress(progress);
-      console.log(user);
-      // const courseCodes = user.courses.map((course) => course.code);
-      // setDocFromCollection('users',user.uid,{courses: courseCodes ,progress:progress});
+        };
+  
+        console.log("progress", progress)
+  
+        // Add or update the progress in Zustand store
+        updateUserProgress(progress);
+        console.log(user);
+        // const courseCodes = user.courses.map((course) => course.code);
+        // setDocFromCollection('users',user.uid,{courses: courseCodes ,progress:progress});
+      }
     }
 
     return true;

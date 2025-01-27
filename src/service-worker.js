@@ -9,9 +9,6 @@ import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 import lessonsRoutes from './lessons-routes.json'
 import iconsRoutes from './icons-routes.json'
 
-const version = "0.1.0"
-
-const version = "0.1.0"
 
 clientsClaim();
 

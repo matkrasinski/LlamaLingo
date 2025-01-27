@@ -16,7 +16,6 @@ const RedirectIfLoggedIn = ({ children }) => {
       getUserCoursesFromFirebase(user.uid)
         .then((courses) => {
           setUserCourseCodes(courses);
-          console.log("gggggówno:", courses);
         })
         .catch((error) => {
           console.error("Error fetching user courses:", error);
