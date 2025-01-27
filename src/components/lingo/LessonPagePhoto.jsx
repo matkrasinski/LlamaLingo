@@ -13,6 +13,7 @@ const LessonPagePhoto = ({ health, changeHealth, indexUnit, indexLesson, indexTa
   const languageCode = language.code
   const correctAnswer = units[indexUnit].tiles[indexLesson].tasks[indexTask].answer;
   const question = units[indexUnit].tiles[indexLesson].tasks[indexTask].question;
+  const options = units[indexUnit].tiles[indexLesson].tasks[indexTask].options;
   const navigate = useNavigate();
 
   const handleOptionClick = (word) => {
@@ -21,6 +22,7 @@ const LessonPagePhoto = ({ health, changeHealth, indexUnit, indexLesson, indexTa
   };
 
   const handleCheck = () => {
+    console.log(selectedOption);
     if (selectedOption) {
       console.log('language: ' + JSON.stringify(language))
       console.log('selectedOption: ' + selectedOption)
@@ -51,8 +53,8 @@ const LessonPagePhoto = ({ health, changeHealth, indexUnit, indexLesson, indexTa
         /\/lessons\/(\d+)\/(\d+)\/(\d+)\/\w+$/,
         `/lessons/${indexUnit + 1}/${indexLesson + 1}/${indexTask + 2}/${nextTask}`
       );
-      console.log(updatedUrl)
-      console.log(nextTask)
+      // console.log(updatedUrl)
+      // console.log(nextTask)
       navigate(updatedUrl);
     }
   };
@@ -64,30 +66,30 @@ const LessonPagePhoto = ({ health, changeHealth, indexUnit, indexLesson, indexTa
 
       <div className="grid grid-cols-3 gap-6 max-w-4xl mb-6">
         <div
-          onClick={() => !checked && handleOptionClick(getWoman(languageCode))}
-          className={`bg-white p-4 rounded-lg shadow-lg hover:bg-blue-100 transition cursor-pointer flex flex-col items-center ${selectedOption === getWoman(languageCode) ? "border-4 border-blue-500" : ""
+          onClick={() => !checked && handleOptionClick( options[0])}
+          className={`bg-white p-4 rounded-lg shadow-lg hover:bg-blue-100 transition cursor-pointer flex flex-col items-center ${selectedOption === options[0] ? "border-4 border-blue-500" : ""
             } ${checked ? "pointer-events-none opacity-50" : ""}`}
         >
           <WomanSvg />
-          <span className="text-gray-700 text-lg font-medium">{getWoman(languageCode)}</span>
+          <span className="text-gray-700 text-lg font-medium">{options[0]}</span>
         </div>
 
         <div
-          onClick={() => !checked && handleOptionClick(getMan(languageCode))}
-          className={`bg-white p-4 rounded-lg shadow-lg hover:bg-blue-100 transition cursor-pointer flex flex-col items-center ${selectedOption === getMan(languageCode) ? "border-4 border-blue-500" : ""
+          onClick={() => !checked && handleOptionClick( options[1])}
+          className={`bg-white p-4 rounded-lg shadow-lg hover:bg-blue-100 transition cursor-pointer flex flex-col items-center ${selectedOption === options[1] ? "border-4 border-blue-500" : ""
             } ${checked ? "pointer-events-none opacity-50" : ""}`}
         >
           <BoySvg />
-          <span className="text-gray-700 text-lg font-medium">{getMan(languageCode)}</span>
+          <span className="text-gray-700 text-lg font-medium">{options[1]}</span>
         </div>
 
         <div
-          onClick={() => !checked && handleOptionClick(getApple(languageCode))}
-          className={`bg-white p-4 rounded-lg shadow-lg hover:bg-blue-100 transition cursor-pointer flex flex-col items-center ${selectedOption === getApple(languageCode) ? "border-4 border-blue-500" : ""
+          onClick={() => !checked && handleOptionClick( options[2])}
+          className={`bg-white p-4 rounded-lg shadow-lg hover:bg-blue-100 transition cursor-pointer flex flex-col items-center ${selectedOption === options[2] ? "border-4 border-blue-500" : ""
             } ${checked ? "pointer-events-none opacity-50" : ""}`}
         >
           <AppleSvg />
-          <span className="text-gray-700 text-lg font-medium">{getApple(languageCode)}</span>
+          <span className="text-gray-700 text-lg font-medium">{options[2]}</span>
         </div>
       </div>
 

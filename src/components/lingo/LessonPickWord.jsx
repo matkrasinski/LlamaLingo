@@ -4,25 +4,15 @@ import { WomanSvg, BoySvg, AppleSvg } from "../Svgs";
 import { useNavigate } from "react-router-dom";
 import { useMemo } from "react";
 import { ToastContainer, toast } from 'react-toastify';
-import done from "../../utils/coursesDone.json"
+import { useBoundStore } from "../../hooks/useBoundStore";
+import { setDocFromCollection } from "../../firebase/db";
 
 
-const addElementToLanguage = (data, language, unitElement, lessonElement) => {
-  console.log(data[language][unitElement+1][String(lessonElement)])
-
-  data[language][unitElement][String(lessonElement)] = "done";
-  // if (!data[language]) {
-  //   data[language] = [[], []];
-  // }
-  // data[language][0].push(unitElement);
-  // data[language][1].push(lessonElement);
-  // return data;
-};
-
-const LessonPickWord = ({ health,changeHealth,indexUnit,indexLesson,indexTask,units }) => {
-  const [selectedAnswers, setSelectedAnswers] =  useState([]);
+const LessonPickWord = ({ health, changeHealth, indexUnit, indexLesson, indexTask, units }) => {
+  const [selectedAnswers, setSelectedAnswers] = useState([]);
   const [isCorrect, setIsCorrect] = useState(null);
-  const [checked, setChecked] = useState(false); 
+  const [checked, setChecked] = useState(false);
+  const { user, updateUserProgress } = useBoundStore();
 
   function shuffle(array) {
     return array.sort(() => 0.5 - Math.random());
@@ -31,50 +21,70 @@ const LessonPickWord = ({ health,changeHealth,indexUnit,indexLesson,indexTask,un
   const answerTiles = useMemo(() => shuffle([...correctAnswer]), [correctAnswer]);
   console.log(health)
   const navigate = useNavigate();
-  // const handleOptionClick = (word) => {
-  //   alert(`You selected: ${word}`);
-  // };
 
   const handleCheck = () => {
-     if (selectedAnswers.length !== correctAnswer.length) {
-      toast("Please pick all world first.");
+    if (selectedAnswers.length !== correctAnswer.length) {
+      toast("Please pick all words first.");
       return false;
-     } 
+    }
 
-     const selectedWords = selectedAnswers.map((i) => answerTiles[i]);
+    const selectedWords = selectedAnswers.map((i) => answerTiles[i]);
 
-     for (let i = 0; i < selectedWords.length; i++){
+    for (let i = 0; i < selectedWords.length; i++) {
       if (selectedWords[i] !== correctAnswer[i]) {
-        //alert("Wrong." + selectedWords[i] + ", "+ correctAnswer[i]);
         setChecked(true);
         setIsCorrect(false);
         changeHealth();
         return false;
       }
-     }
-     setChecked(true);
-     setIsCorrect(true);
-     addElementToLanguage(done,'es',indexUnit,indexLesson+1)
-     return true;
+    }
+
+    setChecked(true);
+    setIsCorrect(true);
+
+    const courseCode = user.courses[0]?.code; // Assume the first course is active
+    const unitKey = `unit${indexUnit + 1}`;
+    const lessonKey = String(indexLesson + 1);
+
+    if (courseCode) {
+      const progress = {
+        [String(courseCode)]: {
+          [unitKey]: {
+            [lessonKey]: "done",
+          },
+        },
+      };
+
+      console.log("progerss", progress)
+
+      // Add or update the progress in Zustand store
+      updateUserProgress(progress);
+      console.log(user);
+      // const courseCodes = user.courses.map((course) => course.code);
+      // setDocFromCollection('users',user.uid,{courses: courseCodes ,progress:progress});
+    }
+
+    return true;
   };
+
 
   const handleNext = () => {
     setSelectedAnswers([]);
     setIsCorrect(null);
     setChecked(false);
     console.log(health);
-    if (health === 0 || indexTask + 2 >units[indexUnit].tiles[indexLesson].tasks.length){
+    if (health === 0 || indexTask + 2 > units[indexUnit].tiles[indexLesson].tasks.length) {
       navigate('/main');
     } else {
       const currentUrl = window.location.pathname;
-      const nextTask = units[indexUnit].tiles[indexLesson].tasks[indexTask+1].taskType;
+      const nextTask = units[indexUnit].tiles[indexLesson].tasks[indexTask + 1].taskType;
       const updatedUrl = currentUrl.replace(
         /\/lessons\/(\d+)\/(\d+)\/(\d+)\/\w+$/,
-        `/lessons/${indexUnit+1}/${indexLesson+1}/${indexTask + 2}/${nextTask}`
+        `/lessons/${indexUnit + 1}/${indexLesson + 1}/${indexTask + 2}/${nextTask}`
       );
-      console.log(updatedUrl)
-      console.log(nextTask)
-    navigate(updatedUrl);
+      // console.log(updatedUrl)
+      // console.log(nextTask)
+      navigate(updatedUrl);
     }
   };
 
@@ -97,7 +107,7 @@ const LessonPickWord = ({ health,changeHealth,indexUnit,indexLesson,indexTask,un
 
           <div className="w-full">
             <div className="flex items-center gap-2 px-2">
-            {/* <WomanSvg />
+              {/* <WomanSvg />
               <div className="relative ml-2 w-fit rounded-2xl border-2 border-gray-200 p-4">
                 Tutto per tutto
                 <div
@@ -155,7 +165,7 @@ const LessonPickWord = ({ health,changeHealth,indexUnit,indexLesson,indexTask,un
           </div>
         </section>
       </div>
-      
+
       {/* Check Button */}
       {!checked && (
         <button

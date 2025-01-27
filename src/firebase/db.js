@@ -71,6 +71,25 @@ export async function getUserCoursesFromFirebase(userId) {
   }
 }
 
+export async function getUserProgressesFromFirebase(userId) {
+  try {
+    const userDocRef = doc(db, "users", userId);
+    const docSnap = await getDoc(userDocRef);
+    
+    if (docSnap.exists()) {
+      console.log(docSnap.data().progress);
+      console.log("update progress firebase.js")
+      return docSnap.data().progress || [];
+    } else {
+      console.log("No such document!");
+      return [];
+    }
+  } catch (error) {
+    console.error("Error getting user courses:", error);
+    return [];
+  }
+}
+
 export const updateUserCoursesInFirebase = async (uid, courses) => {
   try {
     const userDocRef = doc(db, "users", uid);

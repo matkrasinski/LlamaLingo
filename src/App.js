@@ -9,17 +9,20 @@ import Lessons from "./components/lessons";
 import SplashScreen from "./components/lingo/SplashScreen";
 import Profile from "./components/lingo/Profile";
 
-
 import { AuthProvider } from "./contexts/authContext";
 import { useRoutes } from "react-router-dom";
-import { getDocsFromCollection, getUserCoursesFromFirebase } from "./firebase/db";
+import {
+  getDocsFromCollection,
+  getUserCoursesFromFirebase,
+  getUserProgressesFromFirebase,
+} from "./firebase/db";
 import { useEffect } from "react";
 import { useBoundStore } from "./hooks/useBoundStore";
 import { ToastContainer } from "react-toastify";
 
 function App() {
   const setCourses = useBoundStore((state) => state.setCourses);
-  const { user, setUserCourses, coursesAll } = useBoundStore();
+  const { user, setUserCourses, coursesAll, addUserProgress } = useBoundStore();
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -44,11 +47,9 @@ function App() {
       const fetchUserCourses = async () => {
         try {
           const userCourseCodes = await getUserCoursesFromFirebase(user.uid);
-
-          const fullCourses= userCourseCodes.map((code) => {
-            return {code : code, units: coursesAll[code] || []}
+          const fullCourses = userCourseCodes.map((code) => {
+            return { code: code, units: coursesAll[code] || [] };
           });
-
           setUserCourses(fullCourses);
         } catch (error) {
           console.error("Error fetching user courses:", error);
@@ -58,6 +59,22 @@ function App() {
       fetchUserCourses();
     }
   }, [user.uid, coursesAll, setUserCourses]);
+
+  useEffect(() => {
+    if (user && user.uid) {
+      const fetchUserProgress = async () => {
+        try {
+          const userProgress= await getUserProgressesFromFirebase(user.uid);
+          console.log("fetch: ", userProgress);
+          addUserProgress(userProgress);
+        } catch (error) {
+          console.error("Error fetching user progress:", error);
+        }
+      }
+
+      fetchUserProgress();
+    }
+  }, [user.uid, addUserProgress])
 
   const routesArray = [
     {
@@ -110,7 +127,6 @@ function App() {
       ),
     },
     {
-
       path: "/Profile",
       element: (
         <ProtectedRoute>
@@ -132,4 +148,3 @@ function App() {
 }
 
 export default App;
-

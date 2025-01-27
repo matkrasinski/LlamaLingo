@@ -17,7 +17,8 @@ const Courses = () => {
       const syncToFirebase = async () => {
         try {
           const courseCodes = user.courses.map((course) => course.code);
-          await setDocFromCollection("users", user.uid, { courses: courseCodes });
+          console.log(user.progress)
+          await setDocFromCollection("users", user.uid, { courses: courseCodes, progress: user.progress });
           console.log("User course codes synced to Firebase:", courseCodes);
         } catch (error) {
           console.error("Error syncing user course codes to Firebase:", error);
@@ -87,12 +88,11 @@ const Courses = () => {
 
     <div
         className={`rightbar-container fixed top-0 right-0 h-full bg-white shadow-lg p-6 flex flex-col gap-6 
-          transition-transform duration-300 z-50 
+          transition-transform duration-300 z-50 overflow-y-auto
           ${isMenuOpen ? "translate-x-0" : "translate-x-full"} 
-          lg:translate-x-0 md:min-w-[250px] max-w-[300px] overflow-hidden
+          lg:translate-x-0 md:min-w-[250px] max-w-[300px] overflow-hidden lg:w-1/4
 `}
 >
-      <ToastContainer />
       <h2 className="text-xl font-bold mb-4">Your Courses</h2>
 
       {currentCourses.length === 0 ? (
@@ -100,7 +100,7 @@ const Courses = () => {
           You have no courses yet. Add a new course!
         </div>
       ) : (
-        <div className="max-h-[300px] overflow-auto grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+        <div className="max-h-[300px] overflow-auto grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8">
           {currentCourses.map((course) => {
             const language = languages.find((lang) => lang.code === course.code);
             return (
@@ -131,7 +131,6 @@ const Courses = () => {
       >
         Select a Language
       </button>
-
       {isModalOpen && (
         <div
           className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center"
