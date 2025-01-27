@@ -15,6 +15,9 @@ clientsClaim();
 precacheAndRoute([
   ...self.__WB_MANIFEST,
   { url: '/flags.svg', revision: null }, // Ensure this is included for offline use
+  { url: '/', revision: null},
+  { url: '/main', revision: null},
+  { url: '/lessons/1/1/1', revision: null},
 ]);
 
 // Cache static assets like images
@@ -28,7 +31,7 @@ registerRoute(
 
 // Cache Firestore API responses
 registerRoute(
-  ({ url }) => url.hostname.includes('firestore.googleapis.com'),
+  ({ url }) => url.hostname.includes('firestore.googleapis.com'), 
   new NetworkFirst({
     cacheName: 'firestore-cache',
     plugins: [
@@ -90,6 +93,7 @@ self.addEventListener('fetch', (event) => {
 const CACHE_NAME = 'app-cache-v1';
 const urlsToCache = [
   '/',
+  '/main',
   '/index.html',
   '/static/js/bundle.js',
   '/static/css/main.css',
