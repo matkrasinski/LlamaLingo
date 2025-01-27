@@ -143,7 +143,7 @@ self.addEventListener('fetch', (event) => {
 });
 
 // Install event to cache critical files
-const CACHE_NAME = 'app-cache-v1';
+const CACHE_NAME = 'workbox-precache-v2-http://localhost:3000/';
 const urlsToCache = [
   '/',
   '/main',
