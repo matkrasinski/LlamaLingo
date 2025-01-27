@@ -47,14 +47,14 @@ const LeftBar = () => {
                 lg:translate-x-0 lg:w-1/4 md:min-w-[250px] max-w-[300px] overflow-hidden
         `}>
             {showNotificationBanner && (
-              <div className="bg-green-100 border border-green-500 text-green-800 p-4 flex items-center justify-between rounded-xl shadow-md">
+              <div className="bg-green-100 border border-green-500 text-green-800 p-4 flex items-center justify-between rounded-xl shadow-md min-w-[240px]">
                 <div className="flex items-center gap-3">
                   <span className="text-lg font-bold">
                     Enable push notifications for a better experience!
                   </span>
                 </div>
                 <button
-                  className="bg-green-500 text-white font-semibold px-4 py-2 rounded-full hover:bg-green-600 transition shadow-md"
+                  className="bg-green-500 text-white font-semibold px-4 py-2 rounded-lg hover:bg-green-600 transition shadow-md"
                   onClick={handleGetFirebaseToken}
                 >
                   Grant Permission

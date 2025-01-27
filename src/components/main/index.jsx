@@ -17,34 +17,46 @@ const PageWrapper = ({ left, center, right }) => {
   );
 };
 
-const UnitTile = ({ unit,done }) => {
-  console.log(done)
+const UnitTile = ({ unit, done }) => {
   return (
     <div
-      className={`flex flex-col items-center justify-between gap-4 rounded-lg border-2 p-4 ${unit.borderColor} w-full`}
+      className={`flex flex-col items-center gap-4 rounded-2xl border border-gray-200 bg-gradient-to-br from-green-100 to-green-50 shadow-md p-6 hover:shadow-lg transition-transform transform hover:scale-105`}
     >
-      <div className={`text-xl font-bold ${unit.textColor}`}>
+      {/* Unit Header */}
+      <div
+        className={`text-2xl font-bold text-green-600 bg-white rounded-full px-6 py-2 shadow-sm`}
+      >
         Unit {unit.unitNumber}
       </div>
-      <div className="text-center text-sm text-gray-700">
+
+      {/* Unit Description */}
+      <div className="text-center text-sm text-gray-600">
         {unit.description}
       </div>
-      <div className="flex flex-wrap justify-center gap-2">
+
+      {/* Tiles */}
+      <div className="flex flex-wrap justify-center gap-3">
         {unit.tiles.map((tile, index) => (
           <Link
             key={index}
-            className={`flex h-10 w-10 items-center justify-center rounded-full border-2 text-xs font-bold text-gray-600 ${done[`unit${unit.unitNumber}`]?.[String(index+1)]==='done' ? "bg-green-500":"bg-white"}`}
+            className={`flex h-14 w-14 items-center justify-center rounded-full border-2 font-semibold ${
+              done[`unit${unit.unitNumber}`]?.[String(index + 1)] === "done"
+                ? "bg-green-500 text-white border-green-500"
+                : "bg-white text-gray-600 border-gray-300"
+            } transition-transform transform hover:scale-110 hover:border-green-400`}
             title={tile.description || tile.type}
-            to={`/lessons/${unit.unitNumber}/${index + 1}/1/${unit.tiles[index].tasks[0].taskType
-              }`}
+            to={`/lessons/${unit.unitNumber}/${index + 1}/1/${
+              unit.tiles[index].tasks[0].taskType
+            }`}
           >
-            {index+1}
+            {index + 1}
           </Link>
         ))}
       </div>
     </div>
   );
 };
+
 
 const Main = () => {
   const language = useBoundStore((state) => state.language);
