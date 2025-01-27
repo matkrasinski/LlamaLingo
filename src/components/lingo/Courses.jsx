@@ -4,6 +4,7 @@ import languages from "../../utils/languages";
 import { useBoundStore } from "../../hooks/useBoundStore";
 import { setDocFromCollection } from "../../firebase/db";
 import { ToastContainer, toast } from 'react-toastify';
+
 const Courses = () => {
   const [currentCourses, setCurrentCourses] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -64,8 +65,6 @@ const Courses = () => {
 
   return (
     <>
-      <ToastContainer />
-
     <button
   className="menu-button lg:hidden fixed top-4 right-4 bg-gray-200 p-2 rounded-lg shadow-lg"
   onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -150,14 +149,14 @@ const Courses = () => {
                 X
               </button>
             </div>
-            <div className="mt-4 grid grid-cols-2  gap-4 max-h-[60vh] overflow-y-auto">
+            <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 max-h-[60vh] overflow-y-auto">
               {languages.map((language) => (
                 <div
                   key={language.code}
                   className="flex flex-col items-center border rounded-lg p-4 shadow-md bg-gray-100 hover:bg-gray-200 cursor-pointer"
                   onClick={() => handleAddCourse(language.code)}
                 >
-                  <Flag language={language} width={32} />
+                  <Flag language={language} width={32}  className='hidden'/>
                   <span className="mt-2 text-sm font-semibold">{language.name}</span>
                   <span className="text-xs text-gray-600">{language.nativeName}</span>
                 </div>
@@ -167,7 +166,6 @@ const Courses = () => {
         </div>
       )}
     </div>
-    
     </>
   );
 };

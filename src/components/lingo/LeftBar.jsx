@@ -65,7 +65,6 @@ const LeftBar = () => {
                 <Link className="mb-8 mt-5 text-3xl font-extrabold text-[#58cc02] lg:block">
                     Llamalingo
                 </Link>
-
                 <Link
                     to="/main"
                     className={`flex items-center gap-4 rounded-xl px-4 py-3 text-lg font-bold uppercase transition-all

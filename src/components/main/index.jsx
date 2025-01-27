@@ -5,6 +5,7 @@ import { getFirebaseToken, onForegroundMessage } from "../../firebase/firebase";
 import { ToastContainer, toast } from 'react-toastify';
 import LeftBar from "../lingo/LeftBar";
 import Courses from "../lingo/Courses";
+import coursesDone from "../../utils/coursesDone.json"
 
 const PageWrapper = ({ left, center, right }) => {
   return (
