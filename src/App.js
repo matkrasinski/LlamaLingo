@@ -65,7 +65,6 @@ function App() {
       const fetchUserProgress = async () => {
         try {
           const userProgress= await getUserProgressesFromFirebase(user.uid);
-          console.log("fetch: ", userProgress);
           addUserProgress(userProgress);
         } catch (error) {
           console.error("Error fetching user progress:", error);

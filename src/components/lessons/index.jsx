@@ -12,7 +12,6 @@ const Lessons = () => {
   const indexUnit = unit-1;
   const indexLesson = lessonId-1;
   const indexTask = taskId-1;
-  console.log(taskType);
   const [health,setHealth] = useState(1);
   // choose language
   const language = user.courses[0];
