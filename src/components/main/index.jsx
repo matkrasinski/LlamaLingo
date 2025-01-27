@@ -5,7 +5,6 @@ import { getFirebaseToken, onForegroundMessage } from "../../firebase/firebase";
 import { ToastContainer, toast } from 'react-toastify';
 import LeftBar from "../lingo/LeftBar";
 import Courses from "../lingo/Courses";
-import coursesDone from "../../utils/coursesDone.json"
 
 const PageWrapper = ({ left, center, right }) => {
   return (
@@ -50,8 +49,7 @@ const Main = () => {
   const language = useBoundStore((state) => state.language);
   const { user } = useBoundStore();
   const [lastLesson, setLastLesson] = useState({unit: 0, lesson: 0});
-  const [courses, setCourses] = useState(coursesDone);
-  console.log(user)
+  console.log(user.progress[user.courses[0].code]);
   // console.log(courses)
   // console.log(courses[user.courses[0].code])
   // console.log("user courses obj");
@@ -92,7 +90,7 @@ const Main = () => {
           <div className="flex flex-col gap-4">
             {user.courses && user.courses.length > 0 ? (
               user.courses[0].units.map((unit) => (
-                <UnitTile key={unit.unitNumber} unit={unit} done={courses[user.courses[0]?.code] || false}/>
+                <UnitTile key={unit.unitNumber} unit={unit} done={user.progress[user.courses[0]?.code] || false}/>
               ))
             ) : (
               <p> Nie wybrano jezyka </p>

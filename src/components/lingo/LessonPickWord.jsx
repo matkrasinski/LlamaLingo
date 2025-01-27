@@ -4,19 +4,9 @@ import { WomanSvg, BoySvg, AppleSvg } from "../Svgs";
 import { useNavigate } from "react-router-dom";
 import { useMemo } from "react";
 import { ToastContainer, toast } from 'react-toastify';
-// import done from "../../utils/coursesDone.json"
 import { useBoundStore } from "../../hooks/useBoundStore";
 import { setDocFromCollection } from "../../firebase/db";
 
-
-const addElementToLanguage = (data, language, unitElement, lessonElement) => {
-  console.log(data[language][`unit${unitElement}`]?.[String(lessonElement)])
-
-  if (data[language][`unit${unitElement}`]) {
-    data[language][`unit${unitElement}`][String(lessonElement)] = "done";
-  }
-
-};
 
 const LessonPickWord = ({ health, changeHealth, indexUnit, indexLesson, indexTask, units }) => {
   const [selectedAnswers, setSelectedAnswers] = useState([]);
