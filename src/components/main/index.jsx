@@ -112,19 +112,20 @@ const Main = () => {
         right={
           <div>
             {showNotificationBanner && (
-              <div className="bg-green-100 border border-green-500 text-green-800 p-4 flex items-center justify-between rounded-xl shadow-md">
-                <div className="flex items-center gap-3">
-                  <span className="text-lg font-bold">
-                    Enable push notifications for a better experience!
-                  </span>
-                </div>
-                <button
-                  className="bg-green-500 text-white font-semibold px-4 py-2 rounded-full hover:bg-green-600 transition shadow-md"
-                  onClick={handleGetFirebaseToken}
-                >
-                  Grant Permission
-                </button>
+              <div className="bg-green-100 border border-green-500 text-green-800 p-4 flex items-center justify-between rounded-xl shadow-md flex-wrap w-auto sm:flex-nowrap ">
+              <div className="flex items-center gap-3 flex-1">
+                <span className="text-lg font-bold">
+                  Enable push notifications for a better experience!
+                </span>
               </div>
+              <button
+                className="bg-green-500 text-white font-semibold px-4 py-2 rounded-full hover:bg-green-600 transition shadow-md sm:mt-0 mt-4 w-full sm:w-auto"
+                onClick={handleGetFirebaseToken}
+              >
+                Grant Permission
+              </button>
+            </div>
+            
             )}
 
 
